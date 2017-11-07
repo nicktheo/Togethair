@@ -77,7 +77,7 @@ public class PricingProviderTest {
         IPricing b = new BookingLine(tickets);
         IPricing bTest = provider.applyFlightPricing(b);
 
-        Assert.assertEquals(75.0, bTest.getPrice(), 0.1);
+        Assert.assertEquals(75.0, bTest.getPrice(), 0.001);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class PricingProviderTest {
         IPricing b = new BookingLine(tickets);
         IPricing bTest = provider.applyFlightPricing(b);
 
-        Assert.assertEquals(bTest.getPrice(), 95.0, 0.1);
+        Assert.assertEquals(bTest.getPrice(), 95.0, 0.001);
     }
 
     @Test
@@ -99,12 +99,36 @@ public class PricingProviderTest {
         IPricing b = new BookingLine(tickets);
         IPricing bTest = provider.applyFlightPricing(b);
 
-        Assert.assertEquals(bTest.getPrice(), 71.25, 0.1);
+        Assert.assertEquals(bTest.getPrice(), 71.25, 0.001);
     }
 
-//    @Test
-//    public void pricingProviderAppliesBookingPricing(){
-//        provider.
-//    }
+    @Test
+    public void pricingProviderAppliesBookingPricing(){
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
+
+        List<IPricing> bLines = new ArrayList<>();
+        bLines.add(new BookingLine(tickets));
+        IPricing b = new Booking(bLines, null);
+        IPricing btest = provider.applyBookingPricing(b, "margin");
+
+        Assert.assertEquals(120.0, btest.getPrice(), 0.001);
+    }
+
+    @Test
+    public void pricingProviderAppliesFlightAndBookingPricing() {
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
+        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListCombined);
+
+        List<IPricing> bLines = new ArrayList<>();
+        IPricing bl = new BookingLine(tickets);
+        bLines.add(bl);
+        IPricing b = new Booking(bLines, null);
+        b = provider.applyFlightPricing(bl);
+        IPricing btest = provider.applyBookingPricing(b, "margin");
+
+        Assert.assertEquals(85.5, btest.getPrice(), 0.001);
+    }
 
 }

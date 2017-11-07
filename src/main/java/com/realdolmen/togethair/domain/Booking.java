@@ -16,10 +16,15 @@ public class Booking implements IPricing{
 
     @OneToMany
     @JoinColumn(name = "bookinglines_fk")
-    private List<BookingLine> bookingLines = new ArrayList<>();
+    private List<IPricing> bookingLines = new ArrayList<>();
 
     @ManyToOne
     private Customer customer;
+
+    public Booking(List<IPricing> bookingLines, Customer customer) {
+        this.bookingLines = bookingLines;
+        this.customer = customer;
+    }
 
     public Long getId() {
         return id;
@@ -33,11 +38,11 @@ public class Booking implements IPricing{
         this.amount = amount;
     }
 
-    public List<BookingLine> getPersonalTickets() {
+    public List<IPricing> getPersonalTickets() {
         return bookingLines;
     }
 
-    public void setPersonalTickets(List<BookingLine> bookingLines) {
+    public void setPersonalTickets(List<IPricing> bookingLines) {
         this.bookingLines = bookingLines;
     }
 
@@ -52,7 +57,7 @@ public class Booking implements IPricing{
     @Override
     public double getPrice() {
         double price = 0;
-        for (BookingLine b : bookingLines) {
+        for (IPricing b : bookingLines) {
             price += b.getPrice();
         }
         return price;
@@ -61,7 +66,7 @@ public class Booking implements IPricing{
     @Override
     public List<PersonalTicket> getTickets() {
         List<PersonalTicket> tickets = new ArrayList<>();
-        for (BookingLine b : bookingLines) {
+        for (IPricing b : bookingLines) {
             tickets.addAll(b.getTickets());
         }
         return tickets;

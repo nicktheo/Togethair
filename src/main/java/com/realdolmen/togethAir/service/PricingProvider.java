@@ -9,6 +9,7 @@ import com.realdolmen.togethAir.pricing.Type;
 import com.realdolmen.togethAir.repository.PricingRepository;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,11 +40,14 @@ public class PricingProvider {
     }
 
     public List<IBookingLine> applyBookingPricing(List<IBookingLine> bookingLineList, String name) {
+        List<IBookingLine> returnBookings = new ArrayList<>();
         GeneralPricing gp = pricingRepo.getGeneralPricingByName(name);
 
         for (IBookingLine b : bookingLineList){
-            b = applyPricing(gp, b);
+            returnBookings.add(applyPricing(gp, b));
         }
+
+        return returnBookings;
     }
 
     private IBookingLine applyPricing(GeneralPricing pricing, IBookingLine bookingLine) {

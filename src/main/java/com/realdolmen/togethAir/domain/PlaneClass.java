@@ -29,6 +29,10 @@ public class PlaneClass {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public PlaneClassType getPlaneClassType() {
         return planeClassType;
     }

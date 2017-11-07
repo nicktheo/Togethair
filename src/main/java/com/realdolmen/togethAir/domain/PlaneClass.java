@@ -22,6 +22,9 @@ public class PlaneClass {
     @OneToMany
     private List<Seat> seats= new ArrayList<>();
 
+    @ManyToOne
+    private SpecificFlight specificFlight;
+
 
 
 

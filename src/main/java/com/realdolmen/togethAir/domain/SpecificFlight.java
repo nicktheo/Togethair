@@ -18,8 +18,8 @@ public class SpecificFlight extends Flight{
     private String duration; // check conversion
 
     @OneToMany
-    @JoinColumn(name = "seats_fk")
-    private List<Seat> seats= new ArrayList<>();
+    @JoinColumn(name = "planeClass_fk")
+    private List<PlaneClass> availability = new ArrayList<>();
 
     public Date getDateTime() {
         return dateTime;
@@ -37,11 +37,11 @@ public class SpecificFlight extends Flight{
         this.duration = duration;
     }
 
-    public List<Seat> getSeats() {
-        return seats;
+    public List<PlaneClass> getAvailability() {
+        return availability;
     }
 
-    public void setSeats(List<Seat> seats) {
-        this.seats = seats;
+    public void setAvailability(List<PlaneClass> availability) {
+        this.availability = availability;
     }
 }

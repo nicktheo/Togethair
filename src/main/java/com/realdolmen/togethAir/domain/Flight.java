@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "flight_type")
+//@DiscriminatorColumn(name = "flight_type")
 public class Flight {
 
     @Id

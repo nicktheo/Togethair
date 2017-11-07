@@ -9,9 +9,7 @@ import javax.persistence.*;
 @DiscriminatorValue("C")
 public class Customer extends User {
 
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; */
+
 
     @Column(nullable = false, length = 60)
     private String address;
@@ -20,10 +18,7 @@ public class Customer extends User {
     @JoinColumn(name = "creditCard_id")
     private CreditCard creditCard;
 
-    //@Override
-    /*public Long getId() {
-        return id;
-    }*/
+
 
     public String getAddress() {
         return address;

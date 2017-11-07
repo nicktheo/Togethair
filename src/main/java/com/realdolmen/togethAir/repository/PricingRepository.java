@@ -28,4 +28,16 @@ public class PricingRepository {
         query.setParameter("f", flight);
         return query.getResultList();
     }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public void saveGeneralPricing(GeneralPricing p) {
+        em.persist(p);
+    }
 }

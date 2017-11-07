@@ -18,6 +18,7 @@ public class GeneralPricing {
     @Enumerated(EnumType.STRING)
     private Type type;
     private double value;
+    @NotNull
     private int priority;
     private String name;
 

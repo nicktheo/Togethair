@@ -19,6 +19,9 @@ public class Seat {
     @ManyToOne
     private PlaneClass planeClass;
 
+    public Seat() {
+    }
+
     public Seat(int row, int column, Availability available, PlaneClass planeClass) {
         this.row = row;
         this.column = column;

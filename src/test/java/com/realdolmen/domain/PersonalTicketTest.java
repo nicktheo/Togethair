@@ -2,6 +2,7 @@ package com.realdolmen.domain;
 
 import com.realdolmen.togethAir.domain.Availability;
 import com.realdolmen.togethAir.domain.PersonalTicket;
+import com.realdolmen.togethAir.domain.PlaneClass;
 import com.realdolmen.togethAir.domain.Seat;
 import org.junit.Assert;
 import org.junit.Before;

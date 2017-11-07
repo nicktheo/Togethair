@@ -4,7 +4,9 @@ import com.realdolmen.togethAir.domain.PlaneClassType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class PlaneClass {
 
     @Id
@@ -17,8 +19,8 @@ public class PlaneClass {
     @Column(nullable = false)
     private int basePrice;
 
-    //@OneToMany
-    //private List<Seat> seats= new ArrayList<>();
+    @OneToMany
+    private List<Seat> seats= new ArrayList<>();
 
 
 

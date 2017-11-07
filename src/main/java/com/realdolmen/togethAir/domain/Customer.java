@@ -16,6 +16,7 @@ public class Customer extends User {
     @Column(nullable = false, length = 60)
     private String address;
 
+    @OneToOne
     @JoinColumn(name = "creditCard_id")
     private CreditCard creditCard;
 

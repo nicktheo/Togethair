@@ -18,8 +18,8 @@
         <class>com.realdolmen.togethair.domain.Booking</class>
         <class>com.realdolmen.togethair.domain.Airport</class>
         <class>com.realdolmen.togethair.domain.CreditCard</class>
-        <class>com.realdolmen.togethair.pricing.GeneralPricing</class>
-        <class>com.realdolmen.togethair.pricing.FlightPricing</class>
+        <class>com.realdolmen.togethair.domain.pricing.GeneralPricing</class>
+        <class>com.realdolmen.togethair.domain.pricing.FlightPricing</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

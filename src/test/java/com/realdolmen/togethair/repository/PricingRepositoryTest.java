@@ -1,8 +1,8 @@
 package com.realdolmen.togethair.repository;
 
 import com.realdolmen.togethair.service.AbstractPersistenceTest;
-import com.realdolmen.togethair.pricing.GeneralPricing;
-import com.realdolmen.togethair.pricing.Type;
+import com.realdolmen.togethair.domain.pricing.GeneralPricing;
+import com.realdolmen.togethair.domain.pricing.Type;
 import org.junit.Before;
 import org.junit.Test;
 

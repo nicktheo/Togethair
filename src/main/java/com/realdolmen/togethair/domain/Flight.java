@@ -19,6 +19,11 @@ public class Flight {
     @JoinColumn(name = "destinationAirport_id")
     private Airport destinationAirport;
 
+    public Flight(Airport departureAirport, Airport destinationAirport) {
+        this.departureAirport = departureAirport;
+        this.destinationAirport = destinationAirport;
+    }
+
     public Long getId() {
         return id;
     }

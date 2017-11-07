@@ -1,4 +1,4 @@
-package com.realdolmen.togethair.pricing;
+package com.realdolmen.togethair.domain.pricing;
 
 import com.realdolmen.togethair.domain.Flight;
 

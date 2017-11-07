@@ -4,13 +4,12 @@ import com.realdolmen.togethair.domain.BookingLinePricingFixed;
 import com.realdolmen.togethair.domain.BookingLinePricingPercentage;
 
 import com.realdolmen.togethair.domain.IPricing;
-import com.realdolmen.togethair.pricing.FlightPricing;
-import com.realdolmen.togethair.pricing.GeneralPricing;
-import com.realdolmen.togethair.pricing.Type;
+import com.realdolmen.togethair.domain.pricing.FlightPricing;
+import com.realdolmen.togethair.domain.pricing.GeneralPricing;
+import com.realdolmen.togethair.domain.pricing.Type;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -34,8 +33,8 @@ public class PricingProvider {
             }
         });
 
-        for (FlightPricing pricing : fpricing) {
-            bookingLine = applyPricing(pricing, bookingLine);
+        for (FlightPricing price : fpricing) {
+            bookingLine = applyPricing(price, bookingLine);
         }
         return bookingLine;
     }

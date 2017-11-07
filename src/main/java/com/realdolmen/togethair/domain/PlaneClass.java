@@ -15,13 +15,20 @@ public class PlaneClass {
     private PlaneClassType planeClassType;
 
     @Column(nullable = false)
-    private int basePrice;
+    private double basePrice;
 
     @OneToMany
     private List<Seat> seats= new ArrayList<>();
 
     @ManyToOne
     private SpecificFlight specificFlight;
+
+    public PlaneClass(PlaneClassType planeClassType, double basePrice, List<Seat> seats, SpecificFlight specificFlight) {
+        this.planeClassType = planeClassType;
+        this.basePrice = basePrice;
+        this.seats = seats;
+        this.specificFlight = specificFlight;
+    }
 
     public Long getId() {
         return id;
@@ -39,11 +46,11 @@ public class PlaneClass {
         this.planeClassType = planeClassType;
     }
 
-    public int getBasePrice() {
+    public double getBasePrice() {
         return basePrice;
     }
 
-    public void setBasePrice(int basePrice) {
+    public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
     }
 

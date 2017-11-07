@@ -1,8 +1,8 @@
 package com.realdolmen.togethair.repository;
 
 import com.realdolmen.togethair.domain.Flight;
-import com.realdolmen.togethair.pricing.FlightPricing;
-import com.realdolmen.togethair.pricing.GeneralPricing;
+import com.realdolmen.togethair.domain.pricing.FlightPricing;
+import com.realdolmen.togethair.domain.pricing.GeneralPricing;
 
 import javax.persistence.*;
 import java.util.List;

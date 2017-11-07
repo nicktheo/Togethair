@@ -21,6 +21,13 @@ public class SpecificFlight extends Flight{
     @JoinColumn(name = "planeClass_fk")
     private List<PlaneClass> availability = new ArrayList<>();
 
+    public SpecificFlight(Airport departureAirport, Airport destinationAirport, Date dateTime, String duration, List<PlaneClass> availability) {
+        super(departureAirport, destinationAirport);
+        this.dateTime = dateTime;
+        this.duration = duration;
+        this.availability = availability;
+    }
+
     public Date getDateTime() {
         return dateTime;
     }

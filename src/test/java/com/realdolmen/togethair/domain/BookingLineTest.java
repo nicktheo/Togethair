@@ -6,7 +6,7 @@ package com.realdolmen.togethair.domain;
 public class BookingLineTest {
 
     private BookingLine bookingLine;
-    private PlaneClass pClass = new PlaneClass();
+//    private PlaneClass pClass = new PlaneClass();
 
 //    @Before
 //    public void initialize() {

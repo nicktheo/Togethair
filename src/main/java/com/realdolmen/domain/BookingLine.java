@@ -1,9 +1,6 @@
 package com.realdolmen.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +14,7 @@ public class BookingLine implements IBookingLine{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @OneToMany
     private List<PersonalTicket> tickets = new ArrayList<>();
 
 
@@ -28,5 +26,21 @@ public class BookingLine implements IBookingLine{
             price = ticket.getPrice();
         }
         return price;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<PersonalTicket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<PersonalTicket> tickets) {
+        this.tickets = tickets;
     }
 }

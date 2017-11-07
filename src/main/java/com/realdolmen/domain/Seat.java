@@ -16,6 +16,7 @@ public class Seat {
     private int column;
     @Enumerated(EnumType.STRING)
     private Availability available;
+    @ManyToOne
     private PlaneClass planeClass;
 
     public Seat(int row, int column, Availability available, PlaneClass planeClass) {

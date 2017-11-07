@@ -1,4 +1,4 @@
-package com.realdolmen.service;
+package com.realdolmen.togethair.service;
 
 import com.realdolmen.togethAir.domain.*;
 import com.realdolmen.togethAir.pricing.FlightPricing;

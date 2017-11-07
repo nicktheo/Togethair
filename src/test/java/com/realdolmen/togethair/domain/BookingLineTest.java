@@ -1,4 +1,4 @@
-package com.realdolmen.domain;
+package com.realdolmen.togethair.domain;
 
 import com.realdolmen.togethAir.domain.*;
 import org.junit.Assert;

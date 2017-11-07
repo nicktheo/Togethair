@@ -1,4 +1,4 @@
-package com.realdolmen.service;
+package com.realdolmen.togethair.service;
 
 import org.junit.After;
 import org.junit.AfterClass;

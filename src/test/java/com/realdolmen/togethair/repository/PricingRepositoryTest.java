@@ -1,6 +1,6 @@
-package com.realdolmen.repository;
+package com.realdolmen.togethair.repository;
 
-import com.realdolmen.service.AbstractPersistenceTest;
+import com.realdolmen.togethair.service.AbstractPersistenceTest;
 import com.realdolmen.togethAir.pricing.GeneralPricing;
 import com.realdolmen.togethAir.pricing.Type;
 import com.realdolmen.togethAir.repository.PricingRepository;

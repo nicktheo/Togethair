@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class GeneralPricing {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long id;
 
     @NotNull

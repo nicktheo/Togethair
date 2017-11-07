@@ -12,8 +12,8 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int row;
-    private int column;
+    private int seatRow;
+    private int seatColumn;
     @Enumerated(EnumType.STRING)
     private Availability available;
     @ManyToOne
@@ -22,9 +22,9 @@ public class Seat {
     public Seat() {
     }
 
-    public Seat(int row, int column, Availability available, PlaneClass planeClass) {
-        this.row = row;
-        this.column = column;
+    public Seat(int seatRow, int seatColumn, Availability available, PlaneClass planeClass) {
+        this.seatRow = seatRow;
+        this.seatColumn = seatColumn;
         this.available = available;
         this.planeClass = planeClass;
     }
@@ -37,20 +37,20 @@ public class Seat {
         this.id = id;
     }
 
-    public int getRow() {
-        return row;
+    public int getSeatRow() {
+        return seatRow;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public void setSeatRow(int seatRow) {
+        this.seatRow = seatRow;
     }
 
-    public int getColumn() {
-        return column;
+    public int getSeatColumn() {
+        return seatColumn;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
+    public void setSeatColumn(int seatColumn) {
+        this.seatColumn = seatColumn;
     }
 
     public Availability getAvailable() {

@@ -25,9 +25,43 @@ public class PlaneClass {
     @ManyToOne
     private SpecificFlight specificFlight;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public PlaneClassType getPlaneClassType() {
+        return planeClassType;
+    }
 
+    public void setPlaneClassType(PlaneClassType planeClassType) {
+        this.planeClassType = planeClassType;
+    }
 
+    public int getBasePrice() {
+        return basePrice;
+    }
 
+    public void setBasePrice(int basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
+    }
+
+    public SpecificFlight getSpecificFlight() {
+        return specificFlight;
+    }
+
+    public void setSpecificFlight(SpecificFlight specificFlight) {
+        this.specificFlight = specificFlight;
+    }
 }

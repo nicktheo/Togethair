@@ -11,6 +11,13 @@
         <class>com.realdolmen.togethAir.domain.BookingLine</class>
         <class>com.realdolmen.togethAir.domain.PersonalTicket</class>
         <class>com.realdolmen.togethAir.domain.Seat</class>
+        <class>com.realdolmen.togethAir.domain.PlaneClass</class>
+        <class>com.realdolmen.togethAir.domain.Flight</class>
+        <class>com.realdolmen.togethAir.domain.SpecificFlight</class>
+        <class>com.realdolmen.togethAir.domain.Customer</class>
+        <class>com.realdolmen.togethAir.domain.Booking</class>
+        <class>com.realdolmen.togethAir.domain.Airport</class>
+        <class>com.realdolmen.togethAir.domain.CreditCard</class>
         <class>com.realdolmen.togethAir.pricing.GeneralPricing</class>
         <class>com.realdolmen.togethAir.pricing.FlightPricing</class>
 

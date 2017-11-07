@@ -44,4 +44,8 @@ public class BookingLine implements IBookingLine{
     public void setTickets(List<PersonalTicket> tickets) {
         this.tickets = tickets;
     }
+
+    public BookingLine(List<PersonalTicket> tickets) {
+        this.tickets = tickets;
+    }
 }

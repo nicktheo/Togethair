@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("S")
+//@DiscriminatorValue("S")
 @Table(name = "specific_flight")
 public class SpecificFlight extends Flight{
 

@@ -1,4 +1,4 @@
-package com.realdolmen.domain;
+package com.realdolmen.togethAir.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;

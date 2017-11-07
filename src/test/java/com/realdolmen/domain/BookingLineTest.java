@@ -1,5 +1,9 @@
 package com.realdolmen.domain;
 
+import com.realdolmen.togethAir.domain.Availability;
+import com.realdolmen.togethAir.domain.BookingLine;
+import com.realdolmen.togethAir.domain.PersonalTicket;
+import com.realdolmen.togethAir.domain.Seat;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +23,7 @@ public class BookingLineTest {
     public void initialize() {
 
         List<PersonalTicket> tickets = new ArrayList<>();
-        tickets.add(new PersonalTicket("Jeroen", "Cloetens", "123456789", new Seat(10,10,Availability.FREE, pclass)));
+        tickets.add(new PersonalTicket("Jeroen", "Cloetens", "123456789", new Seat(10,10, Availability.FREE, pclass)));
         tickets.add(new PersonalTicket("Jeroen", "Cloetens", "123456789", new Seat(10,11,Availability.FREE, pclass)));
         this.bookingLine = new BookingLine();
         bookingLine.setTickets(tickets);

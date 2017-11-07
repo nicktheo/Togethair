@@ -6,7 +6,7 @@ import javax.persistence.Entity;
  * Created by JCEBF12 on 7/11/2017.
  */
 @Entity
-public class FlightPricing extends BookingPricing{
+public class FlightPricing extends GeneralPricing {
 
     private Flight flight;
 

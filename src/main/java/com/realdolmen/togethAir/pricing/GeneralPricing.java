@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class BookingPricing {
+public class GeneralPricing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class BookingPricing {
     private String name;
 
 
-    public BookingPricing(Type type, double value, int priority, String name) {
+    public GeneralPricing(Type type, double value, int priority, String name) {
         this.type = type;
         this.value = value;
         this.priority = priority;
@@ -70,6 +70,3 @@ public class BookingPricing {
     }
 }
 
-enum Type {
-    FIXED, PERCENTAGE
-}

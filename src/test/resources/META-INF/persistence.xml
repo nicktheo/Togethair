@@ -11,7 +11,7 @@
         <class>com.realdolmen.togethAir.domain.BookingLine</class>
         <class>com.realdolmen.togethAir.domain.PersonalTicket</class>
         <class>com.realdolmen.togethAir.domain.Seat</class>
-        <class>com.realdolmen.togethAir.pricing.BookingPricing</class>
+        <class>com.realdolmen.togethAir.pricing.GeneralPricing</class>
         <class>com.realdolmen.togethAir.pricing.FlightPricing</class>
 
         <properties>

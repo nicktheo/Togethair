@@ -36,6 +36,7 @@ public class BookingLine implements IBookingLine{
         this.id = id;
     }
 
+    @Override
     public List<PersonalTicket> getTickets() {
         return tickets;
     }

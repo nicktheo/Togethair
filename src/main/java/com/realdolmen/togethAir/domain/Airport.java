@@ -19,6 +19,15 @@ public class Airport {
     @Enumerated(EnumType.STRING)
     private GlobalRegion globalRegion;
 
+    public Airport(String name, String country, String internationalAirportCode, GlobalRegion globalRegion) {
+        this.name = name;
+        this.country = country;
+        this.internationalAirportCode = internationalAirportCode;
+        this.globalRegion = globalRegion;
+    }
+
+    public Airport() {}
+
     public Long getId() {
         return id;
     }

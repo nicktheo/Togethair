@@ -25,6 +25,15 @@ public class PlaneClass {
     @ManyToOne
     private SpecificFlight specificFlight;
 
+    public PlaneClass(PlaneClassType planeClassType, int basePrice, List<Seat> seats, SpecificFlight specificFlight) {
+        this.planeClassType = planeClassType;
+        this.basePrice = basePrice;
+        this.seats = seats;
+        this.specificFlight = specificFlight;
+    }
+
+    public PlaneClass() {}
+
     public Long getId() {
         return id;
     }

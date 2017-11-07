@@ -12,30 +12,41 @@ public class CreditCard {
     private Long id;
 
     @Column(nullable = false, length = 30)
-    private int number;
+    private String number;
     @Column(nullable = false, length = 50)
     private String holderName;
 
     // FIX THIS TYPE
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Date expirationDate;
+    //private Date expirationDate;
+    private String expirationDate;
 
     @Column(nullable = false, length = 15)
     private String type; // VISA etc.
 
     @Column(nullable = false, length = 3)
-    private int CVV;
+    private String CVV;
+
+    public CreditCard(String number, String holderName, String expirationDate, String type, String CVV) {
+        this.number = number;
+        this.holderName = holderName;
+        this.expirationDate = expirationDate;
+        this.type = type;
+        this.CVV = CVV;
+    }
+
+    public CreditCard() {}
 
     public Long getId() {
         return id;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -47,11 +58,20 @@ public class CreditCard {
         this.holderName = holderName;
     }
 
-    public Date getExpirationDate() {
+    /*public Date getExpirationDate() {
         return expirationDate;
     }
 
     public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+*/
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -63,11 +83,11 @@ public class CreditCard {
         this.type = type;
     }
 
-    public int getCVV() {
+    public String getCVV() {
         return CVV;
     }
 
-    public void setCVV(int CVV) {
+    public void setCVV(String CVV) {
         this.CVV = CVV;
     }
 }

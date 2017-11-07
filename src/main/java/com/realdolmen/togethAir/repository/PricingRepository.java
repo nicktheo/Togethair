@@ -1,5 +1,6 @@
 package com.realdolmen.togethAir.repository;
 
+import com.realdolmen.togethAir.domain.Flight;
 import com.realdolmen.togethAir.pricing.FlightPricing;
 import com.realdolmen.togethAir.pricing.GeneralPricing;
 

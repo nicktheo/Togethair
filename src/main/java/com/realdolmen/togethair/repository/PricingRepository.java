@@ -1,9 +1,9 @@
-package com.realdolmen.togethAir.repository;
+package com.realdolmen.togethair.repository;
 
-import com.realdolmen.togethAir.pricing.FlightPricing;
-import com.realdolmen.togethAir.pricing.GeneralPricing;
+import com.realdolmen.togethair.domain.Flight;
+import com.realdolmen.togethair.domain.pricing.FlightPricing;
+import com.realdolmen.togethair.domain.pricing.GeneralPricing;
 
-import javax.inject.Inject;
 import javax.persistence.*;
 import java.util.List;
 
@@ -26,5 +26,17 @@ public class PricingRepository {
         TypedQuery<FlightPricing> query = em.createQuery("SELECT fp FROM FlightPricing fp WHERE fp.flight = :f", FlightPricing.class);
         query.setParameter("f", flight);
         return query.getResultList();
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public void saveGeneralPricing(GeneralPricing p) {
+        em.persist(p);
     }
 }

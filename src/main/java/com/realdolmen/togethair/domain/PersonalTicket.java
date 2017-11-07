@@ -1,4 +1,4 @@
-package com.realdolmen.togethAir.domain;
+package com.realdolmen.togethair.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -32,7 +32,7 @@ public class PersonalTicket {
 
     //TO BE IMPLEMENTED
     public double getPrice() {
-        throw new UnsupportedOperationException("This method has not been implemented yet");
+        return seat.getBasePrice();
     }
 
     public long getId() {

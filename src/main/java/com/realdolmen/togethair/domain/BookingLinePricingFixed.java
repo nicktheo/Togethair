@@ -1,22 +1,23 @@
-package com.realdolmen.togethAir.domain;
+package com.realdolmen.togethair.domain;
 
 import java.util.List;
 
 /**
  * Created by JCEBF12 on 7/11/2017.
  */
-public class BookingLinePricingPercentage implements IBookingLine{
-    private double value;
-    private IBookingLine bookingLine;
+public class BookingLinePricingFixed implements IPricing{
 
-    public BookingLinePricingPercentage(double value, IBookingLine bookingLine) {
+    private double value;
+    private IPricing bookingLine;
+
+    public BookingLinePricingFixed(double value, IPricing bookingLine) {
         this.value = value;
         this.bookingLine = bookingLine;
     }
 
     @Override
     public double getPrice() {
-        return bookingLine.getPrice() * value;
+        return bookingLine.getPrice() + value;
     }
 
     @Override

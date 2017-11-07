@@ -1,4 +1,4 @@
-package com.realdolmen.togethAir.domain;
+package com.realdolmen.togethair.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
  * Created by JCEBF12 on 6/11/2017.
  */
 @Entity
-public class BookingLine implements IBookingLine{
+public class BookingLine implements IPricing{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +42,10 @@ public class BookingLine implements IBookingLine{
     }
 
     public void setTickets(List<PersonalTicket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public BookingLine(List<PersonalTicket> tickets) {
         this.tickets = tickets;
     }
 }

@@ -1,4 +1,4 @@
-package com.realdolmen.togethAir.pricing;
+package com.realdolmen.togethair.domain.pricing;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,13 +11,14 @@ import javax.validation.constraints.NotNull;
 public class GeneralPricing {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long id;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private Type type;
     private double value;
+    @NotNull
     private int priority;
     private String name;
 

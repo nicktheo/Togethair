@@ -40,25 +40,19 @@ public class PricingProvider {
         return bookingLine;
     }
 
-    public List<IPricing> applyBookingPricing(List<IPricing> bookingLineList, String name) {
-        List<IPricing> returnBookings = new ArrayList<>();
+    public IPricing applyBookingPricing(IPricing booking, String name) {
         GeneralPricing gp = pricingRepo.getGeneralPricingByName(name);
-
-        for (IPricing b : bookingLineList){
-            returnBookings.add(applyPricing(gp, b));
-        }
-
-        return returnBookings;
+        return applyPricing(gp, booking);
     }
 
-    private IPricing applyPricing(GeneralPricing pricing, IPricing bookingLine) {
-        if (pricing.getType() == Type.FIXED) {
-            bookingLine = new BookingLinePricingFixed(pricing.getValue(), bookingLine);
+    private IPricing applyPricing(GeneralPricing price, IPricing pricing) {
+        if (price.getType() == Type.FIXED) {
+            pricing = new BookingLinePricingFixed(price.getValue(), pricing);
         }
-        else if (pricing.getType() == Type.PERCENTAGE) {
-            bookingLine = new BookingLinePricingPercentage(pricing.getValue(), bookingLine);
+        else if (price.getType() == Type.PERCENTAGE) {
+            pricing = new BookingLinePricingPercentage(price.getValue(), pricing);
         }
 
-        return bookingLine;
+        return pricing;
     }
 }

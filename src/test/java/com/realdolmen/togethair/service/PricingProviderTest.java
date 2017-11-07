@@ -1,14 +1,11 @@
 package com.realdolmen.togethair.service;
 
-import com.realdolmen.togethAir.domain.*;
-import com.realdolmen.togethAir.pricing.FlightPricing;
-import com.realdolmen.togethAir.pricing.GeneralPricing;
-import com.realdolmen.togethAir.pricing.Type;
-import com.realdolmen.togethAir.repository.PricingRepository;
-import com.realdolmen.togethAir.service.PricingProvider;
-import org.junit.Assert;
+import com.realdolmen.togethair.domain.*;
+import com.realdolmen.togethair.pricing.FlightPricing;
+import com.realdolmen.togethair.pricing.GeneralPricing;
+import com.realdolmen.togethair.pricing.Type;
+import com.realdolmen.togethair.repository.PricingRepository;
 import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;

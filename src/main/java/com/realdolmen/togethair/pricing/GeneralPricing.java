@@ -1,4 +1,4 @@
-package com.realdolmen.togethAir.pricing;
+package com.realdolmen.togethair.pricing;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

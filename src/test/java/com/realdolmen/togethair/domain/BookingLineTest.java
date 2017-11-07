@@ -1,13 +1,5 @@
 package com.realdolmen.togethair.domain;
 
-import com.realdolmen.togethAir.domain.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by JCEBF12 on 7/11/2017.
  */

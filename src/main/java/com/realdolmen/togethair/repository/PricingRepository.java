@@ -1,10 +1,9 @@
-package com.realdolmen.togethAir.repository;
+package com.realdolmen.togethair.repository;
 
-import com.realdolmen.togethAir.domain.Flight;
-import com.realdolmen.togethAir.pricing.FlightPricing;
-import com.realdolmen.togethAir.pricing.GeneralPricing;
+import com.realdolmen.togethair.domain.Flight;
+import com.realdolmen.togethair.pricing.FlightPricing;
+import com.realdolmen.togethair.pricing.GeneralPricing;
 
-import javax.inject.Inject;
 import javax.persistence.*;
 import java.util.List;
 

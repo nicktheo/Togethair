@@ -1,4 +1,4 @@
-package com.realdolmen.togethAir.domain;
+package com.realdolmen.togethair.domain;
 
 public enum PlaneClassType {
     ECONOMY,

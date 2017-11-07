@@ -1,12 +1,13 @@
-package com.realdolmen.togethAir.service;
+package com.realdolmen.togethair.service;
 
-import com.realdolmen.togethAir.domain.BookingLinePricingFixed;
-import com.realdolmen.togethAir.domain.BookingLinePricingPercentage;
-import com.realdolmen.togethAir.domain.IBookingLine;
-import com.realdolmen.togethAir.pricing.FlightPricing;
-import com.realdolmen.togethAir.pricing.GeneralPricing;
-import com.realdolmen.togethAir.pricing.Type;
-import com.realdolmen.togethAir.repository.PricingRepository;
+import com.realdolmen.togethair.domain.BookingLinePricingFixed;
+import com.realdolmen.togethair.domain.BookingLinePricingPercentage;
+
+import com.realdolmen.togethair.domain.IPricing;
+import com.realdolmen.togethair.pricing.FlightPricing;
+import com.realdolmen.togethair.pricing.GeneralPricing;
+import com.realdolmen.togethair.pricing.Type;
+import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class PricingProvider {
     @Inject
     private PricingRepository pricingRepo;
 
-    public IBookingLine applyFlightPricing(IBookingLine bookingLine) {
+    public IPricing applyFlightPricing(IPricing bookingLine) {
         List<FlightPricing> fpricing = pricingRepo.getFlightPricingForFlight(bookingLine.getTickets().get(0)
                 .getSeat().getPlaneClass().getSpecificFlight());
 
@@ -39,18 +40,18 @@ public class PricingProvider {
         return bookingLine;
     }
 
-    public List<IBookingLine> applyBookingPricing(List<IBookingLine> bookingLineList, String name) {
-        List<IBookingLine> returnBookings = new ArrayList<>();
+    public List<IPricing> applyBookingPricing(List<IPricing> bookingLineList, String name) {
+        List<IPricing> returnBookings = new ArrayList<>();
         GeneralPricing gp = pricingRepo.getGeneralPricingByName(name);
 
-        for (IBookingLine b : bookingLineList){
+        for (IPricing b : bookingLineList){
             returnBookings.add(applyPricing(gp, b));
         }
 
         return returnBookings;
     }
 
-    private IBookingLine applyPricing(GeneralPricing pricing, IBookingLine bookingLine) {
+    private IPricing applyPricing(GeneralPricing pricing, IPricing bookingLine) {
         if (pricing.getType() == Type.FIXED) {
             bookingLine = new BookingLinePricingFixed(pricing.getValue(), bookingLine);
         }

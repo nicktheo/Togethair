@@ -1,9 +1,8 @@
 package com.realdolmen.togethair.repository;
 
 import com.realdolmen.togethair.service.AbstractPersistenceTest;
-import com.realdolmen.togethAir.pricing.GeneralPricing;
-import com.realdolmen.togethAir.pricing.Type;
-import com.realdolmen.togethAir.repository.PricingRepository;
+import com.realdolmen.togethair.pricing.GeneralPricing;
+import com.realdolmen.togethair.pricing.Type;
 import org.junit.Before;
 import org.junit.Test;
 

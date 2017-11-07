@@ -1,6 +1,4 @@
-package com.realdolmen.togethAir.domain;
-
-import com.realdolmen.togethAir.domain.PlaneClassType;
+package com.realdolmen.togethair.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;

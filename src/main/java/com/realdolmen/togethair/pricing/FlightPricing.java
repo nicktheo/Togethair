@@ -1,9 +1,8 @@
-package com.realdolmen.togethAir.pricing;
+package com.realdolmen.togethair.pricing;
 
-import com.realdolmen.togethAir.domain.Flight;
+import com.realdolmen.togethair.domain.Flight;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**

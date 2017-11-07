@@ -1,7 +1,4 @@
-package com.realdolmen.togethAir.domain;
-
-import com.realdolmen.togethAir.domain.CreditCard;
-import com.realdolmen.togethAir.domain.User;
+package com.realdolmen.togethair.domain;
 
 import javax.persistence.*;
 

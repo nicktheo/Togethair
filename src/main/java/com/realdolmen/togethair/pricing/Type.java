@@ -1,4 +1,4 @@
-package com.realdolmen.togethAir.pricing;
+package com.realdolmen.togethair.pricing;
 
 /**
  * Created by JCEBF12 on 7/11/2017.

@@ -8,7 +8,7 @@ import java.util.List;
  * Created by JCEBF12 on 6/11/2017.
  */
 @Entity
-public class BookingLine implements IBookingLine{
+public class BookingLine implements IPricing{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

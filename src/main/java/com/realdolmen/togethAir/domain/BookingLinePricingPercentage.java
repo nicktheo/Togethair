@@ -5,11 +5,11 @@ import java.util.List;
 /**
  * Created by JCEBF12 on 7/11/2017.
  */
-public class BookingLinePricingPercentage implements IBookingLine{
+public class BookingLinePricingPercentage implements IPricing{
     private double value;
-    private IBookingLine bookingLine;
+    private IPricing bookingLine;
 
-    public BookingLinePricingPercentage(double value, IBookingLine bookingLine) {
+    public BookingLinePricingPercentage(double value, IPricing bookingLine) {
         this.value = value;
         this.bookingLine = bookingLine;
     }

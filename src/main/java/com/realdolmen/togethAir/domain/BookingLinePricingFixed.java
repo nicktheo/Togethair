@@ -5,12 +5,12 @@ import java.util.List;
 /**
  * Created by JCEBF12 on 7/11/2017.
  */
-public class BookingLinePricingFixed implements IBookingLine{
+public class BookingLinePricingFixed implements IPricing{
 
     private double value;
-    private IBookingLine bookingLine;
+    private IPricing bookingLine;
 
-    public BookingLinePricingFixed(double value, IBookingLine bookingLine) {
+    public BookingLinePricingFixed(double value, IPricing bookingLine) {
         this.value = value;
         this.bookingLine = bookingLine;
     }

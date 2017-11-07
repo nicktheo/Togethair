@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Booking {
+public class Booking implements IPricing{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 50)
-    private double price;
+    private double amount;
 
     @OneToMany
-    @JoinColumn(name = "ticket_fk")
-    private List<PersonalTicket> personalTickets= new ArrayList<>();
+    @JoinColumn(name = "bookinglines_fk")
+    private List<BookingLine> bookingLines = new ArrayList<>();
 
     @ManyToOne
     private Customer customer;
@@ -25,20 +25,20 @@ public class Booking {
         return id;
     }
 
-    public double getPrice() {
-        return price;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public List<PersonalTicket> getPersonalTickets() {
-        return personalTickets;
+    public List<BookingLine> getPersonalTickets() {
+        return bookingLines;
     }
 
-    public void setPersonalTickets(List<PersonalTicket> personalTickets) {
-        this.personalTickets = personalTickets;
+    public void setPersonalTickets(List<BookingLine> bookingLines) {
+        this.bookingLines = bookingLines;
     }
 
     public Customer getCustomer() {
@@ -47,5 +47,23 @@ public class Booking {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    @Override
+    public double getPrice() {
+        double price = 0;
+        for (BookingLine b : bookingLines) {
+            price += b.getPrice();
+        }
+        return price;
+    }
+
+    @Override
+    public List<PersonalTicket> getTickets() {
+        List<PersonalTicket> tickets = new ArrayList<>();
+        for (BookingLine b : bookingLines) {
+            tickets.addAll(b.getTickets());
+        }
+        return tickets;
     }
 }

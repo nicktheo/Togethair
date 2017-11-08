@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.repository;
 
+import com.realdolmen.togethair.domain.booking.pricing.PriceSettingLevel;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSettingType;
 import com.realdolmen.togethair.service.AbstractPersistenceTest;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
@@ -21,7 +22,7 @@ public class PricingRepositoryTest extends AbstractPersistenceTest {
 
     @Test
     public void savePricing(){
-        PriceSetting p = new PriceSetting(, PriceSettingType.PERCENTAGE, 1.10, 10, "margin");
+        PriceSetting p = new PriceSetting(PriceSettingLevel.BOOKING, PriceSettingType.PERCENTAGE, 1.10, 10, "margin");
         repo.saveGeneralPricing(p);
     }
 }

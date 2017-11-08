@@ -37,9 +37,9 @@ public class BookingBuilder {
 
     public void createTicket(String firstname, String lastname, String passportnr, Seat seat) {
         ticket = new PersonalTicket();
-        ticket.setFirstname(firstname);
-        ticket.setLastname(lastname);
-        ticket.setPassportNr(passportnr);
+        ticket.setFirstName(firstname);
+        ticket.setLastName(lastname);
+        ticket.setPassportNumber(passportnr);
         ticket.setSeat(seat);
     }
 

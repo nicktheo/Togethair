@@ -4,7 +4,9 @@ import com.realdolmen.togethair.domain.booking.Bookable;
 import com.realdolmen.togethair.domain.booking.Booking;
 import com.realdolmen.togethair.domain.booking.BookingLine;
 import com.realdolmen.togethair.domain.booking.PersonalTicket;
+import com.realdolmen.togethair.domain.booking.pricing.PriceSettingLevel;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSettingType;
+import com.realdolmen.togethair.domain.exceptions.PricingNotFoundException;
 import com.realdolmen.togethair.domain.flight.*;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
@@ -36,7 +38,7 @@ public class PricingProviderTest {
     private List<FlightPriceSetting> pricingListFixed = new ArrayList<>();
     private List<FlightPriceSetting> pricingListCombined = new ArrayList<>();
     private List<PersonalTicket> tickets = new ArrayList<>();
-    private PriceSetting gp = new PriceSetting(, PriceSettingType.PERCENTAGE, 1.20, 10, "margin");
+    private PriceSetting gp = new PriceSetting(PriceSettingLevel.BOOKING, PriceSettingType.PERCENTAGE, 1.20, 10, "margin");
 
     @Before
     public void initialize() {
@@ -108,7 +110,7 @@ public class PricingProviderTest {
     }
 
     @Test
-    public void pricingProviderAppliesBookingPricing(){
+    public void pricingProviderAppliesBookingPricing() throws PricingNotFoundException {
         MockitoAnnotations.initMocks(this);
         Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
 
@@ -122,7 +124,7 @@ public class PricingProviderTest {
     }
 
     @Test
-    public void pricingProviderAppliesFlightAndBookingPricing() {
+    public void pricingProviderAppliesFlightAndBookingPricing() throws PricingNotFoundException {
         MockitoAnnotations.initMocks(this);
         Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
         Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListCombined);

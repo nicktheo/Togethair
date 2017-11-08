@@ -19,10 +19,10 @@ public class PricingProvider {
     @Inject
     private PricingRepository pricingRepo;
 
-    public Bookable applyFlightPricing(Bookable<BookingLine> bookingLine) {
-        List<FlightPriceSetting> fpricing = pricingRepo.getFlightPricingForFlight(bookingLine.getTickets().get(0)
-                .getSeat().getTravelClass().getFlight());
+    public Bookable applyFlightPricing(Bookable<Booking> booking) {
+
         List<PriceSetting> priceSettings = pricingRepo.getGeneralFlightPricings();
+        for( booking.)
         priceSettings.addAll(fpricing);
 
         // Sort the pricings on priority

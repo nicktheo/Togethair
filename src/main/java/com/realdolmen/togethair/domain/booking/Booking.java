@@ -13,46 +13,19 @@ public class Booking implements Bookable<Booking> {
 
     private Long id;
 
-    private double amount;
-
-    private List<Bookable<BookingLine>> bookingLines = new ArrayList<>();
-
     private Customer customer;
+    private List<Bookable<BookingLine>> bookingLines;
+    private double totalPrice;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
-    }
-
-    @Column(nullable = false, length = 50)
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    @OneToMany
-    public List<BookingLine> getBookingLines() {
-        return bookingLines.stream()
-                .map(x -> (BookingLine) x.getBase())
-                .collect(Collectors.toList());
-    }
-
-    @Transient
-    public Booking getBase() {
-        return this;
-    }
-
-    public void setBookingLines(List<BookingLine> bookingLines) {
-        this.bookingLines = new ArrayList<>();
-        bookingLines.forEach(x -> this.bookingLines.add(x));
     }
 
     @ManyToOne
@@ -64,13 +37,43 @@ public class Booking implements Bookable<Booking> {
         this.customer = customer;
     }
 
+    @OneToMany
+    public List<BookingLine> getBookingLines() {
+        return bookingLines.stream()
+                .map(x -> x.getBase())
+                .collect(Collectors.toList());
+    }
+
+    public void setBookingLines(List<BookingLine> bookingLines) {
+        this.bookingLines = new ArrayList<>();
+        bookingLines.forEach(x -> this.bookingLines.add(x));
+    }
+
+    @Column(nullable = false, length = 50)
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double amount) {
+        this.totalPrice = amount;
+    }
+
+
+    @Override
+    @Transient
+    public Booking getBase() {
+        return this;
+    }
+
     @Override
     @Transient
     public double getPrice() {
         double price = 0;
-        for (Bookable b : bookingLines) {
+
+        //bookingLines.stream().map(x -> x.getPrice())
+        for (Bookable<BookingLine> b : bookingLines)
             price += b.getPrice();
-        }
+
         return price;
     }
 

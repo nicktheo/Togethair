@@ -1,8 +1,8 @@
 package com.realdolmen.togethair.domain.booking.pricing.filters;
 
-import com.realdolmen.togethair.domain.flight.Trajectory;
+import com.realdolmen.togethair.domain.flight.Flight;
 
 public interface FlightFilter {
-    Trajectory getFlight();
-    void setFlight(Trajectory flight);
+    Flight getFlight();
+    void setFlight(Flight flight);
 }

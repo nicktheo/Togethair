@@ -15,7 +15,7 @@ public abstract class PricingAdapter<T extends Bookable> implements Bookable<T> 
         this.bookable = bookable;
     }
 
-    public Bookable getBase() {
+    public T getBase() {
         return bookable.getBase();
     }
 }

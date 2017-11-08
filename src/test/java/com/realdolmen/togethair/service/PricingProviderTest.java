@@ -4,10 +4,10 @@ import com.realdolmen.togethair.domain.booking.Bookable;
 import com.realdolmen.togethair.domain.booking.Booking;
 import com.realdolmen.togethair.domain.booking.BookingLine;
 import com.realdolmen.togethair.domain.booking.PersonalTicket;
+import com.realdolmen.togethair.domain.booking.pricing.PriceSettingType;
 import com.realdolmen.togethair.domain.flight.*;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
-import com.realdolmen.togethair.domain.booking.pricing.Type;
 import com.realdolmen.togethair.repository.PricingRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,7 +18,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,17 +36,17 @@ public class PricingProviderTest {
     private List<FlightPriceSetting> pricingListFixed = new ArrayList<>();
     private List<FlightPriceSetting> pricingListCombined = new ArrayList<>();
     private List<PersonalTicket> tickets = new ArrayList<>();
-    private PriceSetting gp = new PriceSetting(Type.PERCENTAGE, 1.20, 10, "margin");
+    private PriceSetting gp = new PriceSetting(, PriceSettingType.PERCENTAGE, 1.20, 10, "margin");
 
     @Before
     public void initialize() {
         provider = new PricingProvider();
 
-        pricingListFixed.add(new FlightPriceSetting(Type.FIXED, -25.0, 20, null, f));
-        pricingListPercentage.add(new FlightPriceSetting(Type.PERCENTAGE, 0.95, 25, null, f));
+        pricingListFixed.add(new FlightPriceSetting(f, PriceSettingType.FIXED, -25.0, 20, null));
+        pricingListPercentage.add(new FlightPriceSetting(f, PriceSettingType.PERCENTAGE, 0.95, 25, null));
 
-        pricingListCombined.add(new FlightPriceSetting(Type.PERCENTAGE, 0.95, 25, null, f));
-        pricingListCombined.add(new FlightPriceSetting(Type.FIXED, -25.0, 20, null, f));
+        pricingListCombined.add(new FlightPriceSetting(f, PriceSettingType.PERCENTAGE, 0.95, 25, null));
+        pricingListCombined.add(new FlightPriceSetting(f, PriceSettingType.FIXED, -25.0, 20, null));
 
         //ADD Price!!!!
 
@@ -65,7 +64,7 @@ public class PricingProviderTest {
         tickets.add(new PersonalTicket("N", "T", "123", s2));
 
 //        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingList);
-//        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(new PriceSetting(Type.PERCENTAGE, 1.20, 10, "margin"));
+//        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(new PriceSetting(PriceSettingType.PERCENTAGE, 1.20, 10, "margin"));
 //        MockitoAnnotations.initMocks(this);
         //Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListFixed);
 

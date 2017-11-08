@@ -1,14 +1,12 @@
 package com.realdolmen.togethair.service;
 
 import com.realdolmen.togethair.domain.booking.*;
-
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.Type;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -57,6 +55,6 @@ public class PricingProvider {
             bookingLine = new PercentagePricingAdapter(bookingLine, pricing.getValue());
         }
 
-        return bookingLine;
+        return pricing;
     }
 }

@@ -72,4 +72,7 @@ public class Seat {
         this.travelClass = travelClass;
     }
 
+    public double getBasePrice() {
+        return planeClass.getBasePrice();
+    }
 }

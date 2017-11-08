@@ -9,13 +9,16 @@ import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.Type;
 import com.realdolmen.togethair.repository.PricingRepository;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +35,7 @@ public class PricingProviderTest {
     private Trajectory f = new Trajectory();
     private List<FlightPriceSetting> pricingList = new ArrayList<>();
     private List<PersonalTicket> tickets = new ArrayList<>();
+    private GeneralPricing gp = new GeneralPricing(Type.PERCENTAGE, 1.20, 10, "margin");
 
     @Before
     public void initialize() {
@@ -48,19 +52,63 @@ public class PricingProviderTest {
         Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingList);
         Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(new PriceSetting(Type.PERCENTAGE, 1.20, 10, "margin"));
         MockitoAnnotations.initMocks(this);
+        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListFixed);
+
+        IPricing b = new BookingLine(tickets);
+        IPricing bTest = provider.applyFlightPricing(b);
+
+        Assert.assertEquals(75.0, bTest.getPrice(), 0.001);
     }
 
-//    @Test
-//    public void pricingProviderAppliesFlightPricing(){
-//        IBookingLine b = new BookingLine(tickets);
-//        IBookingLine bTest = provider.applyFlightPricing(b);
-//
-//        Assert.assertEquals();
-//    }
+    @Test
+    public void pricingProviderAppliesFlightPricingPercentage() {
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListPercentage);
 
-//    @Test
-//    public void pricingProviderAppliesBookingPricing(){
-//        provider.
-//    }
+        IPricing b = new BookingLine(tickets);
+        IPricing bTest = provider.applyFlightPricing(b);
+
+        Assert.assertEquals(bTest.getPrice(), 95.0, 0.001);
+    }
+
+    @Test
+    public void pricingProviderAppliesFlightPricingCombined() {
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListCombined);
+
+        IPricing b = new BookingLine(tickets);
+        IPricing bTest = provider.applyFlightPricing(b);
+
+        Assert.assertEquals(bTest.getPrice(), 71.25, 0.001);
+    }
+
+    @Test
+    public void pricingProviderAppliesBookingPricing(){
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
+
+        List<IPricing> bLines = new ArrayList<>();
+        bLines.add(new BookingLine(tickets));
+        IPricing b = new Booking(bLines, null);
+        IPricing btest = provider.applyBookingPricing(b, "margin");
+
+        Assert.assertEquals(120.0, btest.getPrice(), 0.001);
+    }
+
+    @Test
+    public void pricingProviderAppliesFlightAndBookingPricing() {
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
+        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListCombined);
+
+        List<IPricing> bLines = new ArrayList<>();
+        IPricing bl = new BookingLine(tickets);
+        bLines.add(bl);
+        IPricing b = new Booking(bLines, null);
+        b = provider.applyFlightPricing(bl);
+        IPricing btest = provider.applyBookingPricing(b, "margin");
+
+        Assert.assertEquals(85.5, btest.getPrice(), 0.001);
+    }
 
 }

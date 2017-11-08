@@ -3,7 +3,6 @@ package com.realdolmen.togethair.repository;
 import com.realdolmen.togethair.domain.flight.Trajectory;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
-
 import javax.persistence.*;
 import java.util.List;
 

@@ -15,13 +15,13 @@ public class Booking implements Bookable<Booking> {
 
     private double amount;
 
-    //@Transient
     private List<Bookable<BookingLine>> bookingLines = new ArrayList<>();
 
     private Customer customer;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     public Long getId() {
         return id;
     }

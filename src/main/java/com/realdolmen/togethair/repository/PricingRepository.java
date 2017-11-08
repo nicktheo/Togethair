@@ -27,6 +27,12 @@ public class PricingRepository {
         return query.getResultList();
     }
 
+    public List<PriceSetting> getGeneralFlightPricings() {
+        TypedQuery<PriceSetting> query = em.createQuery("SELECT gp FROM PriceSetting gp WHERE gp.level = :level", PriceSetting.class);
+        query.setParameter("level", );
+        return query.getResultList();
+    }
+
     public EntityManager getEm() {
         return em;
     }
@@ -38,4 +44,6 @@ public class PricingRepository {
     public void saveGeneralPricing(PriceSetting p) {
         em.persist(p);
     }
+
+
 }

@@ -22,7 +22,7 @@ public class PersonalTicketTest {
     }
 
     @Test
-    public void getPricereturnsSeatPrice() {
+    public void getPriceReturnsSeatPrice() {
 //        Assert.assertEquals(500.0, pTicket.getPrice(), 0.0);
     }
 }

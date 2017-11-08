@@ -9,7 +9,7 @@ import com.realdolmen.togethair.domain.flight.TravelClass;
 public class BookingLineTest {
 
     private BookingLine bookingLine;
-    private TravelClass pClass = new TravelClass();
+    //private TravelClass pClass = new TravelClass();
 
 //    @Before
 //    public void initialize() {

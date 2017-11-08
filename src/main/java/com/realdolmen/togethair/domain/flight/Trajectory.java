@@ -19,10 +19,12 @@ public class Trajectory {
     @OneToOne
     private Airport destinationAirport;
 
-    public Flight(Airport departureAirport, Airport destinationAirport) {
+    public Trajectory(Airport departureAirport, Airport destinationAirport) {
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
     }
+
+    public Trajectory() {}
 
     public Long getId() {
         return id;

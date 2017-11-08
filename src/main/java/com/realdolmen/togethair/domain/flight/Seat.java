@@ -73,6 +73,6 @@ public class Seat {
     }
 
     public double getBasePrice() {
-        return planeClass.getBasePrice();
+        return travelClass.getBasePrice();
     }
 }

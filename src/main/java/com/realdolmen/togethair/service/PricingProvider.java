@@ -7,6 +7,7 @@ import com.realdolmen.togethair.domain.booking.pricing.Type;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -36,15 +37,9 @@ public class PricingProvider {
         return bookingLine;
     }
 
-    public List<Bookable> applyBookingPricing(List<Bookable> bookingLineList, String name) {
-        List<Bookable> returnBookings = new ArrayList<>();
+    public Bookable<Booking> applyBookingPricing(Bookable<Booking> booking, String name) {
         PriceSetting gp = pricingRepo.getGeneralPricingByName(name);
-
-        for (Bookable b : bookingLineList){
-            returnBookings.add(applyPricing(gp, b));
-        }
-
-        return returnBookings;
+        return applyPricing(gp, booking);
     }
 
     private Bookable applyPricing(PriceSetting pricing, Bookable bookingLine) {
@@ -55,6 +50,6 @@ public class PricingProvider {
             bookingLine = new PercentagePricingAdapter(bookingLine, pricing.getValue());
         }
 
-        return pricing;
+        return bookingLine;
     }
 }

@@ -23,12 +23,14 @@ public class TravelClass {
     @ManyToOne
     private Flight flight;
 
-    public PlaneClass(PlaneClassType planeClassType, double basePrice, List<Seat> seats, SpecificFlight specificFlight) {
-        this.planeClassType = planeClassType;
+    public TravelClass(TravelClassType travelClassType, double basePrice, List<Seat> seats, Flight specificFlight) {
+        this.travelClassType = travelClassType;
         this.basePrice = basePrice;
         this.seats = seats;
-        this.specificFlight = specificFlight;
+        this.flight = specificFlight;
     }
+
+    public TravelClass() {}
 
     public Long getId() {
         return id;

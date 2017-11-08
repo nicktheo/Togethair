@@ -4,6 +4,7 @@ import com.realdolmen.togethair.domain.booking.*;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSettingType;
+import com.realdolmen.togethair.domain.exception.PricingNotFoundException;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;
@@ -38,7 +39,7 @@ public class PricingProvider {
         return bookingLine;
     }
 
-    public Bookable<Booking> applyBookingPricing(Bookable<Booking> booking, String name) {
+    public Bookable<Booking> applyBookingPricing(Bookable<Booking> booking, String name) throws PricingNotFoundException {
         PriceSetting gp = pricingRepo.getGeneralPricingByName(name);
         return applyPricing(gp, booking);
     }

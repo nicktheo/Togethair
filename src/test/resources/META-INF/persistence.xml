@@ -8,18 +8,17 @@
     <persistence-unit name="TogethAirTestPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>com.realdolmen.togethAir.domain.BookingLine</class>
-        <class>com.realdolmen.togethAir.domain.PersonalTicket</class>
-        <class>com.realdolmen.togethAir.domain.Seat</class>
-        <class>com.realdolmen.togethAir.domain.PlaneClass</class>
-        <class>com.realdolmen.togethAir.domain.Flight</class>
-        <class>com.realdolmen.togethAir.domain.SpecificFlight</class>
-        <class>com.realdolmen.togethAir.domain.Customer</class>
-        <class>com.realdolmen.togethAir.domain.Booking</class>
-        <class>com.realdolmen.togethAir.domain.Airport</class>
-        <class>com.realdolmen.togethAir.domain.CreditCard</class>
-        <class>com.realdolmen.togethAir.pricing.GeneralPricing</class>
-        <class>com.realdolmen.togethAir.pricing.FlightPricing</class>
+        <class>com.realdolmen.togethair.domain.booking.BookingLine</class>
+        <class>com.realdolmen.togethair.domain.booking.PersonalTicket</class>
+        <class>com.realdolmen.togethair.domain.flight.Seat</class>
+        <class>com.realdolmen.togethair.domain.flight.TravelClass</class>
+        <class>com.realdolmen.togethair.domain.flight.Trajectory</class>
+        <class>com.realdolmen.togethair.domain.flight.Flight</class>
+        <class>com.realdolmen.togethair.domain.identity.Customer</class>
+        <class>com.realdolmen.togethair.domain.booking.Booking</class>
+        <class>com.realdolmen.togethair.domain.location.Airport</class>
+        <class>com.realdolmen.togethair.domain.booking.pricing.PriceSetting</class>
+        <class>com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

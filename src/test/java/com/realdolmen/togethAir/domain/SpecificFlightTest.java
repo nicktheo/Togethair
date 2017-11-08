@@ -1,5 +1,7 @@
-package com.realdolmen.togethAir.domain;
+package com.realdolmen.togethair.domain;
 
+import com.realdolmen.togethair.domain.location.Airport;
+import com.realdolmen.togethair.domain.location.GlobalRegion;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +15,7 @@ import java.util.List;
 
 public class SpecificFlightTest {
 
-    SpecificFlight specificFlight;
+    Flight Flight;
 
     @Before
     public void initialize(){

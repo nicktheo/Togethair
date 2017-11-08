@@ -63,12 +63,11 @@ public class BookingBuilder {
             temp = bookingLines.get(0);
             bookingLines.set(i, (BookingLine) pricingProvider.applyFlightPricing(temp));
         }
-
-        booking = (Booking) pricingProvider.applyBookingPricing(booking, "margin");
     }
 
-    //Add method to throw an discountNotFoundException!!!
-    public void applyBookingDiscount(String discountName) {
-        booking = (Booking) pricingProvider.applyBookingPricing(booking, "margin");
+    public Booking getBooking() {
+        booking.setBookingLines(bookingLines);
+        booking.setTotalPrice(booking.getPrice());
+        return booking;
     }
 }

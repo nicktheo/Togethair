@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.repository;
 
+import com.realdolmen.togethair.domain.booking.pricing.PriceSettingLevel;
 import com.realdolmen.togethair.domain.flight.Trajectory;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
@@ -29,7 +30,7 @@ public class PricingRepository {
 
     public List<PriceSetting> getGeneralFlightPricings() {
         TypedQuery<PriceSetting> query = em.createQuery("SELECT gp FROM PriceSetting gp WHERE gp.level = :level", PriceSetting.class);
-        query.setParameter("level", );
+        query.setParameter("level", PriceSettingLevel.BOOKINGLINE);
         return query.getResultList();
     }
 

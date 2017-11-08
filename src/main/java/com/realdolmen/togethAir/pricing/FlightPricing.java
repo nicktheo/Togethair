@@ -20,6 +20,9 @@ public class FlightPricing extends GeneralPricing {
         this.flight = flight;
     }
 
+    public FlightPricing() {
+    }
+
     public Flight getFlight() {
         return flight;
     }

@@ -30,6 +30,9 @@ public class GeneralPricing {
         this.name = name;
     }
 
+    public GeneralPricing() {
+    }
+
     public long getId() {
         return id;
     }

@@ -4,6 +4,7 @@ import com.realdolmen.togethair.domain.booking.*;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSettingType;
+import com.realdolmen.togethair.domain.exception.PricingNotFoundException;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;
@@ -21,22 +22,24 @@ public class PricingProvider {
     public Bookable applyFlightPricing(Bookable<BookingLine> bookingLine) {
         List<FlightPriceSetting> fpricing = pricingRepo.getFlightPricingForFlight(bookingLine.getTickets().get(0)
                 .getSeat().getTravelClass().getFlight());
+        List<PriceSetting> priceSettings = pricingRepo.getGeneralFlightPricings();
+        priceSettings.addAll(fpricing);
 
         // Sort the pricings on priority
-        fpricing.sort(new Comparator<FlightPriceSetting>() {
+        priceSettings.sort(new Comparator<PriceSetting>() {
             @Override
-            public int compare(FlightPriceSetting o1, FlightPriceSetting o2) {
+            public int compare(PriceSetting o1, PriceSetting o2) {
                 return o1.getPriority() - o2.getPriority();
             }
         });
 
-        for (FlightPriceSetting pricing : fpricing) {
+        for (PriceSetting pricing : priceSettings) {
             bookingLine = applyPricing(pricing, bookingLine);
         }
         return bookingLine;
     }
 
-    public Bookable<Booking> applyBookingPricing(Bookable<Booking> booking, String name) {
+    public Bookable<Booking> applyBookingPricing(Bookable<Booking> booking, String name) throws PricingNotFoundException {
         PriceSetting gp = pricingRepo.getGeneralPricingByName(name);
         return applyPricing(gp, booking);
     }

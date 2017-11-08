@@ -114,7 +114,7 @@
 			<scope>test</scope>
 		</dependency>
 
-        <!-- Support for JNDI lookups of JMS resources (ConnectionFactory, Queues, ...) to allow working with Destinations from a different JVM -->
+        <!-- Support for JNDI lookups of JMS resources (ConnectionFactory, Queues, .togethair) to allow working with Destinations from a different JVM -->
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-jms-client-bom</artifactId>
@@ -142,8 +142,8 @@
 
 	<build>
         <!--
-            This setting triggers maven to build a war without version number, which is convenient because it makes
-            the remote JNDI lookups in the unit tests to be less brittle (otherwise they would break every time the
+            This setting triggers matogethairn to build a war without version number, which is convenient because it makes
+            the remote JNDI lookups in the unit tetogethairs to be less brittle (otherwise they would break every time the
             version of the artifact is updated (because they would have the version number in their lookup string).
          -->
         <finalName>${artifactId}</finalName>

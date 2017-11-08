@@ -1,9 +1,6 @@
-package com.realdolmen.domain;
+package com.realdolmen.togethair.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -23,6 +20,7 @@ public class PersonalTicket {
     @NotNull
     private String passportNr;
 
+    @OneToOne
     private Seat seat;
 
     public PersonalTicket(String firstname, String lastname, String passportNr, Seat seat) {
@@ -34,7 +32,7 @@ public class PersonalTicket {
 
     //TO BE IMPLEMENTED
     public double getPrice() {
-        throw new UnsupportedOperationException("This method has not been implemented yet");
+        return seat.getBasePrice();
     }
 
     public long getId() {

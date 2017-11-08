@@ -8,7 +8,18 @@
     <persistence-unit name="TogethAirTestPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>com.realdolmen.togethair.domain.Bla</class>
+        <class>com.realdolmen.togethair.domain.BookingLine</class>
+        <class>com.realdolmen.togethair.domain.PersonalTicket</class>
+        <class>com.realdolmen.togethair.domain.Seat</class>
+        <class>com.realdolmen.togethair.domain.PlaneClass</class>
+        <class>com.realdolmen.togethair.domain.Flight</class>
+        <class>com.realdolmen.togethair.domain.SpecificFlight</class>
+        <class>com.realdolmen.togethair.domain.Customer</class>
+        <class>com.realdolmen.togethair.domain.Booking</class>
+        <class>com.realdolmen.togethair.domain.Airport</class>
+        <class>com.realdolmen.togethair.domain.CreditCard</class>
+        <class>com.realdolmen.togethair.domain.pricing.GeneralPricing</class>
+        <class>com.realdolmen.togethair.domain.pricing.FlightPricing</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

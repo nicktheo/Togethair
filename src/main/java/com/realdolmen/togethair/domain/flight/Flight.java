@@ -1,5 +1,7 @@
 package com.realdolmen.togethair.domain.flight;
 
+import com.realdolmen.togethair.domain.location.Airport;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,12 +21,14 @@ public class Flight extends Trajectory {
     @OneToMany(mappedBy = "flight")
     private List<TravelClass> availability = new ArrayList<>();
 
-    public SpecificFlight(Airport departureAirport, Airport destinationAirport, Date dateTime, String duration, List<PlaneClass> availability) {
+    public Flight(Airport departureAirport, Airport destinationAirport, Date dateTime, String duration, List<TravelClass> availability) {
         super(departureAirport, destinationAirport);
         this.dateTime = dateTime;
         this.duration = duration;
         this.availability = availability;
     }
+
+    public Flight() {}
 
     public Date getDateTime() {
         return dateTime;

@@ -4,7 +4,7 @@ import com.realdolmen.togethair.domain.booking.*;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSettingType;
-import com.realdolmen.togethair.domain.exception.PricingNotFoundException;
+import com.realdolmen.togethair.domain.exceptions.PricingNotFoundException;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;

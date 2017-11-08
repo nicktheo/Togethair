@@ -1,4 +1,7 @@
-package com.realdolmen.togethair.domain;
+package com.realdolmen.togethair.domain.flight;
+
+import com.realdolmen.togethair.domain.flight.Availability;
+import com.realdolmen.togethair.domain.flight.TravelClass;
 
 import javax.persistence.*;
 
@@ -17,16 +20,16 @@ public class Seat {
     @Enumerated(EnumType.STRING)
     private Availability available;
     @ManyToOne
-    private PlaneClass planeClass;
+    private TravelClass travelClass;
 
     public Seat() {
     }
 
-    public Seat(int seatRow, int seatColumn, Availability available, PlaneClass planeClass) {
+    public Seat(int seatRow, int seatColumn, Availability available, TravelClass travelClass) {
         this.seatRow = seatRow;
         this.seatColumn = seatColumn;
         this.available = available;
-        this.planeClass = planeClass;
+        this.travelClass = travelClass;
     }
 
     public long getId() {
@@ -61,12 +64,12 @@ public class Seat {
         this.available = available;
     }
 
-    public PlaneClass getPlaneClass() {
-        return planeClass;
+    public TravelClass getTravelClass() {
+        return travelClass;
     }
 
-    public void setPlaneClass(PlaneClass planeClass) {
-        this.planeClass = planeClass;
+    public void setTravelClass(TravelClass travelClass) {
+        this.travelClass = travelClass;
     }
 
     public double getBasePrice() {

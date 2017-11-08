@@ -1,4 +1,4 @@
-package com.realdolmen.togethair.domain;
+package com.realdolmen.togethair.domain.flight;
 
 /**
  * Created by JCEBF12 on 6/11/2017.

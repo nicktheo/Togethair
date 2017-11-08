@@ -1,4 +1,4 @@
-package com.realdolmen.togethair.domain.pricing;
+package com.realdolmen.togethair.domain.booking.pricing;
 
 /**
  * Created by JCEBF12 on 7/11/2017.

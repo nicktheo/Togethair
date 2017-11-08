@@ -1,12 +1,10 @@
-package com.realdolmen.togethair.domain;
+package com.realdolmen.togethair.domain.identity;
 
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="role", discriminatorType = DiscriminatorType.CHAR)
-@DiscriminatorValue("U")
-public class User {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,22 +1,22 @@
-package com.realdolmen.togethair.domain;
+package com.realdolmen.togethair.domain.flight;
+
+import com.realdolmen.togethair.domain.location.Airport;
 
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 //@DiscriminatorColumn(name = "flight_type")
-public class Flight {
+public class Trajectory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "departureAirport_id")
     private Airport departureAirport;
 
     @OneToOne
-    @JoinColumn(name = "destinationAirport_id")
     private Airport destinationAirport;
 
     public Flight(Airport departureAirport, Airport destinationAirport) {

@@ -1,4 +1,4 @@
-package com.realdolmen.togethair.domain;
+package com.realdolmen.togethair.domain.flight;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -7,8 +7,7 @@ import java.util.List;
 
 @Entity
 //@DiscriminatorValue("S")
-@Table(name = "specific_flight")
-public class SpecificFlight extends Flight{
+public class Flight extends Trajectory {
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
@@ -17,9 +16,8 @@ public class SpecificFlight extends Flight{
     @Column(nullable = false)
     private String duration; // check conversion
 
-    @OneToMany
-    @JoinColumn(name = "planeClass_fk")
-    private List<PlaneClass> availability = new ArrayList<>();
+    @OneToMany(mappedBy = "flight")
+    private List<TravelClass> availability = new ArrayList<>();
 
     public Date getDateTime() {
         return dateTime;
@@ -37,11 +35,11 @@ public class SpecificFlight extends Flight{
         this.duration = duration;
     }
 
-    public List<PlaneClass> getAvailability() {
+    public List<TravelClass> getAvailability() {
         return availability;
     }
 
-    public void setAvailability(List<PlaneClass> availability) {
+    public void setAvailability(List<TravelClass> availability) {
         this.availability = availability;
     }
 }

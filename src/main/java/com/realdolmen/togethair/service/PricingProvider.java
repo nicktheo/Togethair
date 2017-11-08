@@ -1,12 +1,10 @@
 package com.realdolmen.togethair.service;
 
-import com.realdolmen.togethair.domain.BookingLinePricingFixed;
-import com.realdolmen.togethair.domain.BookingLinePricingPercentage;
+import com.realdolmen.togethair.domain.booking.*;
 
-import com.realdolmen.togethair.domain.IPricing;
-import com.realdolmen.togethair.pricing.FlightPricing;
-import com.realdolmen.togethair.pricing.GeneralPricing;
-import com.realdolmen.togethair.pricing.Type;
+import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
+import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
+import com.realdolmen.togethair.domain.booking.pricing.Type;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;
@@ -22,41 +20,41 @@ public class PricingProvider {
     @Inject
     private PricingRepository pricingRepo;
 
-    public IPricing applyFlightPricing(IPricing bookingLine) {
-        List<FlightPricing> fpricing = pricingRepo.getFlightPricingForFlight(bookingLine.getTickets().get(0)
-                .getSeat().getPlaneClass().getSpecificFlight());
+    public Bookable applyFlightPricing(Bookable<BookingLine> bookingLine) {
+        List<FlightPriceSetting> fpricing = pricingRepo.getFlightPricingForFlight(bookingLine.getTickets().get(0)
+                .getSeat().getTravelClass().getFlight());
 
         // Sort the pricings on priority
-        fpricing.sort(new Comparator<FlightPricing>() {
+        fpricing.sort(new Comparator<FlightPriceSetting>() {
             @Override
-            public int compare(FlightPricing o1, FlightPricing o2) {
+            public int compare(FlightPriceSetting o1, FlightPriceSetting o2) {
                 return o1.getPriority() - o2.getPriority();
             }
         });
 
-        for (FlightPricing pricing : fpricing) {
+        for (FlightPriceSetting pricing : fpricing) {
             bookingLine = applyPricing(pricing, bookingLine);
         }
         return bookingLine;
     }
 
-    public List<IPricing> applyBookingPricing(List<IPricing> bookingLineList, String name) {
-        List<IPricing> returnBookings = new ArrayList<>();
-        GeneralPricing gp = pricingRepo.getGeneralPricingByName(name);
+    public List<Bookable> applyBookingPricing(List<Bookable> bookingLineList, String name) {
+        List<Bookable> returnBookings = new ArrayList<>();
+        PriceSetting gp = pricingRepo.getGeneralPricingByName(name);
 
-        for (IPricing b : bookingLineList){
+        for (Bookable b : bookingLineList){
             returnBookings.add(applyPricing(gp, b));
         }
 
         return returnBookings;
     }
 
-    private IPricing applyPricing(GeneralPricing pricing, IPricing bookingLine) {
+    private Bookable applyPricing(PriceSetting pricing, Bookable bookingLine) {
         if (pricing.getType() == Type.FIXED) {
-            bookingLine = new BookingLinePricingFixed(pricing.getValue(), bookingLine);
+            bookingLine = new FixedPricingAdapter(bookingLine, pricing.getValue());
         }
         else if (pricing.getType() == Type.PERCENTAGE) {
-            bookingLine = new BookingLinePricingPercentage(pricing.getValue(), bookingLine);
+            bookingLine = new PercentagePricingAdapter(bookingLine, pricing.getValue());
         }
 
         return bookingLine;

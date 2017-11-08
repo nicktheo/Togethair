@@ -1,27 +1,27 @@
-package com.realdolmen.togethair.domain;
+package com.realdolmen.togethair.domain.flight;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class PlaneClass {
+public class TravelClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private PlaneClassType planeClassType;
+    private TravelClassType travelClassType;
 
     @Column(nullable = false)
     private int basePrice;
 
-    @OneToMany
+    @OneToMany(mappedBy = "travelClass")
     private List<Seat> seats= new ArrayList<>();
 
     @ManyToOne
-    private SpecificFlight specificFlight;
+    private Flight flight;
 
     public Long getId() {
         return id;
@@ -31,12 +31,12 @@ public class PlaneClass {
         this.id = id;
     }
 
-    public PlaneClassType getPlaneClassType() {
-        return planeClassType;
+    public TravelClassType getTravelClassType() {
+        return travelClassType;
     }
 
-    public void setPlaneClassType(PlaneClassType planeClassType) {
-        this.planeClassType = planeClassType;
+    public void setTravelClassType(TravelClassType travelClassType) {
+        this.travelClassType = travelClassType;
     }
 
     public int getBasePrice() {
@@ -55,11 +55,11 @@ public class PlaneClass {
         this.seats = seats;
     }
 
-    public SpecificFlight getSpecificFlight() {
-        return specificFlight;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setSpecificFlight(SpecificFlight specificFlight) {
-        this.specificFlight = specificFlight;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 }

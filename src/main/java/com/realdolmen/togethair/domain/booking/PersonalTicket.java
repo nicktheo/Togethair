@@ -1,11 +1,10 @@
-package com.realdolmen.togethair.domain;
+package com.realdolmen.togethair.domain.booking;
+
+import com.realdolmen.togethair.domain.flight.Seat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by JCEBF12 on 6/11/2017.
- */
 @Entity
 public class PersonalTicket {
 
@@ -29,6 +28,8 @@ public class PersonalTicket {
         this.passportNr = passportNr;
         this.seat = seat;
     }
+
+    public PersonalTicket() {}
 
     //TO BE IMPLEMENTED
     public double getPrice() {

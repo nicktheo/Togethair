@@ -1,14 +1,11 @@
-package com.realdolmen.togethair.pricing;
+package com.realdolmen.togethair.domain.booking.pricing;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by JCEBF12 on 7/11/2017.
- */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class GeneralPricing {
+public class PriceSetting {
 
     @Id
     @GeneratedValue
@@ -23,12 +20,14 @@ public class GeneralPricing {
     private String name;
 
 
-    public GeneralPricing(Type type, double value, int priority, String name) {
+    public PriceSetting(Type type, double value, int priority, String name) {
         this.type = type;
         this.value = value;
         this.priority = priority;
         this.name = name;
     }
+
+    public PriceSetting() {}
 
     public long getId() {
         return id;

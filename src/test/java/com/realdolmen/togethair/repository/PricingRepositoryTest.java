@@ -1,8 +1,8 @@
 package com.realdolmen.togethair.repository;
 
 import com.realdolmen.togethair.service.AbstractPersistenceTest;
-import com.realdolmen.togethair.pricing.GeneralPricing;
-import com.realdolmen.togethair.pricing.Type;
+import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
+import com.realdolmen.togethair.domain.booking.pricing.Type;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class PricingRepositoryTest extends AbstractPersistenceTest {
 
     @Test
     public void savePricing(){
-        GeneralPricing p = new GeneralPricing(Type.PERCENTAGE, 1.10, 10, "margin");
+        PriceSetting p = new PriceSetting(Type.PERCENTAGE, 1.10, 10, "margin");
         repo.saveGeneralPricing(p);
     }
 }

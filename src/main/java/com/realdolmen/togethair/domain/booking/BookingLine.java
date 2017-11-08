@@ -1,14 +1,11 @@
-package com.realdolmen.togethair.domain;
+package com.realdolmen.togethair.domain.booking;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 6/11/2017.
- */
 @Entity
-public class BookingLine implements IPricing{
+public class BookingLine implements Bookable<BookingLine> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +14,6 @@ public class BookingLine implements IPricing{
     @OneToMany
     private List<PersonalTicket> tickets = new ArrayList<>();
 
-
-
     @Override
     public double getPrice() {
         double price = 0;
@@ -26,6 +21,10 @@ public class BookingLine implements IPricing{
             price = ticket.getPrice();
         }
         return price;
+    }
+
+    public BookingLine getBase() {
+        return this;
     }
 
     public long getId() {
@@ -48,4 +47,6 @@ public class BookingLine implements IPricing{
     public BookingLine(List<PersonalTicket> tickets) {
         this.tickets = tickets;
     }
+
+    public BookingLine() {}
 }

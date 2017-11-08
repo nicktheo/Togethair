@@ -1,4 +1,4 @@
-package com.realdolmen.togethair.domain.exceptions;
+package com.realdolmen.togethair.exceptions;
 
 public class PricingNotFoundException extends Exception{
 

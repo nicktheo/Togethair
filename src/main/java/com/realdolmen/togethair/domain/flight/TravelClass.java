@@ -27,7 +27,7 @@ public class TravelClass {
         this.travelClassType = travelClassType;
         this.basePrice = basePrice;
         this.seats = seats;
-        this.travelClassType = travelClassType;
+        this.flight = specificFlight;
     }
 
     public TravelClass() {}

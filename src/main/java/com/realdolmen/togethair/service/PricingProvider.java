@@ -37,15 +37,9 @@ public class PricingProvider {
         return bookingLine;
     }
 
-    public List<Bookable> applyBookingPricing(List<Bookable> bookingLineList, String name) {
-        List<Bookable> returnBookings = new ArrayList<>();
+    public Bookable<Booking> applyBookingPricing(Bookable<Booking> booking, String name) {
         PriceSetting gp = pricingRepo.getGeneralPricingByName(name);
-
-        for (Bookable b : bookingLineList){
-            returnBookings.add(applyPricing(gp, b));
-        }
-
-        return returnBookings;
+        return applyPricing(gp, booking);
     }
 
     private Bookable applyPricing(PriceSetting pricing, Bookable bookingLine) {

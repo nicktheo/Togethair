@@ -60,8 +60,8 @@ public class PricingProviderTest {
         TravelClass tclass = new TravelClass(TravelClassType.BUSINESS, 100.0, seats, f);
         s1.setTravelClass(tclass);
         s2.setTravelClass(tclass);
-        tickets.add(new PersonalTicket("J", "C", "123", s1));
-        tickets.add(new PersonalTicket("N", "T", "123", s2));
+        tickets.add(new PersonalTicket(s1, "J", "C", "123"));
+        tickets.add(new PersonalTicket(s2, "N", "T", "123"));
 
 //        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingList);
 //        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(new PriceSetting(PriceSettingType.PERCENTAGE, 1.20, 10, "margin"));

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view locale="en">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>#{msgs['app.title']}</title>
+
+        <link rel="shortcut icon" href="#{resource['togethair:images/logo.png']}"/>
+
+        <h:outputScript library="jquery-3.2.1" name="jquery.min.js"/>
+        <h:outputScript library="bootstrap-3.3.7" name="/js/bootstrap.min.js"/>
+
+        <ui:insert name="customScripts"/>
+
+        <h:outputStylesheet library="bootstrap-3.3.7" name="/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="font-awesome-4.7.0" name="/css/font-awesome.min.css"/>
+
+        <h:outputStylesheet library="togethair" name="/css/togethair.css"/>
+
+        <ui:insert name="customStylesheets"/>
+    </h:head>
+    <h:body>
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-push-2 text-center">
+                        <h1>
+                            <h:graphicImage library="togethair" name="images/logo.svg"/>
+                            #{msgs['app.title']}
+                        </h1>
+                        <h2>#{msgs['pages.index.attribution']} #{msgs['app.owner']}</h2>
+                        <p class="lead">
+                            Bla bla bla
+                        </p>
+
+                        <p>Bla bla bla</p>
+                        <br/>
+
+                        <form class="form-inline" role="form">
+                            <div class="form-group"><input type="text" class="form-control input-lg" id="exampleInputEmail2" placeholder="Your Name"/></div>
+                            <div class="form-group"><input type="text" class="form-control input-lg" id="exampleInputPassword2" placeholder="Your Email"/></div>
+                            <button type="submit" class="btn btn-lg btn-default">Subscribe</button>
+                        </form>
+                        <p class="small text-muted">Powered by Mailchimp. Unsubscribe at any time.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="illustration">
+                            <div id="illustration-container">
+                                <h:graphicImage library="togethair" name="images/havana.jpg"/>
+                                <div id="illustration-overlay">
+                                    Naar Havana
+                                    <small>v.a. €50</small>
+                                    <br/><br/><br/><br/>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+        <main class="content">
+
+            <!-- Lead -->
+            <section class="container space-before space-after">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-push-1">
+                        <h1 class="text-center">1, 2, 3 ...</h1>
+                        <p class="lead text-center">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Nam mi odio, gravida at turpis et, porta bibendum justo.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <!-- /Lead -->
+
+
+
+            <!-- Features -->
+            <section class="container space-before">
+
+                <div class="row featurelist space-after">
+                    <div class="col-md-5 col-sm-6 col-md-push-1 ">
+                        <img class="img-feature img-responsive" src="." alt="Sample image"/>
+                    </div>
+                    <div class="col-md-5 col-md-push-1 col-sm-6">
+                        <h2 class="space-before">Parijs</h2>
+                        <p>Boek nu</p>
+                    </div>
+                </div>
+            </section>
+            <!-- /Features -->
+
+        </main>
+
+
+        <footer id="footer" class="jumbotron">
+            <section class="container">
+                <div class="row">
+                    <div class="col-md-5 col-md-push-1">
+                        <h2>Bla - di - bla</h2>
+                        <p>I am super awesome!</p>
+                    </div>
+                    <div class="col-md-5 col-md-push-1">
+                        <h2>Need help?</h2>
+                        <p>--> Karsten Goossens</p>
+                    </div>
+                </div>
+            </section>
+        </footer>
+
+        <p class="small text-muted text-center">Copyright ofzoiets</p>
+        <br/>
+    </h:body>
+</f:view>
+</html>

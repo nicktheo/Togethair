@@ -4,6 +4,7 @@ import com.realdolmen.togethair.domain.identity.Customer;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,12 +15,13 @@ public class Booking implements Bookable<Booking> {
     private Long id;
 
     private Customer customer;
+
     private List<Bookable<BookingLine>> bookingLines;
     private double totalPrice;
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -40,16 +42,15 @@ public class Booking implements Bookable<Booking> {
     @OneToMany
     public List<BookingLine> getBookingLines() {
         return bookingLines.stream()
-                .map(x -> x.getBase())
+                .map(Bookable::getBase)
                 .collect(Collectors.toList());
     }
 
     public void setBookingLines(List<BookingLine> bookingLines) {
         this.bookingLines = new ArrayList<>();
-        bookingLines.forEach(x -> this.bookingLines.add(x));
+        this.bookingLines.addAll(bookingLines);
     }
 
-    @Column(nullable = false, length = 50)
     public double getTotalPrice() {
         return totalPrice;
     }
@@ -68,22 +69,17 @@ public class Booking implements Bookable<Booking> {
     @Override
     @Transient
     public double getPrice() {
-        double price = 0;
-
-        //bookingLines.stream().map(x -> x.getPrice())
-        for (Bookable<BookingLine> b : bookingLines)
-            price += b.getPrice();
-
-        return price;
+        return bookingLines.stream()
+                .mapToDouble(Bookable::getPrice)
+                .sum();
     }
 
     @Override
     @Transient
     public List<PersonalTicket> getTickets() {
-        List<PersonalTicket> tickets = new ArrayList<>();
-        for (Bookable b : bookingLines) {
-            tickets.addAll(b.getTickets());
-        }
-        return tickets;
+        return bookingLines.stream()
+                .map(Bookable::getTickets)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 }

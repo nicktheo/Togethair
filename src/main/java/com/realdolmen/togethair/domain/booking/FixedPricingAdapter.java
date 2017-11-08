@@ -1,23 +1,14 @@
 package com.realdolmen.togethair.domain.booking;
 
-import java.util.List;
-
-public class FixedPricingAdapter extends PricingAdapter {
-
-    private double value;
+public class FixedPricingAdapter<T extends Bookable> extends PricingAdapter<T> {
 
     public FixedPricingAdapter(Bookable bookable, double value) {
-        super(bookable);
-        this.value = value;
+        super(bookable, value);
     }
+
 
     @Override
     public double getPrice() {
-        return getBookable().getPrice() + value;
-    }
-
-    @Override
-    public List<PersonalTicket> getTickets() {
-        return getBookable().getTickets();
+        return getBookable().getPrice() + getValue();
     }
 }

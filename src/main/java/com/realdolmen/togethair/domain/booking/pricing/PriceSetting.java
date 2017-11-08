@@ -12,6 +12,7 @@ public class PriceSetting {
     private long id;
 
     private String name;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private PriceSettingLevel level;
@@ -20,6 +21,7 @@ public class PriceSetting {
     private PriceSettingType type;
     @NotNull
     private double value;
+
     @NotNull
     private int priority = 100;
 
@@ -27,25 +29,22 @@ public class PriceSetting {
     public PriceSetting() {}
 
     public PriceSetting(PriceSettingLevel level, PriceSettingType type, double value, int priority, String name) {
-        this.type = type;
-        this.value = value;
-        this.priority = priority;
+        this(level, type, value, priority);
         this.name = name;
     }
 
     public PriceSetting(PriceSettingLevel level, PriceSettingType type, double value, int priority) {
-        this.type = type;
-        this.value = value;
+        this(level, type, value);
         this.priority = priority;
     }
 
     public PriceSetting(PriceSettingLevel level, PriceSettingType type, double value, String name) {
-        this.type = type;
-        this.value = value;
+        this(level, type, value);
         this.name = name;
     }
 
     public PriceSetting(PriceSettingLevel level, PriceSettingType type, double value) {
+        this.level = level;
         this.type = type;
         this.value = value;
     }

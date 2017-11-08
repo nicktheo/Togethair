@@ -9,32 +9,29 @@ import javax.validation.constraints.NotNull;
 public class PersonalTicket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long id;
 
     @NotNull
-    private String firstname;
+    private String firstName;
     @NotNull
-    private String lastname;
+    private String lastName;
     @NotNull
-    private String passportNr;
+    private String passportNumber;
 
     @OneToOne
     private Seat seat;
 
-    public PersonalTicket(String firstname, String lastname, String passportNr, Seat seat) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.passportNr = passportNr;
-        this.seat = seat;
-    }
 
     public PersonalTicket() {}
 
-    //TO BE IMPLEMENTED
-    public double getPrice() {
-        return seat.getBasePrice();
+    public PersonalTicket(Seat seat, String firstName, String lastName, String passportNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.passportNumber = passportNumber;
+        this.seat = seat;
     }
+
 
     public long getId() {
         return id;
@@ -44,28 +41,28 @@ public class PersonalTicket {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstname) {
+        this.firstName = firstname;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastname) {
+        this.lastName = lastname;
     }
 
-    public String getPassportNr() {
-        return passportNr;
+    public String getPassportNumber() {
+        return passportNumber;
     }
 
-    public void setPassportNr(String passportNr) {
-        this.passportNr = passportNr;
+    public void setPassportNumber(String passportNr) {
+        this.passportNumber = passportNr;
     }
 
     public Seat getSeat() {
@@ -74,5 +71,10 @@ public class PersonalTicket {
 
     public void setSeat(Seat seat) {
         this.seat = seat;
+    }
+
+
+    public double getPrice() {
+        return seat.getBasePrice();
     }
 }

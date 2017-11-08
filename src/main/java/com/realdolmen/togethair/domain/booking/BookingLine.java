@@ -1,31 +1,25 @@
 package com.realdolmen.togethair.domain.booking;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class BookingLine implements Bookable<BookingLine> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long id;
 
     @OneToMany
-    private List<PersonalTicket> tickets = new ArrayList<>();
+    private List<PersonalTicket> tickets;
 
-    @Override
-    public double getPrice() {
-        double price = 0;
-        for(PersonalTicket ticket: tickets){
-            price = ticket.getPrice();
-        }
-        return price;
+
+    public BookingLine() {}
+
+    public BookingLine(List<PersonalTicket> tickets) {
+        this.tickets = tickets;
     }
 
-    public BookingLine getBase() {
-        return this;
-    }
 
     public long getId() {
         return id;
@@ -44,9 +38,16 @@ public class BookingLine implements Bookable<BookingLine> {
         this.tickets = tickets;
     }
 
-    public BookingLine(List<PersonalTicket> tickets) {
-        this.tickets = tickets;
+
+    @Override
+    public BookingLine getBase() {
+        return this;
     }
 
-    public BookingLine() {}
+    @Override
+    public double getPrice() {
+        return tickets.stream()
+                .mapToDouble(PersonalTicket::getPrice)
+                .sum();
+    }
 }

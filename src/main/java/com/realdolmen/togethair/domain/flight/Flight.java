@@ -12,7 +12,6 @@ import java.util.List;
 public class Flight extends Trajectory {
 
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
     private LocalDateTime dateTime;
     @Column(nullable = false)
     private Duration duration;

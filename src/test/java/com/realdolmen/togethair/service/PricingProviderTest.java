@@ -10,7 +10,6 @@ import com.realdolmen.togethair.domain.flight.*;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 import com.realdolmen.togethair.domain.identity.SimplePassenger;
-import com.realdolmen.togethair.exceptions.PricingNotFoundException;
 import com.realdolmen.togethair.repository.PricingRepository;
 import org.junit.Assert;
 import org.junit.Before;

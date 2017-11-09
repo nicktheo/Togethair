@@ -1,6 +1,10 @@
 package com.realdolmen.togethair.exceptions;
 
-public class PricingNotFoundException extends Exception{
+import javax.ejb.ObjectNotFoundException;
+
+public class PricingNotFoundException extends ObjectNotFoundException{
+
+    public PricingNotFoundException() {}
 
     public PricingNotFoundException(String message) {
         super(message);

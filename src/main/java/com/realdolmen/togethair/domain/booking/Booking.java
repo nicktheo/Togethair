@@ -185,11 +185,8 @@ public class Booking implements Bookable<Booking> {
         }
 
         public Bookable<Booking> build() throws IllegalStateException {
-            if (booking.getCustomer() == null || flights.size() == 0 || passengers.size() == 0 ||
-                    flights.values().stream().flatMap(Collection::stream).collect(Collectors.toList())
-                            .size() != flights.size() * passengers.size()) {
+            if (booking.getCustomer() == null || flights.size() == 0)
                 throw new IllegalStateException();
-            }
 
             for (Map.Entry<TravelClass, List<Seat>> flight : flights.entrySet())
                 booking.addBookingLine(new BookingLine(passengers, flight.getValue()), priceAdapters.get(flight));

@@ -7,5 +7,5 @@ import javax.inject.Named;
 @FlowScoped("search")
 public class SearchController {
 
-    
+
 }

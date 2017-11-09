@@ -13,6 +13,8 @@ public class SimplePassenger implements Passenger {
         this.passportNumber = passportNumber;
     }
 
+    public SimplePassenger() {
+    }
 
     @Override
     public String getFirstName() {

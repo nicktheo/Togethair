@@ -1,8 +1,7 @@
-package com.realdolmen.togethair.service;
+package com.realdolmen.togethair.web.controller;
 
 
 import com.realdolmen.togethair.domain.booking.Booking;
-import com.realdolmen.togethair.domain.booking.BookingBuilder;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.identity.Passenger;
 import com.realdolmen.togethair.domain.identity.SimplePassenger;
@@ -13,6 +12,8 @@ import com.realdolmen.togethair.exceptions.SeatIsTakenException;
 import com.realdolmen.togethair.repository.AddSeatsAndPersistBookingTransaction;
 import com.realdolmen.togethair.repository.SeatRepository;
 import com.realdolmen.togethair.repository.TravelClassRepository;
+import com.realdolmen.togethair.service.LoginBean;
+import com.realdolmen.togethair.service.PricingProvider;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.ObjectNotFoundException;
@@ -25,14 +26,14 @@ import java.util.List;
  * Created by JCEBF12 on 8/11/2017.
  */
 @SessionScoped
-public class BookingServiceBean {
+public class BookingBean {
 
     @Inject
     SeatRepository seatRepository;
     @Inject
     TravelClassRepository travelClassRepository;
     @Inject
-    UserBean userBean;
+    LoginBean userBean;
     @Inject
     Booking.Builder bookingBuilder;
     @Inject
@@ -51,12 +52,18 @@ public class BookingServiceBean {
     }
 
     public String addFlights(List<Long> travelClassIds, int amount) {
+        if (!userBean.isLoggedIn()){
+            return "login.xhtml";
+        }
         this.amount = amount;
         this.travelClassIds.addAll(travelClassIds);
-        return "searchFlights";
+        return "searchFlights.xhtml";
     }
 
     public String checkout() {
+        if (!userBean.isLoggedIn()){
+            return "login.xhtml";
+        }
         for (int i = 0; i < amount; i++) {
             passengers.add(new SimplePassenger());
         }
@@ -64,12 +71,15 @@ public class BookingServiceBean {
     }
 
     public String addBooking() {
+        if (!userBean.isLoggedIn()){
+            return "login.xhtml";
+        }
         List<TravelClass> tClasses = new ArrayList<>();
         try{
             for (Long id : travelClassIds) {
                 tClasses.add(travelClassRepository.getTravelClassById(id));
             }
-            bookingBuilder.setCustomer().addFlights(tClasses).addPassengers(passengers);
+            bookingBuilder.setCustomer(userBean.getCustomer()).addFlights(tClasses).addPassengers(passengers);
             for (TravelClass tcItem : tClasses) {
                 bookingBuilder.addPriceAdapter(pricingProvider.getFlightPricingAdapters(tcItem.getFlight()), tcItem);
             }
@@ -86,5 +96,7 @@ public class BookingServiceBean {
         } catch (DuplicateSeatException e) {
             return "somethingWentWrong.xhtml";
         }
+
+        return "bookingSuccesfull.xhtml";
     }
 }

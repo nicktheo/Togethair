@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+
+<ui:composition template="/template.xhtml">
+    <ui:define name="pageContent">
+        <h1>Seats taken</h1>
+        <h:form>
+            <h:outputText id="error" value="We're terribly sorry but there aren't enough seats available!"/>
+            <h:outputText id="goTo" value="Go to search flights"/>
+            <h:commandButton value="SearchFlights" action="searchFlights.xhtml"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+</html>

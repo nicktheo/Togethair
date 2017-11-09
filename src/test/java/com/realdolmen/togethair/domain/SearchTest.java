@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,21 +31,21 @@ public class SearchTest {
         airports.add(airport2);
         airports.add(airport3);
 
-        Seat s1 = new Seat(10, 10, Availability.FREE, null);
-        Seat s2 = new Seat(5, 12, Availability.FREE, null);
-        Seat s3 = new Seat(56, 2, Availability.FREE, null);
-        Seat s4 = new Seat(33, 82, Availability.FREE, null);
-        Seat s5 = new Seat(44, 55, Availability.FREE, null);
+        Seat s1 = new Seat(10, 10, null, Availability.FREE);
+        Seat s2 = new Seat(5, 12, null, Availability.FREE);
+        Seat s3 = new Seat(56, 2, null, Availability.FREE);
+        Seat s4 = new Seat(33, 82, null, Availability.FREE);
+        Seat s5 = new Seat(44, 55, null, Availability.FREE);
 
 
-        java.sql.Timestamp ts = new Timestamp(2017,11,9,14,0,0,0);
+        LocalDateTime ts = LocalDateTime.of(2017, Month.NOVEMBER, 9, 14, 0);
         //ts.valueOf("");
 
-        Flight f = new Flight(airport1, airport2, ts, "3 hours", null);
+        Flight f = new Flight(airport1, airport2, ts, Duration.ofHours(3), null);
 
-        TravelClass bclass = new TravelClass(TravelClassType.BUSINESS, 100.0, seats, f);
-        TravelClass eclass = new TravelClass(TravelClassType.ECONOMY, 50.0, seats, f);
-        TravelClass fclass = new TravelClass(TravelClassType.FIRST, 200.0, seats, f);
+        TravelClass bclass = new TravelClass(f, TravelClassType.BUSINESS, 100.0, seats);
+        TravelClass eclass = new TravelClass(f, TravelClassType.ECONOMY, 50.0, seats);
+        TravelClass fclass = new TravelClass(f, TravelClassType.FIRST_CLASS, 200.0, seats);
         travelClasses.add(bclass);
         travelClasses.add(eclass);
         travelClasses.add(fclass);

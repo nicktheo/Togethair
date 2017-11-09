@@ -12,7 +12,7 @@ import java.util.List;
 public class Flight extends Trajectory {
 
     @Column(nullable = false)
-    private LocalDateTime dateTime;
+    private LocalDateTime departure;
     @Column(nullable = false)
     private Duration duration;
 
@@ -24,20 +24,20 @@ public class Flight extends Trajectory {
         super();
     }
 
-    public Flight(Airport departure, Airport destination, LocalDateTime departureTime, Duration duration, List<TravelClass> availability) {
-        super(departure, destination);
-        this.dateTime = departureTime;
+    public Flight(Airport origin, Airport destination, LocalDateTime departure, Duration duration, List<TravelClass> availability) {
+        super(origin, destination);
+        this.departure = departure;
         this.duration = duration;
         this.availability = availability;
     }
 
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getDeparture() {
+        return departure;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDeparture(LocalDateTime dateTime) {
+        this.departure = dateTime;
     }
 
     public Duration getDuration() {

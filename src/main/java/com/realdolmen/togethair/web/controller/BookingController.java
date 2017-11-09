@@ -17,6 +17,7 @@ import com.realdolmen.togethair.web.BookingBean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.ObjectNotFoundException;
+import javax.faces.bean.SessionScoped;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -25,7 +26,8 @@ import java.util.List;
 /**
  * Created by JCEBF12 on 8/11/2017.
  */
-@FlowScoped("booking")
+//@FlowScoped("booking")
+@SessionScoped
 public class BookingController {
 
     @Inject

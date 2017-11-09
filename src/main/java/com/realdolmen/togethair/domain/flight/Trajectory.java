@@ -13,15 +13,15 @@ public class Trajectory {
     private Long id;
 
     @ManyToOne
-    private Airport departure;
+    private Airport origin;
     @ManyToOne
     private Airport destination;
 
 
     public Trajectory() {}
 
-    public Trajectory(Airport departure, Airport destination) {
-        this.departure = departure;
+    public Trajectory(Airport origin, Airport destination) {
+        this.origin = origin;
         this.destination = destination;
     }
 
@@ -34,19 +34,19 @@ public class Trajectory {
         this.id = id;
     }
 
-    public Airport getDeparture() {
-        return departure;
+    public Airport getOrigin() {
+        return origin;
     }
 
-    public void setDeparture(Airport departureAirport) {
-        this.departure = departureAirport;
+    public void setOrigin(Airport origin) {
+        this.origin = origin;
     }
 
     public Airport getDestination() {
         return destination;
     }
 
-    public void setDestination(Airport destinationAirport) {
-        this.destination = destinationAirport;
+    public void setDestination(Airport destination) {
+        this.destination = destination;
     }
 }

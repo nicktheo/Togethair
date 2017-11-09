@@ -4,7 +4,9 @@ import javax.ejb.DuplicateKeyException;
 
 public class DuplicateSeatException extends DuplicateKeyException {
 
-    public DuplicateSeatException() {}
+    public DuplicateSeatException() {
+        super();
+    }
 
     public DuplicateSeatException(String message) {
         super(message);

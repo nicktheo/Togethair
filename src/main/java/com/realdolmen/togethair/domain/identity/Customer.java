@@ -11,7 +11,9 @@ public class Customer extends User implements Passenger {
     private Address address;
 
 
-    public Customer() {}
+    public Customer() {
+        super();
+    }
 
     public Customer(String firstName, String lastName, String email, String passportNumber, Address address) {
         super(firstName, lastName, email);

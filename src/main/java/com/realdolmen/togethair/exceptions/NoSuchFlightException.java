@@ -4,7 +4,9 @@ import java.util.NoSuchElementException;
 
 public class NoSuchFlightException extends NoSuchElementException {
 
-    public NoSuchFlightException() {}
+    public NoSuchFlightException() {
+        super();
+    }
 
     public NoSuchFlightException(String message) {
         super(message);

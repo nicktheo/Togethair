@@ -20,7 +20,9 @@ public class Flight extends Trajectory {
     private List<TravelClass> availability = new ArrayList<>();
 
 
-    public Flight() {}
+    public Flight() {
+        super();
+    }
 
     public Flight(Airport departure, Airport destination, LocalDateTime departureTime, Duration duration, List<TravelClass> availability) {
         super(departure, destination);

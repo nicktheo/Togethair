@@ -1,11 +1,10 @@
 package com.realdolmen.togethair.service;
 
 import com.realdolmen.togethair.domain.booking.*;
-import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSettingType;
 import com.realdolmen.togethair.domain.flight.Flight;
-import com.realdolmen.togethair.exceptions.PricingNotFoundException;
+import com.realdolmen.togethair.exceptions.NoSuchPricingException;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;
@@ -41,7 +40,7 @@ public class PricingProvider {
         return bookingLineDecorator;
     }
 
-    public PricingAdapter getBookingPricingAdapter(String name) throws PricingNotFoundException {
+    public PricingAdapter getBookingPricingAdapter(String name) throws NoSuchPricingException {
         PriceSetting gp = pricingRepo.getGeneralPricingByName(name);
         return getPricing(gp, null);
     }

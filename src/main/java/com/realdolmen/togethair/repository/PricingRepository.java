@@ -1,7 +1,7 @@
 package com.realdolmen.togethair.repository;
 
 import com.realdolmen.togethair.domain.booking.pricing.PriceSettingLevel;
-import com.realdolmen.togethair.exceptions.PricingNotFoundException;
+import com.realdolmen.togethair.exceptions.NoSuchPricingException;
 import com.realdolmen.togethair.domain.flight.Trajectory;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
@@ -16,14 +16,14 @@ public class PricingRepository {
     @PersistenceContext
     EntityManager em;
 
-    public PriceSetting getGeneralPricingByName(String name) throws PricingNotFoundException {
+    public PriceSetting getGeneralPricingByName(String name) throws NoSuchPricingException {
         TypedQuery<PriceSetting> query = em.createQuery("SELECT gp from PriceSetting gp WHERE gp.name = :name",
                 PriceSetting.class);
         query.setParameter("name", name);
 
         PriceSetting p = query.getSingleResult();
         if (p == null) {
-            throw new PricingNotFoundException("The discount was not found");
+            throw new NoSuchPricingException("The discount was not found");
         }
         return query.getSingleResult();
     }

@@ -5,7 +5,9 @@ public class Partner extends BackEndUser {
     private Airline airline;
 
 
-    public Partner() {}
+    public Partner() {
+        super();
+    }
 
     public Partner(String firstName, String lastName, String email, Airline airline) {
         super(firstName, lastName, email);

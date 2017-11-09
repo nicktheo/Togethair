@@ -4,7 +4,9 @@ import javax.ejb.DuplicateKeyException;
 
 public class DuplicateFlightException extends DuplicateKeyException {
 
-    public DuplicateFlightException() {}
+    public DuplicateFlightException() {
+        super();
+    }
 
     public DuplicateFlightException(String message) {
         super(message);

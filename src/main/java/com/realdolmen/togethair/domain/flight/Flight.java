@@ -11,7 +11,7 @@ import java.util.List;
 //@DiscriminatorValue("S")
 public class Flight extends Trajectory {
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     //private Date flightDate;
     private java.sql.Timestamp flightDate;

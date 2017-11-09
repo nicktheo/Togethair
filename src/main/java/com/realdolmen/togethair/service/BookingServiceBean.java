@@ -1,13 +1,22 @@
 package com.realdolmen.togethair.service;
 
 
+import com.realdolmen.togethair.domain.booking.Booking;
 import com.realdolmen.togethair.domain.booking.BookingBuilder;
+import com.realdolmen.togethair.domain.flight.TravelClass;
+import com.realdolmen.togethair.domain.identity.Passenger;
+import com.realdolmen.togethair.domain.identity.SimplePassenger;
+import com.realdolmen.togethair.exceptions.DuplicateFlightException;
+import com.realdolmen.togethair.exceptions.DuplicatePassengerException;
+import com.realdolmen.togethair.exceptions.DuplicateSeatException;
+import com.realdolmen.togethair.exceptions.SeatIsTakenException;
+import com.realdolmen.togethair.repository.AddSeatsAndPersistBookingTransaction;
 import com.realdolmen.togethair.repository.SeatRepository;
 import com.realdolmen.togethair.repository.TravelClassRepository;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.ObjectNotFoundException;
 import javax.faces.bean.SessionScoped;
-import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +28,17 @@ import java.util.List;
 public class BookingServiceBean {
 
     @Inject
-    BookingBuilder builder;
-    @Inject
     SeatRepository seatRepository;
     @Inject
     TravelClassRepository travelClassRepository;
     @Inject
     UserBean userBean;
+    @Inject
+    Booking.Builder bookingBuilder;
+    @Inject
+    PricingProvider pricingProvider;
+    @Inject
+    AddSeatsAndPersistBookingTransaction persistBooking;
 
     private List<Long> travelClassIds;
     private int amount;
@@ -35,7 +48,6 @@ public class BookingServiceBean {
     public void initialize() {
         travelClassIds = new ArrayList<>();
         passengers = new ArrayList<>();
-        builder = new BookingBuilder();
     }
 
     public String addFlights(List<Long> travelClassIds, int amount) {
@@ -46,21 +58,33 @@ public class BookingServiceBean {
 
     public String checkout() {
         for (int i = 0; i < amount; i++) {
-            passengers.add(new Passenger());
+            passengers.add(new SimplePassenger());
         }
         return "booking.xhtml";
     }
 
-    public String addBookingLine() {
-            throw new UnsupportedOperationException();
+    public String addBooking() {
+        List<TravelClass> tClasses = new ArrayList<>();
+        try{
+            for (Long id : travelClassIds) {
+                tClasses.add(travelClassRepository.getTravelClassById(id));
+            }
+            bookingBuilder.setCustomer().addFlights(tClasses).addPassengers(passengers);
+            for (TravelClass tcItem : tClasses) {
+                bookingBuilder.addPriceAdapter(pricingProvider.getFlightPricingAdapters(tcItem.getFlight()), tcItem);
+            }
+            persistBooking.persistBooking(bookingBuilder, amount);
+
+        } catch (ObjectNotFoundException e) {
+            return "somethingWentWrong.xhtml";
+        } catch (DuplicateFlightException e) {
+            return "somethingWentWrong.xhtml";
+        } catch (DuplicatePassengerException e) {
+            return "somethingWentWrong.xhtml";
+        } catch (SeatIsTakenException e) {
+            return "seatTaken.xhtml";
+        } catch (DuplicateSeatException e) {
+            return "somethingWentWrong.xhtml";
         }
-
-//        builder.createBookingLine();
-//        try {
-//            TravelClass tc = travelClassRepository.getTravelClassById(travelClassId);
-//        } catch (ObjectNotFoundException e) {
-//            return "FlightNotFound.xhtml";
-//        }
-
-//    }
+    }
 }

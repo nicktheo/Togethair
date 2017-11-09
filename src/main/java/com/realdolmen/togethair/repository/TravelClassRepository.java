@@ -16,10 +16,7 @@ public class TravelClassRepository {
     EntityManager em;
 
     public TravelClass getTravelClassById(long id) throws ObjectNotFoundException {
-        TypedQuery<TravelClass> query = em.createQuery("SELECT t from TravelClass t WHERE t.id = :id", TravelClass.class);
-        query.setParameter("id", id);
-        TravelClass tc = query.getSingleResult();
-
+        TravelClass tc = em.find(TravelClass.class, id);
         if (tc == null) {
             throw new ObjectNotFoundException("The flight was not found in the database");
         }

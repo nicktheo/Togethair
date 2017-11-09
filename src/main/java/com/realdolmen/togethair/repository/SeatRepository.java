@@ -6,6 +6,7 @@ import com.realdolmen.togethair.domain.flight.TravelClass;
 
 import javax.ejb.ObjectNotFoundException;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -18,10 +19,10 @@ public class SeatRepository {
     @PersistenceContext
     EntityManager em;
 
-    public List<Seat> getTravelClassById(long id) throws ObjectNotFoundException {
-        TypedQuery<Seat> query = em.createQuery("SELECT s from Seat s WHERE s.travelClass.id = :id AND s.availability = :a", Seat.class);
-        query.setParameter("id", id);
+    public List<Seat> getFreeSeatsPessimisticLock(TravelClass tclass) throws ObjectNotFoundException {
+        TypedQuery<Seat> query = em.createQuery("SELECT s from Seat s WHERE s.travelClass = :travelClass AND s.availability = :a", Seat.class);
+        query.setParameter("travelClass", tclass);
         query.setParameter("a", Availability.FREE);
-        return query.getResultList();
+        return query.setLockMode(LockModeType.PESSIMISTIC_WRITE).getResultList();
     }
 }

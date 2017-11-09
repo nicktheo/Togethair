@@ -1,4 +1,4 @@
-package com.realdolmen.togethair.domain.identity;
+package com.realdolmen.togethair.domain.location;
 
 import javax.persistence.Embeddable;
 

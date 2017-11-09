@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.domain.booking;
 
 import com.realdolmen.togethair.domain.flight.Seat;
+import com.realdolmen.togethair.domain.identity.Passenger;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,23 +14,16 @@ public class PersonalTicket {
     private long id;
 
     @NotNull
-    private String firstName;
-    @NotNull
-    private String lastName;
-    @NotNull
-    private String passportNumber;
-
+    private Passenger passenger;
     @OneToOne
     private Seat seat;
 
 
     public PersonalTicket() {}
 
-    public PersonalTicket(Seat seat, String firstName, String lastName, String passportNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.passportNumber = passportNumber;
+    public PersonalTicket(Seat seat, Passenger passenger) {
         this.seat = seat;
+        this.passenger = passenger;
     }
 
 
@@ -41,28 +35,12 @@ public class PersonalTicket {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Passenger getPassenger() {
+        return passenger;
     }
 
-    public void setFirstName(String firstname) {
-        this.firstName = firstname;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastname) {
-        this.lastName = lastname;
-    }
-
-    public String getPassportNumber() {
-        return passportNumber;
-    }
-
-    public void setPassportNumber(String passportNr) {
-        this.passportNumber = passportNr;
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
     }
 
     public Seat getSeat() {

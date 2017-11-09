@@ -10,6 +10,7 @@ import com.realdolmen.togethair.domain.exceptions.PricingNotFoundException;
 import com.realdolmen.togethair.domain.flight.*;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
+import com.realdolmen.togethair.exceptions.PricingNotFoundException;
 import com.realdolmen.togethair.repository.PricingRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,9 +23,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 7/11/2017.
- */
 public class PricingProviderTest {
 
     @Mock

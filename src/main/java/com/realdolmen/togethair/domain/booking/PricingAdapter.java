@@ -39,6 +39,16 @@ public abstract class PricingAdapter<T extends Bookable> implements Bookable<T> 
     }
 
     @Override
+    public PricingAdapter<T> setBase(T base) throws IllegalStateException {
+        if (bookable == null)
+            bookable = base;
+        else
+            bookable.setBase(base);
+
+        return this;
+    }
+
+    @Override
     public List<PersonalTicket> getTickets() {
         return bookable.getTickets();
     }

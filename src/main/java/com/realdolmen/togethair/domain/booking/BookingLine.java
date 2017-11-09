@@ -1,5 +1,8 @@
 package com.realdolmen.togethair.domain.booking;
 
+import com.realdolmen.togethair.domain.flight.Seat;
+import com.realdolmen.togethair.domain.identity.Passenger;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,6 +23,11 @@ public class BookingLine implements Bookable<BookingLine> {
         this.tickets = tickets;
     }
 
+    public BookingLine(List<Passenger> passengers, List<Seat> seats) {
+        if (passengers.size() != seats.size())
+            throw new IllegalArgumentException();
+    }
+
 
     public long getId() {
         return id;
@@ -38,11 +46,6 @@ public class BookingLine implements Bookable<BookingLine> {
         this.tickets = tickets;
     }
 
-
-    @Override
-    public BookingLine getBase() {
-        return this;
-    }
 
     @Override
     public double getPrice() {

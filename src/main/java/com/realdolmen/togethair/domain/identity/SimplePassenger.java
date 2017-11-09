@@ -7,6 +7,13 @@ public class SimplePassenger implements Passenger {
     private String passportNumber;
 
 
+    public SimplePassenger(String firstName, String lastName, String passportNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.passportNumber = passportNumber;
+    }
+
+
     @Override
     public String getFirstName() {
         return firstName;

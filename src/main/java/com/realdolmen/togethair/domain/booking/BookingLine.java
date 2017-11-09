@@ -1,6 +1,11 @@
 package com.realdolmen.togethair.domain.booking;
 
+import com.realdolmen.togethair.domain.flight.Seat;
+import com.realdolmen.togethair.domain.identity.Passenger;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -8,7 +13,7 @@ public class BookingLine implements Bookable<BookingLine> {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @OneToMany
     private List<PersonalTicket> tickets;
@@ -16,16 +21,28 @@ public class BookingLine implements Bookable<BookingLine> {
 
     public BookingLine() {}
 
-    public BookingLine(List<PersonalTicket> tickets) {
-        this.tickets = tickets;
+    public BookingLine(List<PersonalTicket> tickets) throws IllegalArgumentException {
+        setTickets(tickets);
+    }
+
+    public BookingLine(List<Passenger> passengers, List<Seat> seats) throws IllegalArgumentException {
+        if (passengers.size() != seats.size())
+            throw new IllegalArgumentException();
+
+        List<PersonalTicket> tickets = new ArrayList<>();
+
+        for (int i = 0; i < passengers.size(); i++)
+            tickets.add(new PersonalTicket(seats.get(0), passengers.get(0)));
+
+        setTickets(tickets);
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,14 +52,12 @@ public class BookingLine implements Bookable<BookingLine> {
     }
 
     public void setTickets(List<PersonalTicket> tickets) {
+        if (tickets.size() == 0)
+            throw new IllegalArgumentException();
+
         this.tickets = tickets;
     }
 
-
-    @Override
-    public BookingLine getBase() {
-        return this;
-    }
 
     @Override
     public double getPrice() {

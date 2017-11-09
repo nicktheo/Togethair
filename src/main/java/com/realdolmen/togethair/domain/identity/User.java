@@ -7,29 +7,33 @@ import javax.persistence.*;
 public abstract class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
-    //@Column(nullable = false, length = 50)
-    //private String role;
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String email;
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String firstName;
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String lastName;
+
+
+    public User() {}
+
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
 
     public Long getId() {
         return id;
     }
 
-   /* public String getRole() {
-        return role;
+    public void setId(Long id) {
+        this.id = id;
     }
-
-    public void setRole(String role) {
-        this.role = role;
-    }*/
 
     public String getEmail() {
         return email;

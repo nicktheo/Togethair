@@ -13,6 +13,10 @@ public abstract class PricingAdapter<T extends Bookable> implements Bookable<T> 
         this.value = value;
     }
 
+    public PricingAdapter(double value) {
+        this.value = value;
+    }
+
 
     public Bookable<T> getBookable() {
         return bookable;
@@ -34,6 +38,16 @@ public abstract class PricingAdapter<T extends Bookable> implements Bookable<T> 
     @Override
     public T getBase() {
         return bookable.getBase();
+    }
+
+    @Override
+    public PricingAdapter<T> setBase(T base) throws IllegalStateException {
+        if (bookable == null)
+            bookable = base;
+        else
+            bookable.setBase(base);
+
+        return this;
     }
 
     @Override

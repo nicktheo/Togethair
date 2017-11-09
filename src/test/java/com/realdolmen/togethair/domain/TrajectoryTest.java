@@ -23,10 +23,10 @@ public class TrajectoryTest {
 
     @Test
     public void testFlight() {
-        Assert.assertEquals(GlobalRegion.NORTHERN_EUROPE,flight.getDepartureAirport().getGlobalRegion());
-        Assert.assertEquals(GlobalRegion.SOUTHERN_EUROPE,flight.getDestinationAirport().getGlobalRegion());
-        Assert.assertEquals("Brussels Airport",flight.getDepartureAirport().getName());
-        Assert.assertEquals("Athens International Airport",flight.getDestinationAirport().getName());
+        Assert.assertEquals(GlobalRegion.NORTHERN_EUROPE,flight.getDeparture().getGlobalRegion());
+        Assert.assertEquals(GlobalRegion.SOUTHERN_EUROPE,flight.getDestination().getGlobalRegion());
+        Assert.assertEquals("Brussels Airport",flight.getDeparture().getName());
+        Assert.assertEquals("Athens International Airport",flight.getDestination().getName());
     }
 
 }

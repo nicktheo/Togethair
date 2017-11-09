@@ -6,30 +6,44 @@ import javax.persistence.*;
 public class Airport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
+    private String code;
+    @Column(nullable = false)
     private String name;
-    @Column(nullable = false, length = 50)
-    private String country;
-    @Column(nullable = false, length = 50)
-    private String internationalAirportCode;
 
+    @Column(nullable = false)
+    private String country;
     @Enumerated(EnumType.STRING)
     private GlobalRegion globalRegion;
 
-    public Airport(String name, String country, String internationalAirportCode, GlobalRegion globalRegion) {
-        this.name = name;
-        this.country = country;
-        this.internationalAirportCode = internationalAirportCode;
-        this.globalRegion = globalRegion;
-    }
 
     public Airport() {}
 
+    public Airport(String code, String name, String country, GlobalRegion globalRegion) {
+        this.code = code;
+        this.name = name;
+        this.country = country;
+        this.globalRegion = globalRegion;
+    }
+
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String internationalAirportCode) {
+        this.code = internationalAirportCode;
     }
 
     public String getName() {
@@ -46,14 +60,6 @@ public class Airport {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public String getInternationalAirportCode() {
-        return internationalAirportCode;
-    }
-
-    public void setInternationalAirportCode(String internationalAirportCode) {
-        this.internationalAirportCode = internationalAirportCode;
     }
 
     public GlobalRegion getGlobalRegion() {

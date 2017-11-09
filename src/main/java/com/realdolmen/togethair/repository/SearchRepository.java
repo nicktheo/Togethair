@@ -58,10 +58,10 @@ public class SearchRepository {
 
         for (Flight flight : flights) {
             int travelClassIndex = -1;
-            for (TravelClass travelClass1 : flight.getAvailability())
-            if (travelClass1.getTravelClassType().name().equals(travelClass) && numberOfSeats <= travelClass1.getAvailableSeats().size() ) {
-                return travelClass1.getAvailableSeats();
-            }
+            //for (TravelClass travelClass1 : flight.getAvailability())
+//            if (travelClass1.getTravelClassType().name().equals(travelClass) && numberOfSeats <= travelClass1.getAvailableSeats().size() ) {
+//                return travelClass1.getAvailableSeats();
+//            }
         }
         return null;
     }

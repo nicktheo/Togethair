@@ -13,7 +13,9 @@ public class FlightPriceSetting extends PriceSetting implements FlightFilter {
     private Flight flight;
 
 
-    public FlightPriceSetting() {}
+    public FlightPriceSetting() {
+        super();
+    }
 
     public FlightPriceSetting(Flight flight, PriceSettingType type, double value, int priority, String name) {
         super(PriceSettingLevel.BOOKINGLINE, type, value, priority, name);

@@ -1,21 +1,36 @@
 package com.realdolmen.togethair.domain.identity;
 
+import com.realdolmen.togethair.domain.location.Address;
+
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("C")
-public class Customer extends User {
+public class Customer extends User implements Passenger {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-
+    private String passportNumber;
     private Address address;
 
-//    @Override
-//    public Long getId() {
-//        return id;
-//    }
+
+    public Customer() {
+        super();
+    }
+
+    public Customer(String firstName, String lastName, String email, String passportNumber, Address address) {
+        super(firstName, lastName, email);
+        this.passportNumber = passportNumber;
+        this.address = address;
+    }
+
+
+    @Override
+    public String getPassportNumber() {
+        return passportNumber;
+    }
+
+    @Override
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
+    }
 
     public Address getAddress() {
         return address;

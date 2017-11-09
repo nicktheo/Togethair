@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.domain;
 
+import com.realdolmen.togethair.domain.booking.Booking;
 import com.realdolmen.togethair.domain.booking.BookingLine;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 

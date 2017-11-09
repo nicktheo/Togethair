@@ -1,11 +1,13 @@
 package com.realdolmen.togethair.domain.booking;
 
+import com.realdolmen.togethair.domain.flight.Seat;
+import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.identity.Customer;
+import com.realdolmen.togethair.domain.identity.Passenger;
+import com.realdolmen.togethair.exceptions.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -16,8 +18,11 @@ public class Booking implements Bookable<Booking> {
 
     private Customer customer;
 
-    private List<Bookable<BookingLine>> bookingLines;
+    private List<Bookable<BookingLine>> bookingLines = new ArrayList<>();
     private double totalPrice;
+
+
+    protected Booking() {}
 
 
     @Id
@@ -51,6 +56,17 @@ public class Booking implements Bookable<Booking> {
         this.bookingLines.addAll(bookingLines);
     }
 
+    public void addBookingLine(Bookable<BookingLine> bookingLine) {
+        bookingLines.add(bookingLine);
+    }
+
+    public void addBookingLine(BookingLine bookingLine, PricingAdapter<BookingLine> priceAdapter) {
+        if (priceAdapter == null)
+            addBookingLine(bookingLine);
+        else
+            addBookingLine(priceAdapter.setBase(bookingLine));
+    }
+
     public double getTotalPrice() {
         return totalPrice;
     }
@@ -59,12 +75,6 @@ public class Booking implements Bookable<Booking> {
         this.totalPrice = amount;
     }
 
-
-    @Override
-    @Transient
-    public Booking getBase() {
-        return this;
-    }
 
     @Override
     @Transient
@@ -81,5 +91,110 @@ public class Booking implements Bookable<Booking> {
                 .map(Bookable::getTickets)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
+    }
+
+    public static class Builder {
+
+        private Booking booking = new Booking();
+
+        private Map<TravelClass, List<Seat>> flights = new HashMap<>();
+        private List<Passenger> passengers = new ArrayList<>();
+
+        private PricingAdapter<Booking> bookingPriceAdapter;
+        private Map<TravelClass, PricingAdapter<BookingLine>> priceAdapters = new HashMap<>();
+
+
+        public Builder setCustomer(Customer c) {
+            booking.setCustomer(c);
+            return this;
+        }
+
+        public Collection<TravelClass> getFlights() {
+            return flights.keySet();
+        }
+
+        public Builder addFlight(TravelClass flight) throws DuplicateFlightException {
+            if (flights.containsKey(flight))
+                throw new DuplicateFlightException();
+
+            flights.put(flight, new ArrayList<>());
+
+            return this;
+        }
+
+        public Builder addFlights(Collection<TravelClass> flights) throws DuplicateFlightException {
+            for (TravelClass flight : flights)
+                addFlight(flight);
+
+            return this;
+        }
+
+        public Builder addPassenger(Passenger passenger) throws DuplicatePassengerException {
+            if (passengers.contains(passenger))
+                throw new DuplicatePassengerException();
+
+            passengers.add(passenger);
+
+            return this;
+        }
+
+        public Builder addPassengers(Collection<Passenger> passengers) throws DuplicatePassengerException {
+            for (Passenger passenger : passengers)
+                addPassenger(passenger);
+
+            return this;
+        }
+
+        public Builder addSeat(Seat seat) throws NoSuchFlightException, DuplicateSeatException {
+            List<Seat> seats = flights.get(seat.getTravelClass());
+
+            if (seats == null)
+                throw new NoSuchFlightException();
+            if (seats.contains(seat))
+                throw new DuplicateSeatException();
+            if (seats.size() == passengers.size())
+                throw new TooManySeatsException();
+
+            seats.add(seat);
+
+            return this;
+        }
+
+        public Builder addSeats(Collection<Seat> seats) throws NoSuchFlightException, DuplicateSeatException {
+            for (Seat seat : seats)
+                addSeat(seat);
+
+            return this;
+        }
+
+        public Builder addPriceAdapter(PricingAdapter<Booking> adapter) {
+            adapter.setBookable(bookingPriceAdapter);
+            bookingPriceAdapter = adapter;
+
+            return this;
+        }
+
+        public Builder addPriceAdapter(PricingAdapter<BookingLine> adapter, TravelClass flight) throws NoSuchFlightException {
+            if (! flights.containsKey(flight))
+                throw new NoSuchFlightException();
+
+            adapter.setBookable(priceAdapters.get(flight));
+            priceAdapters.put(flight, adapter);
+
+            return this;
+        }
+
+        public Bookable<Booking> build() throws IllegalStateException {
+            if (booking.getCustomer() == null || flights.size() == 0 || passengers.size() == 0 ||
+                    flights.values().stream().flatMap(Collection::stream).collect(Collectors.toList())
+                            .size() != flights.size() * passengers.size()) {
+                throw new IllegalStateException();
+            }
+
+            for (Map.Entry<TravelClass, List<Seat>> flight : flights.entrySet())
+                booking.addBookingLine(new BookingLine(passengers, flight.getValue()), priceAdapters.get(flight));
+
+            return bookingPriceAdapter.setBase(booking);
+        }
     }
 }

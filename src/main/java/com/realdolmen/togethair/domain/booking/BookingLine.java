@@ -13,7 +13,7 @@ public class BookingLine implements Bookable<BookingLine> {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @OneToMany
     private List<PersonalTicket> tickets;
@@ -38,11 +38,11 @@ public class BookingLine implements Bookable<BookingLine> {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

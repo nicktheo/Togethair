@@ -109,6 +109,10 @@ public class Booking implements Bookable<Booking> {
             return this;
         }
 
+        public Collection<TravelClass> getFlights() {
+            return flights.keySet();
+        }
+
         public Builder addFlight(TravelClass flight) throws DuplicateFlightException {
             if (flights.containsKey(flight))
                 throw new DuplicateFlightException();

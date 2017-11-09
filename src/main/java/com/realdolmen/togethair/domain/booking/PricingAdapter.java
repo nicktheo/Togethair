@@ -13,8 +13,10 @@ public abstract class PricingAdapter<T extends Bookable> implements Bookable<T> 
         this.value = value;
     }
 
-    public PricingAdapter() {
+    public PricingAdapter(double value) {
+        this.value = value;
     }
+
 
     public Bookable<T> getBookable() {
         return bookable;

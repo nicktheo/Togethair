@@ -1,67 +1,58 @@
 package com.realdolmen.togethair.domain.flight;
 
-import com.realdolmen.togethair.domain.flight.Availability;
-import com.realdolmen.togethair.domain.flight.TravelClass;
-
 import javax.persistence.*;
 
-/**
- * Created by JCEBF12 on 6/11/2017.
- */
 @Entity
 public class Seat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue
+    private Long id;
 
-    private int seatRow;
-    private int seatColumn;
-    @Enumerated(EnumType.STRING)
-    private Availability available;
+    @Column(name = "seatRow")
+    private int row;
+    @Column(name = "seatColumn")
+    private int column;
+
     @ManyToOne
     private TravelClass travelClass;
 
-    public Seat() {
-    }
+    @Enumerated(EnumType.STRING)
+    private Availability availability;
 
-    public Seat(int seatRow, int seatColumn, Availability available, TravelClass travelClass) {
-        this.seatRow = seatRow;
-        this.seatColumn = seatColumn;
-        this.available = available;
+
+    public Seat() {}
+
+    public Seat(int row, int column, TravelClass travelClass, Availability availability) {
+        this.row = row;
+        this.column = column;
+        this.availability = availability;
         this.travelClass = travelClass;
     }
 
-    public long getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getSeatRow() {
-        return seatRow;
+    public int getRow() {
+        return row;
     }
 
-    public void setSeatRow(int seatRow) {
-        this.seatRow = seatRow;
+    public void setRow(int seatRow) {
+        this.row = seatRow;
     }
 
-    public int getSeatColumn() {
-        return seatColumn;
+    public int getColumn() {
+        return column;
     }
 
-    public void setSeatColumn(int seatColumn) {
-        this.seatColumn = seatColumn;
-    }
-
-    public Availability getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Availability available) {
-        this.available = available;
+    public void setColumn(int seatColumn) {
+        this.column = seatColumn;
     }
 
     public TravelClass getTravelClass() {
@@ -71,6 +62,15 @@ public class Seat {
     public void setTravelClass(TravelClass travelClass) {
         this.travelClass = travelClass;
     }
+
+    public Availability getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Availability available) {
+        this.availability = available;
+    }
+
 
     public double getBasePrice() {
         return travelClass.getBasePrice();

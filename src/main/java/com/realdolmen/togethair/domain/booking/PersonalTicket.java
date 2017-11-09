@@ -4,16 +4,15 @@ import com.realdolmen.togethair.domain.flight.Seat;
 import com.realdolmen.togethair.domain.identity.Passenger;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class PersonalTicket {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private Passenger passenger;
     @OneToOne
     private Seat seat;
@@ -27,11 +26,11 @@ public class PersonalTicket {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

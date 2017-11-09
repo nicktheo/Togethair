@@ -1,7 +1,6 @@
 package com.realdolmen.togethair.domain.booking.pricing;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -9,20 +8,20 @@ public class PriceSetting {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     private String name;
 
-    @NotNull
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PriceSettingLevel level;
-    @NotNull
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PriceSettingType type;
-    @NotNull
+    @Column(nullable = false)
     private double value;
 
-    @NotNull
+    @Column(nullable = false)
     private int priority = 100;
 
 
@@ -50,11 +49,11 @@ public class PriceSetting {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

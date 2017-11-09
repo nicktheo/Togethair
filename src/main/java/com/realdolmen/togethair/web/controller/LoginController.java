@@ -1,4 +1,4 @@
-package com.realdolmen.togethair.service;
+package com.realdolmen.togethair.web.controller;
 
 import com.realdolmen.togethair.domain.identity.BackEndUser;
 import com.realdolmen.togethair.domain.identity.Customer;
@@ -10,19 +10,17 @@ import javax.faces.bean.SessionScoped;
  * Created by JCEBF12 on 8/11/2017.
  */
 @SessionScoped
-public class LoginBean {
+public class LoginController {
 
     private String email;
     private String Password;
 
-    private Customer customer;
-    private BackEndUser admin;
 
     public Customer getCustomer(){
-        return new Customer();
+        throw new UnsupportedOperationException();
     }
 
     public boolean isLoggedIn(){
-        return true;
+        throw new UnsupportedOperationException();
     }
 }

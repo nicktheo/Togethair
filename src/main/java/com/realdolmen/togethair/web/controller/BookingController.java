@@ -10,14 +10,14 @@ import com.realdolmen.togethair.exceptions.DuplicatePassengerException;
 import com.realdolmen.togethair.exceptions.DuplicateSeatException;
 import com.realdolmen.togethair.exceptions.SeatIsTakenException;
 import com.realdolmen.togethair.repository.AddSeatsAndPersistBookingTransaction;
-import com.realdolmen.togethair.repository.SeatRepository;
-import com.realdolmen.togethair.repository.TravelClassRepository;
-import com.realdolmen.togethair.service.LoginBean;
 import com.realdolmen.togethair.service.PricingProvider;
+import com.realdolmen.togethair.service.SeatService;
+import com.realdolmen.togethair.service.TravelClassService;
+import com.realdolmen.togethair.web.BookingBean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.ObjectNotFoundException;
-import javax.faces.bean.SessionScoped;
+import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,15 +25,15 @@ import java.util.List;
 /**
  * Created by JCEBF12 on 8/11/2017.
  */
-@SessionScoped
-public class BookingBean {
+@FlowScoped("booking")
+public class BookingController {
 
     @Inject
-    SeatRepository seatRepository;
+    SeatService seatService;
     @Inject
-    TravelClassRepository travelClassRepository;
+    BookingBean bookingBean;
     @Inject
-    LoginBean userBean;
+    LoginController userBean;
     @Inject
     Booking.Builder bookingBuilder;
     @Inject
@@ -51,14 +51,7 @@ public class BookingBean {
         passengers = new ArrayList<>();
     }
 
-    public String addFlights(List<Long> travelClassIds, int amount) {
-        if (!userBean.isLoggedIn()){
-            return "login.xhtml";
-        }
-        this.amount = amount;
-        this.travelClassIds.addAll(travelClassIds);
-        return "searchFlights.xhtml";
-    }
+
 
     public String checkout() {
         if (!userBean.isLoggedIn()){
@@ -74,11 +67,8 @@ public class BookingBean {
         if (!userBean.isLoggedIn()){
             return "login.xhtml";
         }
-        List<TravelClass> tClasses = new ArrayList<>();
         try{
-            for (Long id : travelClassIds) {
-                tClasses.add(travelClassRepository.getTravelClassById(id));
-            }
+            List<TravelClass> tClasses = bookingBean.getTravelClasses();
             bookingBuilder.setCustomer(userBean.getCustomer()).addFlights(tClasses).addPassengers(passengers);
             for (TravelClass tcItem : tClasses) {
                 bookingBuilder.addPriceAdapter(pricingProvider.getFlightPricingAdapters(tcItem.getFlight()), tcItem);

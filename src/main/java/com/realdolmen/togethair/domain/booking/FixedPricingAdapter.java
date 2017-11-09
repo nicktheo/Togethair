@@ -6,6 +6,10 @@ public class FixedPricingAdapter<T extends Bookable> extends PricingAdapter<T> {
         super(bookable, value);
     }
 
+    public FixedPricingAdapter(double value) {
+        super(value);
+    }
+
 
     @Override
     public double getPrice() {

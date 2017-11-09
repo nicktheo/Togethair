@@ -1,7 +1,6 @@
 package com.realdolmen.togethair.service;
 
 import com.realdolmen.togethair.domain.booking.Bookable;
-import com.realdolmen.togethair.domain.booking.Booking;
 import com.realdolmen.togethair.domain.booking.BookingLine;
 import com.realdolmen.togethair.domain.booking.PersonalTicket;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSettingLevel;
@@ -51,13 +50,13 @@ public class PricingProviderTest {
         //ADD Price!!!!
 
 
-        Seat s1 = new Seat(10, 10, Availability.FREE, null);
-        Seat s2 = new Seat(10, 11, Availability.FREE, null);
+        Seat s1 = new Seat(10, 10, null, Availability.FREE);
+        Seat s2 = new Seat(10, 11, null, Availability.FREE);
 
         List<Seat> seats = new ArrayList<>();
         seats.add(s1);
         seats.add(s2);
-        TravelClass tclass = new TravelClass(TravelClassType.BUSINESS, 100.0, seats, f);
+        TravelClass tclass = new TravelClass(f, TravelClassType.BUSINESS, 100.0, seats);
         s1.setTravelClass(tclass);
         s2.setTravelClass(tclass);
         tickets.add(new PersonalTicket(s1, new SimplePassenger("J", "C", "123")));

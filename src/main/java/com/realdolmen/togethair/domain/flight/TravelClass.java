@@ -1,36 +1,36 @@
 package com.realdolmen.togethair.domain.flight;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class TravelClass {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private TravelClassType travelClassType;
+    private TravelClassType type;
 
+    @ManyToOne
+    private Flight flight;
     @Column(nullable = false)
     private double basePrice;
 
     @OneToMany(mappedBy = "travelClass")
-    private List<Seat> seats= new ArrayList<>();
+    private List<Seat> seats;
 
-    @ManyToOne
-    private Flight flight;
-
-    public TravelClass(TravelClassType travelClassType, double basePrice, List<Seat> seats, Flight specificFlight) {
-        this.travelClassType = travelClassType;
-        this.basePrice = basePrice;
-        this.seats = seats;
-        this.flight = specificFlight;
-    }
 
     public TravelClass() {}
+
+    public TravelClass(Flight flight, TravelClassType type, double basePrice, List<Seat> seats) {
+        this.type = type;
+        this.basePrice = basePrice;
+        this.seats = seats;
+        this.flight = flight;
+    }
+
 
     public Long getId() {
         return id;
@@ -40,12 +40,20 @@ public class TravelClass {
         this.id = id;
     }
 
-    public TravelClassType getTravelClassType() {
-        return travelClassType;
+    public TravelClassType getType() {
+        return type;
     }
 
-    public void setTravelClassType(TravelClassType travelClassType) {
-        this.travelClassType = travelClassType;
+    public void setType(TravelClassType travelClassType) {
+        this.type = travelClassType;
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
     public double getBasePrice() {
@@ -62,13 +70,5 @@ public class TravelClass {
 
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
-    }
-
-    public Flight getFlight() {
-        return flight;
-    }
-
-    public void setFlight(Flight flight) {
-        this.flight = flight;
     }
 }

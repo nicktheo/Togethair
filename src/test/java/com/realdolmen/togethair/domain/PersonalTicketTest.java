@@ -18,7 +18,7 @@ public class PersonalTicketTest {
 
     @Before
     public void initialize(){
-        Seat seat = new Seat(5, 10, Availability.FREE, new TravelClass());
+        Seat seat = new Seat(5, 10, new TravelClass(), Availability.FREE);
         Passenger passenger = new SimplePassenger("", "", "");
         this.pTicket = new PersonalTicket(seat, passenger);
     }

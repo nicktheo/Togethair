@@ -5,44 +5,48 @@ import com.realdolmen.togethair.domain.location.Airport;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-//@DiscriminatorColumn(name = "flight_type")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Trajectory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
-    @OneToOne
-    private Airport departureAirport;
+    @ManyToOne
+    private Airport departure;
+    @ManyToOne
+    private Airport destination;
 
-    @OneToOne
-    private Airport destinationAirport;
-
-    public Trajectory(Airport departureAirport, Airport destinationAirport) {
-        this.departureAirport = departureAirport;
-        this.destinationAirport = destinationAirport;
-    }
 
     public Trajectory() {}
+
+    public Trajectory(Airport departure, Airport destination) {
+        this.departure = departure;
+        this.destination = destination;
+    }
+
 
     public Long getId() {
         return id;
     }
 
-    public Airport getDepartureAirport() {
-        return departureAirport;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setDepartureAirport(Airport departureAirport) {
-        this.departureAirport = departureAirport;
+    public Airport getDeparture() {
+        return departure;
     }
 
-    public Airport getDestinationAirport() {
-        return destinationAirport;
+    public void setDeparture(Airport departureAirport) {
+        this.departure = departureAirport;
     }
 
-    public void setDestinationAirport(Airport destinationAirport) {
-        this.destinationAirport = destinationAirport;
+    public Airport getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Airport destinationAirport) {
+        this.destination = destinationAirport;
     }
 }

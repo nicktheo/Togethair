@@ -1,12 +1,16 @@
 package com.realdolmen.togethair.domain;
 
+import com.realdolmen.togethair.domain.booking.Booking;
+import com.realdolmen.togethair.domain.booking.BookingLine;
+import com.realdolmen.togethair.domain.flight.TravelClass;
+
 /**
  * Created by JCEBF12 on 7/11/2017.
  */
 public class BookingLineTest {
 
     private BookingLine bookingLine;
-//    private PlaneClass pClass = new PlaneClass();
+    //private TravelClass pClass = new TravelClass();
 
 //    @Before
 //    public void initialize() {

@@ -1,12 +1,10 @@
 package com.realdolmen.togethair.service;
 
-import com.realdolmen.togethair.domain.BookingLinePricingFixed;
-import com.realdolmen.togethair.domain.BookingLinePricingPercentage;
-
-import com.realdolmen.togethair.domain.IPricing;
-import com.realdolmen.togethair.domain.pricing.FlightPricing;
-import com.realdolmen.togethair.domain.pricing.GeneralPricing;
-import com.realdolmen.togethair.domain.pricing.Type;
+import com.realdolmen.togethair.domain.booking.*;
+import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
+import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
+import com.realdolmen.togethair.domain.booking.pricing.PriceSettingType;
+import com.realdolmen.togethair.exceptions.PricingNotFoundException;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;
@@ -21,37 +19,39 @@ public class PricingProvider {
     @Inject
     private PricingRepository pricingRepo;
 
-    public IPricing applyFlightPricing(IPricing bookingLine) {
-        List<FlightPricing> fpricing = pricingRepo.getFlightPricingForFlight(bookingLine.getTickets().get(0)
-                .getSeat().getPlaneClass().getSpecificFlight());
+    public Bookable applyFlightPricing(Bookable<BookingLine> bookingLine) {
+        List<FlightPriceSetting> fpricing = pricingRepo.getFlightPricingForFlight(bookingLine.getTickets().get(0)
+                .getSeat().getTravelClass().getFlight());
+        List<PriceSetting> priceSettings = pricingRepo.getGeneralFlightPricings();
+        priceSettings.addAll(fpricing);
 
         // Sort the pricings on priority
-        fpricing.sort(new Comparator<FlightPricing>() {
+        priceSettings.sort(new Comparator<PriceSetting>() {
             @Override
-            public int compare(FlightPricing o1, FlightPricing o2) {
+            public int compare(PriceSetting o1, PriceSetting o2) {
                 return o1.getPriority() - o2.getPriority();
             }
         });
 
-        for (FlightPricing price : fpricing) {
-            bookingLine = applyPricing(price, bookingLine);
+        for (PriceSetting pricing : priceSettings) {
+            bookingLine = applyPricing(pricing, bookingLine);
         }
         return bookingLine;
     }
 
-    public IPricing applyBookingPricing(IPricing booking, String name) {
-        GeneralPricing gp = pricingRepo.getGeneralPricingByName(name);
+    public Bookable<Booking> applyBookingPricing(Bookable<Booking> booking, String name) throws PricingNotFoundException {
+        PriceSetting gp = pricingRepo.getGeneralPricingByName(name);
         return applyPricing(gp, booking);
     }
 
-    private IPricing applyPricing(GeneralPricing price, IPricing pricing) {
-        if (price.getType() == Type.FIXED) {
-            pricing = new BookingLinePricingFixed(price.getValue(), pricing);
+    private Bookable applyPricing(PriceSetting pricing, Bookable bookingLine) {
+        if (pricing.getType() == PriceSettingType.FIXED) {
+            bookingLine = new FixedPricingAdapter(bookingLine, pricing.getValue());
         }
-        else if (price.getType() == Type.PERCENTAGE) {
-            pricing = new BookingLinePricingPercentage(price.getValue(), pricing);
+        else if (pricing.getType() == PriceSettingType.PERCENTAGE) {
+            bookingLine = new PercentagePricingAdapter(bookingLine, pricing.getValue());
         }
 
-        return pricing;
+        return bookingLine;
     }
 }

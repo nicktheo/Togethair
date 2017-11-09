@@ -5,9 +5,11 @@ import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSettingType;
 import com.realdolmen.togethair.domain.exceptions.PricingNotFoundException;
+import com.realdolmen.togethair.domain.flight.Flight;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,11 +21,11 @@ public class PricingProvider {
     @Inject
     private PricingRepository pricingRepo;
 
-    public Bookable applyFlightPricing(Bookable<Booking> booking) {
-
-        List<PriceSetting> priceSettings = pricingRepo.getGeneralFlightPricings();
-        for( booking.)
-        priceSettings.addAll(fpricing);
+    public List<PricingAdapter> getFlightPricingAdapters(Flight flight) {
+        List<PriceSetting> priceSettings = new ArrayList<>();
+        List<PricingAdapter> bookingLineDecorators = new ArrayList<>();
+        priceSettings.addAll(pricingRepo.getFlightPricingForFlight(flight));
+        priceSettings.addAll(pricingRepo.getGeneralFlightPricings());
 
         // Sort the pricings on priority
         priceSettings.sort(new Comparator<PriceSetting>() {
@@ -34,24 +36,27 @@ public class PricingProvider {
         });
 
         for (PriceSetting pricing : priceSettings) {
-            bookingLine = applyPricing(pricing, bookingLine);
+            bookingLineDecorators.add(getPricing(pricing));
         }
-        return bookingLine;
+        return bookingLineDecorators;
     }
 
-    public Bookable<Booking> applyBookingPricing(Bookable<Booking> booking, String name) throws PricingNotFoundException {
+    public PricingAdapter getBookingPricingAdapter(String name) throws PricingNotFoundException {
         PriceSetting gp = pricingRepo.getGeneralPricingByName(name);
-        return applyPricing(gp, booking);
+        return getPricing(gp);
     }
 
-    private Bookable applyPricing(PriceSetting pricing, Bookable bookingLine) {
+    private PricingAdapter getPricing(PriceSetting pricing) {
+        PricingAdapter decorator = null;
         if (pricing.getType() == PriceSettingType.FIXED) {
-            bookingLine = new FixedPricingAdapter(bookingLine, pricing.getValue());
+            decorator = new FixedPricingAdapter();
+            decorator.setValue(pricing.getValue());
         }
         else if (pricing.getType() == PriceSettingType.PERCENTAGE) {
-            bookingLine = new PercentagePricingAdapter(bookingLine, pricing.getValue());
+            decorator = new PercentagePricingAdapter();
+            decorator.setValue(pricing.getValue());
         }
 
-        return bookingLine;
+        return decorator;
     }
 }

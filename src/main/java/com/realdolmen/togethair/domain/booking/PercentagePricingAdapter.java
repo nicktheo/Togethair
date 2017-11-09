@@ -6,6 +6,9 @@ public class PercentagePricingAdapter<T extends Bookable> extends PricingAdapter
         super(bookable, value);
     }
 
+    public PercentagePricingAdapter() {
+        super();
+    }
 
     @Override
     public double getPrice() {

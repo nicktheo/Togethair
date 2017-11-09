@@ -10,7 +10,7 @@ import com.realdolmen.togethair.domain.flight.*;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 import com.realdolmen.togethair.domain.identity.SimplePassenger;
-import com.realdolmen.togethair.exceptions.PricingNotFoundException;
+import com.realdolmen.togethair.exceptions.NoSuchPricingException;
 import com.realdolmen.togethair.repository.PricingRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -109,7 +109,7 @@ public class PricingProviderTest {
 
     // TODO Use Booking.Builder
     @Test
-    public void pricingProviderAppliesBookingPricing() throws PricingNotFoundException {
+    public void pricingProviderAppliesBookingPricing() throws NoSuchPricingException {
         MockitoAnnotations.initMocks(this);
         Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
 
@@ -124,7 +124,7 @@ public class PricingProviderTest {
 
     // TODO Use Booking.Builder
     @Test
-    public void pricingProviderAppliesFlightAndBookingPricing() throws PricingNotFoundException {
+    public void pricingProviderAppliesFlightAndBookingPricing() throws NoSuchPricingException {
         MockitoAnnotations.initMocks(this);
         Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
         Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListCombined);

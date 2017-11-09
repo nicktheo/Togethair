@@ -1,12 +1,9 @@
 package com.realdolmen.togethair.exceptions;
 
-import sun.reflect.annotation.ExceptionProxy;
+public class SeatIsTakenException extends IllegalStateException {
 
-/**
- * Created by JCEBF12 on 9/11/2017.
- */
-public class SeatIsTakenException extends Exception{
     public SeatIsTakenException() {
+        super();
     }
 
     public SeatIsTakenException(String message) {

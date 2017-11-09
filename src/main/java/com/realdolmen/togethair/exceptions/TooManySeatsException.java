@@ -1,8 +1,10 @@
 package com.realdolmen.togethair.exceptions;
 
-public class TooManySeatsException extends IllegalArgumentException {
+public class TooManySeatsException extends IllegalStateException {
 
-    public TooManySeatsException() {}
+    public TooManySeatsException() {
+        super();
+    }
 
     public TooManySeatsException(String message) {
         super(message);

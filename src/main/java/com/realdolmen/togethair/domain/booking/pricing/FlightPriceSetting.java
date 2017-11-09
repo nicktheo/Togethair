@@ -2,7 +2,6 @@ package com.realdolmen.togethair.domain.booking.pricing;
 
 import com.realdolmen.togethair.domain.booking.pricing.filters.FlightFilter;
 import com.realdolmen.togethair.domain.flight.Flight;
-import com.realdolmen.togethair.domain.flight.Trajectory;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -11,20 +10,37 @@ import javax.persistence.ManyToOne;
 public class FlightPriceSetting extends PriceSetting implements FlightFilter {
 
     @ManyToOne
-    private Trajectory flight;
+    private Flight flight;
 
-    public FlightPriceSetting(Type type, double value, int priority, String name, Trajectory flight) {
-        super(type, value, priority, name);
-        this.flight = flight;
-    }
 
     public FlightPriceSetting() {}
 
-    public Trajectory getFlight() {
+    public FlightPriceSetting(Flight flight, PriceSettingType type, double value, int priority, String name) {
+        super(PriceSettingLevel.BOOKINGLINE, type, value, priority, name);
+        this.flight = flight;
+    }
+
+    public FlightPriceSetting(Flight flight, PriceSettingType type, double value, int priority) {
+        super(PriceSettingLevel.BOOKINGLINE, type, value, priority);
+        this.flight = flight;
+    }
+
+    public FlightPriceSetting(Flight flight, PriceSettingType type, double value, String name) {
+        super(PriceSettingLevel.BOOKINGLINE, type, value, name);
+        this.flight = flight;
+    }
+
+    public FlightPriceSetting(Flight flight, PriceSettingType type, double value) {
+        super(PriceSettingLevel.BOOKINGLINE, type, value);
+        this.flight = flight;
+    }
+
+
+    public Flight getFlight() {
         return flight;
     }
 
-    public void setFlight(Trajectory flight) {
+    public void setFlight(Flight flight) {
         this.flight = flight;
     }
 }

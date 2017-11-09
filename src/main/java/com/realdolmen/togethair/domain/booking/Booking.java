@@ -4,6 +4,7 @@ import com.realdolmen.togethair.domain.identity.Customer;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,46 +14,20 @@ public class Booking implements Bookable<Booking> {
 
     private Long id;
 
-    private double amount;
-
-    private List<Bookable<BookingLine>> bookingLines = new ArrayList<>();
-
     private Customer customer;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private List<Bookable<BookingLine>> bookingLines;
+    private double totalPrice;
 
+
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
-    }
-
-    @Column(nullable = false, length = 50)
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    @OneToMany
-    public List<BookingLine> getBookingLines() {
-        return bookingLines.stream()
-                .map(x -> (BookingLine) x.getBase())
-                .collect(Collectors.toList());
-    }
-
-    @Transient
-    public Booking getBase() {
-        return this;
-    }
-
-    public void setBookingLines(List<BookingLine> bookingLines) {
-        this.bookingLines = new ArrayList<>();
-        bookingLines.forEach(x -> this.bookingLines.add(x));
     }
 
     @ManyToOne
@@ -64,23 +39,47 @@ public class Booking implements Bookable<Booking> {
         this.customer = customer;
     }
 
+    @OneToMany
+    public List<BookingLine> getBookingLines() {
+        return bookingLines.stream()
+                .map(Bookable::getBase)
+                .collect(Collectors.toList());
+    }
+
+    public void setBookingLines(List<BookingLine> bookingLines) {
+        this.bookingLines = new ArrayList<>();
+        this.bookingLines.addAll(bookingLines);
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double amount) {
+        this.totalPrice = amount;
+    }
+
+
+    @Override
+    @Transient
+    public Booking getBase() {
+        return this;
+    }
+
     @Override
     @Transient
     public double getPrice() {
-        double price = 0;
-        for (Bookable b : bookingLines) {
-            price += b.getPrice();
-        }
-        return price;
+        return bookingLines.stream()
+                .mapToDouble(Bookable::getPrice)
+                .sum();
     }
 
     @Override
     @Transient
     public List<PersonalTicket> getTickets() {
-        List<PersonalTicket> tickets = new ArrayList<>();
-        for (Bookable b : bookingLines) {
-            tickets.addAll(b.getTickets());
-        }
-        return tickets;
+        return bookingLines.stream()
+                .map(Bookable::getTickets)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 }

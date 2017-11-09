@@ -11,23 +11,44 @@ public class PriceSetting {
     @GeneratedValue
     private long id;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Type type;
-    private double value;
-    @NotNull
-    private int priority;
     private String name;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private PriceSettingLevel level;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private PriceSettingType type;
+    @NotNull
+    private double value;
 
-    public PriceSetting(Type type, double value, int priority, String name) {
-        this.type = type;
-        this.value = value;
-        this.priority = priority;
+    @NotNull
+    private int priority = 100;
+
+
+    public PriceSetting() {}
+
+    public PriceSetting(PriceSettingLevel level, PriceSettingType type, double value, int priority, String name) {
+        this(level, type, value, priority);
         this.name = name;
     }
 
-    public PriceSetting() {}
+    public PriceSetting(PriceSettingLevel level, PriceSettingType type, double value, int priority) {
+        this(level, type, value);
+        this.priority = priority;
+    }
+
+    public PriceSetting(PriceSettingLevel level, PriceSettingType type, double value, String name) {
+        this(level, type, value);
+        this.name = name;
+    }
+
+    public PriceSetting(PriceSettingLevel level, PriceSettingType type, double value) {
+        this.level = level;
+        this.type = type;
+        this.value = value;
+    }
+
 
     public long getId() {
         return id;
@@ -37,11 +58,27 @@ public class PriceSetting {
         this.id = id;
     }
 
-    public Type getType() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public PriceSettingLevel getLevel() {
+        return level;
+    }
+
+    public void setLevel(PriceSettingLevel level) {
+        this.level = level;
+    }
+
+    public PriceSettingType getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(PriceSettingType type) {
         this.type = type;
     }
 
@@ -60,13 +97,4 @@ public class PriceSetting {
     public void setPriority(int priority) {
         this.priority = priority;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
-

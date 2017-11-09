@@ -1,6 +1,5 @@
 package com.realdolmen.togethair.domain;
 
-import com.realdolmen.togethair.domain.*;
 import com.realdolmen.togethair.domain.flight.Trajectory;
 import com.realdolmen.togethair.domain.location.Airport;
 import com.realdolmen.togethair.domain.location.GlobalRegion;
@@ -23,9 +22,9 @@ public class TrajectoryTest {
 
     @Test
     public void testFlight() {
-        Assert.assertEquals(GlobalRegion.NORTHERN_EUROPE,flight.getDeparture().getGlobalRegion());
+        Assert.assertEquals(GlobalRegion.NORTHERN_EUROPE,flight.getOrigin().getGlobalRegion());
         Assert.assertEquals(GlobalRegion.SOUTHERN_EUROPE,flight.getDestination().getGlobalRegion());
-        Assert.assertEquals("Brussels Airport",flight.getDeparture().getName());
+        Assert.assertEquals("Brussels Airport",flight.getOrigin().getName());
         Assert.assertEquals("Athens International Airport",flight.getDestination().getName());
     }
 

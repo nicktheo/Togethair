@@ -3,9 +3,7 @@ package com.realdolmen.togethair.service;
 import com.realdolmen.togethair.domain.flight.TravelClassType;
 import com.realdolmen.togethair.domain.flight.Seat;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class SearchProvider {
 

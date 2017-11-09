@@ -11,9 +11,11 @@ import java.util.List;
 //@DiscriminatorValue("S")
 public class Flight extends Trajectory {
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date dateTime;
+    //private Date flightDate;
+    private java.sql.Timestamp flightDate;
+
 
     @Column(nullable = false)
     private String duration; // check conversion
@@ -21,9 +23,9 @@ public class Flight extends Trajectory {
     @OneToMany(mappedBy = "flight")
     private List<TravelClass> availability = new ArrayList<>();
 
-    public Flight(Airport departureAirport, Airport destinationAirport, Date dateTime, String duration, List<TravelClass> availability) {
+    public Flight(Airport departureAirport, Airport destinationAirport, java.sql.Timestamp flightDate , String duration, List<TravelClass> availability) {
         super(departureAirport, destinationAirport);
-        this.dateTime = dateTime;
+        this.flightDate = flightDate;
         this.duration = duration;
         this.availability = availability;
     }
@@ -32,12 +34,12 @@ public class Flight extends Trajectory {
         super();
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public java.sql.Timestamp getFlightDate() {
+        return flightDate;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setFlightDate(java.sql.Timestamp dateTime) {
+        this.flightDate = dateTime;
     }
 
     public String getDuration() {

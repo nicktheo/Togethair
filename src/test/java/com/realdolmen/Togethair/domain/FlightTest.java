@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,7 +36,10 @@ public class FlightTest {
 
         planeClassFirst = new TravelClass(TravelClassType.FIRST,200,seats,Flight);
         availability.add(planeClassFirst);
-        Flight flight = new Flight(departureAirport,destinationAirport,date,"3 hours",availability);
+
+        java.sql.Timestamp ts = new Timestamp(2017,11,9,14,0,0,0);
+
+        Flight flight = new Flight(departureAirport,destinationAirport,ts,"3 hours",availability);
     }
 
     @Test
@@ -45,7 +49,7 @@ public class FlightTest {
         Assert.assertEquals("Brussels Airport",Flight.getDepartureAirport().getName());
         Assert.assertEquals("Athens International Airport",Flight.getDestinationAirport().getName());
 
-        Assert.assertEquals(2017,Flight.getDateTime().getYear()+1900); // wtf
+        Assert.assertEquals(2017,Flight.getFlightDate().getYear()+1900); // wtf
 
         Assert.assertEquals(TravelClassType.FIRST,Flight.getAvailability().get(0).getTravelClassType());
 

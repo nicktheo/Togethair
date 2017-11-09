@@ -1,5 +1,9 @@
 package com.realdolmen.togethair.domain.identity;
 
 public enum Airline {
-    BEL
+    BEL,
+    BRUSSELS_AIRLINES,
+    RYANAIR,
+    EASYJET,
+    AIR_FRANCE,
 }

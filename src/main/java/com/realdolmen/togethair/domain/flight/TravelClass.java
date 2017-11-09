@@ -48,6 +48,8 @@ public class TravelClass {
         this.travelClassType = travelClassType;
     }
 
+
+
     public double getBasePrice() {
         return basePrice;
     }
@@ -70,5 +72,15 @@ public class TravelClass {
 
     public void setFlight(Flight flight) {
         this.flight = flight;
+    }
+
+    public List<Seat> getAvailableSeats() {
+        List<Seat> availableSeats = new ArrayList<>();
+        for (Seat seat : this.seats) {
+            if (seat.getAvailable() == Availability.FREE) {
+                availableSeats.add(seat);
+            }
+        }
+        return availableSeats;
     }
 }

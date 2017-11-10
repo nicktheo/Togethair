@@ -5,7 +5,7 @@ import com.realdolmen.togethair.domain.flight.Seat;
 
 import java.util.*;
 
-public class SearchProvider {
+public class SearchService {
 
     public List<Seat> searchFlight(int numberOfSeats, TravelClassType travellingClass, Object departure, Object destination, Date date) {
 

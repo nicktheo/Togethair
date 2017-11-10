@@ -14,7 +14,7 @@ import java.io.OutputStream;
 public class QRCodeProvider {
 
     public OutputStream generateQrCode(long bookingId) {
-        ByteArrayOutputStream qrCode = QRCode.from("http://localhost:8080/togethair/bookinginfo.xhtml?bookingId=" + Long.toString(bookingId))
+        ByteArrayOutputStream qrCode = QRCode.from("http://localhost:8080/togethair/bookingRedirect.xhtml?bookingId=" + Long.toString(bookingId))
                 .withSize(250,250).to(ImageType.PNG).stream();
 
         return qrCode;

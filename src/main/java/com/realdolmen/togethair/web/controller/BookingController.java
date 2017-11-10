@@ -49,7 +49,6 @@ public class BookingController implements Serializable{
     private String paymentMethod;
     private String ccNumber;
 
-    private long bookingId;
 
     @PostConstruct
     public void initialize() {

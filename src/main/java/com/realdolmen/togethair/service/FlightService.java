@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.service;
 
 import com.realdolmen.togethair.domain.flight.Flight;
+import com.realdolmen.togethair.domain.location.Airport;
 import com.realdolmen.togethair.domain.location.GlobalRegion;
 import com.realdolmen.togethair.repository.FlightRepository;
 
@@ -18,7 +19,7 @@ public class FlightService {
     @Inject
     private FlightRepository flightRepository;
 
-    public List<Flight> findFlightsByAirportNameDateTimesAndAmountOfFreeSeats(String origin, String destination, int amount, LocalDateTime after, LocalDateTime before) {
+    public List<Flight> findFlightsByAirportNameDateTimesAndAmountOfFreeSeats(Airport origin, Airport destination, int amount, LocalDateTime after, LocalDateTime before) {
         return flightRepository.findFlightsByAirportNameDateTimesAndAmountOfFreeSeats(origin, destination, amount, after, before);
     }
 

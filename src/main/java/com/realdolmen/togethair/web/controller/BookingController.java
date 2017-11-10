@@ -9,7 +9,7 @@ import com.realdolmen.togethair.exceptions.DuplicateFlightException;
 import com.realdolmen.togethair.exceptions.DuplicatePassengerException;
 import com.realdolmen.togethair.exceptions.DuplicateSeatException;
 import com.realdolmen.togethair.exceptions.SeatIsTakenException;
-import com.realdolmen.togethair.repository.AddSeatsAndPersistBookingTransaction;
+import com.realdolmen.togethair.service.BookingService;
 import com.realdolmen.togethair.service.PricingProvider;
 import com.realdolmen.togethair.service.SeatService;
 import com.realdolmen.togethair.web.BookingBean;
@@ -41,13 +41,15 @@ public class BookingController implements Serializable{
     @Inject
     PricingProvider pricingProvider;
     @Inject
-    AddSeatsAndPersistBookingTransaction persistBooking;
+    BookingService bookingService;
 
     private List<Long> travelClassIds;
     private List<Passenger> passengers;
 
     private String paymentMethod;
     private String ccNumber;
+
+    private long bookingId;
 
     @PostConstruct
     public void initialize() {
@@ -80,7 +82,7 @@ public class BookingController implements Serializable{
             if (paymentMethod.equals("margin")) {
                 bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("creditcard"));
             }
-            persistBooking.persistBooking(bookingBuilder, bookingBean.getNumberOfPassengers());
+            bookingService.persistBooking(bookingBuilder, bookingBean.getNumberOfPassengers());
 
         } catch (DuplicateFlightException e) {
             return "somethingWentWrong";

@@ -5,12 +5,15 @@ import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.repository.SeatRepository;
 
 import javax.ejb.ObjectNotFoundException;
+import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.List;
 
 /**
  * Created by JCEBF12 on 9/11/2017.
  */
+@RequestScoped
 public class SeatService {
 
     @Inject

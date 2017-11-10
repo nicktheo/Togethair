@@ -12,14 +12,13 @@ import com.realdolmen.togethair.exceptions.SeatIsTakenException;
 import com.realdolmen.togethair.repository.AddSeatsAndPersistBookingTransaction;
 import com.realdolmen.togethair.service.PricingProvider;
 import com.realdolmen.togethair.service.SeatService;
-import com.realdolmen.togethair.service.TravelClassService;
 import com.realdolmen.togethair.web.BookingBean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.ObjectNotFoundException;
+import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.NamedQuery;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

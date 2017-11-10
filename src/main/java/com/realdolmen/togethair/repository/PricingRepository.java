@@ -5,12 +5,16 @@ import com.realdolmen.togethair.exceptions.NoSuchPricingException;
 import com.realdolmen.togethair.domain.flight.Trajectory;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
+
+import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by JCEBF12 on 7/11/2017.
  */
+@RequestScoped
 public class PricingRepository {
 
     @PersistenceContext

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+<ui:composition template="/template.xhtml">
+
+    <ui:define name="pageContent">
+        <h3>#{msgs['booking.title']}</h3>
+        <p>#{msgs['booking.info']}</p>
+        <h:form>
+            <h:dataTable id="passengerTable" value="#{bookingController.getPassengers()}" var="passenger">
+                <h:column id="firstname">
+                    <h:outputText value="#{msgs['booking.provideFirstname']}"/>
+                    <h:inputText id="firstnameText" value="#{passenger.firstName}"/>
+                </h:column>
+                <h:column id="lastname">
+                    <h:outputText value="#{msgs['booking.provideLastname']}"/>
+                    <h:inputText id="lastnameText" value="#{passenger.lastName}"/>
+                </h:column>
+                <h:column id="passport">
+                    <h:outputText value="#{msgs['booking.providePassportNumber']}"/>
+                    <h:inputText id="passportText" value="#{passenger.passportNumber}"/>
+                </h:column>
+            </h:dataTable>
+            <h:commandButton value="#{msgs['booking.bookButton']}" action="#{bookingController.addBookingLine()}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

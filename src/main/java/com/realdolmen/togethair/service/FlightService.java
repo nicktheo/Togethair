@@ -10,9 +10,6 @@ import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 10/11/2017.
- */
 @RequestScoped
 public class FlightService {
 
@@ -25,5 +22,9 @@ public class FlightService {
 
     public List<Flight> findFlightsByGlobalRegionDateTimesAndAmountOfFreeSeats(GlobalRegion origin, GlobalRegion destination, int amount, LocalDateTime after, LocalDateTime before) {
         return flightRepository.findFlightsByGlobalRegionDateTimesAndAmountOfFreeSeats(origin, destination, amount, after, before);
+    }
+
+    public List<Airport> getAllAirports() {
+        return flightRepository.getAllAirports();
     }
 }

@@ -69,4 +69,10 @@ public class Airport {
     public void setGlobalRegion(GlobalRegion globalRegion) {
         this.globalRegion = globalRegion;
     }
+
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

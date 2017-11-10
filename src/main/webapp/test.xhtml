@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<head></head>
+<body>
+
+    <h:outputText value="a" />
+    <h:form>
+        <h:selectOneMenu value="#{searchController.origin}">
+            <f:selectItems value="#{searchController.airports}" />
+        </h:selectOneMenu>
+        <h:commandButton/>
+    </h:form>
+
+</body>
+</html>

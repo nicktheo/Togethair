@@ -19,14 +19,18 @@ import javax.annotation.PostConstruct;
 import javax.ejb.ObjectNotFoundException;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.NamedQuery;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by JCEBF12 on 8/11/2017.
  */
+@Named
 @FlowScoped("booking")
-public class BookingController {
+public class BookingController implements Serializable{
 
     @Inject
     SeatService seatService;
@@ -42,8 +46,10 @@ public class BookingController {
     AddSeatsAndPersistBookingTransaction persistBooking;
 
     private List<Long> travelClassIds;
-    private int amount;
     private List<Passenger> passengers;
+
+    private String paymentMethod;
+    private String ccNumber;
 
     @PostConstruct
     public void initialize() {
@@ -55,17 +61,17 @@ public class BookingController {
 
     public String checkout() {
         if (!userBean.isLoggedIn()){
-            return "login.xhtml";
+            return "login";
         }
-        for (int i = 0; i < amount; i++) {
+        for (int i = 0; i < bookingBean.getNumberOfPassengers(); i++) {
             passengers.add(new SimplePassenger());
         }
-        return "booking.xhtml";
+        return "book";
     }
 
     public String addBooking() {
         if (!userBean.isLoggedIn()){
-            return "login.xhtml";
+            return "login";
         }
         try{
             List<TravelClass> tClasses = bookingBean.getTravelClasses();
@@ -73,20 +79,43 @@ public class BookingController {
             for (TravelClass tcItem : tClasses) {
                 bookingBuilder.addPriceAdapter(pricingProvider.getFlightPricingAdapters(tcItem.getFlight()), tcItem);
             }
-            persistBooking.persistBooking(bookingBuilder, amount);
+            if (paymentMethod.equals("margin")) {
+                bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("creditcard"));
+            }
+            persistBooking.persistBooking(bookingBuilder, bookingBean.getNumberOfPassengers());
 
-        } catch (ObjectNotFoundException e) {
-            return "somethingWentWrong.xhtml";
         } catch (DuplicateFlightException e) {
-            return "somethingWentWrong.xhtml";
+            return "somethingWentWrong";
         } catch (DuplicatePassengerException e) {
-            return "somethingWentWrong.xhtml";
+            return "somethingWentWrong";
         } catch (SeatIsTakenException e) {
-            return "seatTaken.xhtml";
+            return "seatTaken";
         } catch (DuplicateSeatException e) {
-            return "somethingWentWrong.xhtml";
+            return "somethingWentWrong";
+        } catch (ObjectNotFoundException e) {
+            return "somethingWentWrong";
         }
 
-        return "bookingSuccesfull.xhtml";
+        return "end";
+    }
+
+    public List<Passenger> getPassengers(){
+        return passengers;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getCcNumber() {
+        return ccNumber;
+    }
+
+    public void setCcNumber(String ccNumber) {
+        this.ccNumber = ccNumber;
     }
 }

@@ -8,6 +8,8 @@ import com.realdolmen.togethair.exceptions.SeatIsTakenException;
 import com.realdolmen.togethair.service.SeatService;
 
 import javax.ejb.ObjectNotFoundException;
+import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +19,7 @@ import java.util.List;
 /**
  * Created by JCEBF12 on 9/11/2017.
  */
+@RequestScoped
 public class AddSeatsAndPersistBookingTransaction {
 
     @PersistenceContext

@@ -6,7 +6,9 @@ import com.realdolmen.togethair.domain.identity.Customer;
 import com.realdolmen.togethair.domain.identity.Passenger;
 import com.realdolmen.togethair.exceptions.*;
 
+import javax.ejb.Stateless;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -93,7 +95,7 @@ public class Booking implements Bookable<Booking> {
                 .collect(Collectors.toList());
     }
 
-    public static class Builder {
+    public static class Builder implements Serializable{
 
         private Booking booking = new Booking();
 

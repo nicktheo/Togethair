@@ -7,11 +7,11 @@
 
 <ui:composition template="/template.xhtml">
     <ui:define name="pageContent">
-        <h1>Error</h1>
+        <h1>#{msgs['error.title']}</h1>
         <h:form>
-            <h:outputText id="error" value="Oops, an error occured!"/>
-            <h:outputText id="goTo" value="Go to search flights"/>
-            <h:commandButton value="SearchFlights" action="searchFlights.xhtml"/>
+            <h:outputText id="error" value="#{msgs['error.info']}"/>
+            <h:outputText id="goTo" value="#{msgs['error.link']}"/>
+            <h:commandButton value="#{msgs['error.button']}" action="index.xhtml"/>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -2,6 +2,7 @@ package com.realdolmen.togethair.domain.flight;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class TravelClass {
@@ -70,5 +71,12 @@ public class TravelClass {
 
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
+    }
+
+
+    public List<Seat> getSeats(Availability availability) {
+        return seats.stream()
+                .filter(x -> x.getAvailability() == availability)
+                .collect(Collectors.toList());
     }
 }

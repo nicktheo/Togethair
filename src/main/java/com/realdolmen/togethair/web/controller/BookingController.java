@@ -17,7 +17,6 @@ import com.realdolmen.togethair.web.BookingBean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.ObjectNotFoundException;
-import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NamedQuery;

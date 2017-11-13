@@ -7,15 +7,15 @@
 <h:head>
 </h:head>
 <h:body>
-
+    <h:form>
         <h:dataTable value="#{searchController.results}" var="result">
             <h:column>
                 <h:outputText value="#{result.flight.id}" />
             </h:column>
             <h:column>
-                <h:form><h:commandButton action="#{searchController.book(result)}" /></h:form>
+                <h:commandLink value="Book this flight" action="#{searchController.book(result)}" />
             </h:column>
         </h:dataTable>
-
+    </h:form>
 </h:body>
 </html>

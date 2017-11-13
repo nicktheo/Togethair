@@ -75,7 +75,7 @@ public class BookingController implements Serializable{
             return "login";
         }
         try{
-            List<TravelClass> tClasses = bookingBean.getTravelClasses();
+            List<TravelClass> tClasses = bookingBean.getFlights();
             bookingBuilder.setCustomer(userBean.getCustomer()).addFlights(tClasses).addPassengers(passengers);
             for (TravelClass tcItem : tClasses) {
                 bookingBuilder.addPriceAdapter(pricingProvider.getFlightPricingAdapters(tcItem.getFlight()), tcItem);

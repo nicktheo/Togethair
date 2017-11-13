@@ -11,9 +11,15 @@
 
     <script>
         $(document).ready(function() {
+            $('#searchForm\\:returnDate').hide();
+
             $(".datepicker").datepicker({
                 minDate : 0,
                 dateFormat: 'dd/mm/yy'
+            });
+
+            $('#searchForm\\:ticketType input[type=radio]').change(function () {
+                $('#searchForm\\:returnDate').toggle();
             });
         });
 
@@ -21,8 +27,8 @@
 </h:head>
 <h:body>
 
-    <h:form>
-        <h:selectOneRadio value="#{searchController.ticketType}">
+    <h:form id="searchForm">
+        <h:selectOneRadio value="#{searchController.ticketType}" id="ticketType">
             <f:selectItems value="#{searchController.ticketTypes}" var="ticketType" itemLabel="#{terms[ticketType]}" />
         </h:selectOneRadio>
         <h:selectOneMenu value="#{searchController.origin}">
@@ -32,12 +38,12 @@
             <f:selectItems value="#{searchController.airports}" />
         </h:selectOneMenu>
         <h:inputText value="#{searchController.departureDate}" styleClass="datepicker" />
-        <h:inputText value="#{searchController.returnDate}" styleClass="datepicker" />
+        <h:inputText value="#{searchController.returnDate}" id="returnDate" styleClass="datepicker" />
         <h:selectOneMenu value="#{searchController.travelClass}">
             <f:selectItems value="#{searchController.travelClasses}" var="travelClass" itemLabel="#{terms[travelClass]}" />
         </h:selectOneMenu>
         <h:inputText value="#{searchController.passengerCount}" />
-        <h:commandButton action="#{searchController.submit}" />
+        <h:commandButton action="#{searchController.search}" />
     </h:form>
 
 </h:body>

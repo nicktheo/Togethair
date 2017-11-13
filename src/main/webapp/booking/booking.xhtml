@@ -10,7 +10,7 @@
 <body>
         <h3>#{msgs['booking.title']}</h3>
         <p>#{msgs['booking.info']}</p>
-        <h:outputText value="#{bookingBean.travelClasses.get(0).flight.origin}" />
+        <h:outputText value="#{bookingBean.flights.get(0).flight.origin}" />
         <h:form>
             <h:dataTable id="passengerTable" value="#{bookingController.passengers}" var="passenger">
                 <h:column id="firstname">

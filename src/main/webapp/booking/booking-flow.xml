@@ -5,11 +5,7 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
               version="2.2">
     <flow-definition id="booking">
-        <start-node>start</start-node>
-        <method-call id="start">
-            <method>#{loginController.login}</method>
-            <default-outcome>login</default-outcome>
-        </method-call>
+        <start-node>login</start-node>
         <view id="login">
             <vdl-document>/login/login.xhtml</vdl-document>
         </view>

@@ -73,14 +73,15 @@ public class BookingController implements Serializable{
         try{
             List<TravelClass> tClasses = bookingBean.getFlights();
             bookingBuilder.setCustomer(loginBean.getCustomer()).addFlights(tClasses).addPassengers(passengers);
+            System.out.println(loginBean.getCustomer());
             PricingAdapter pa;
             for (TravelClass tcItem : tClasses) {
                 pa = pricingProvider.getFlightPricingAdapters(tcItem.getFlight());
                 bookingBuilder.addPriceAdapter(pa, tcItem);
             }
-            if (paymentMethod.equals("creditcard")) {
-                bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("CREDIT_CARD"));
-            }
+//            if (paymentMethod.equals("creditcard")) {
+//                bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("CREDIT_CARD"));
+//            }
             Booking temp = bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
             this.bookingId = temp.getId();
             emailService.sendEmail(temp);

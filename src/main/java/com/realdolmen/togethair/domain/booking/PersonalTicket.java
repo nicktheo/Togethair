@@ -18,7 +18,7 @@ public class PersonalTicket {
     private Seat seat;
 
 
-    public PersonalTicket() {}
+    protected PersonalTicket() {}
 
     public PersonalTicket(Seat seat, Passenger passenger) {
         this.seat = seat;

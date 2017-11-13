@@ -70,11 +70,11 @@ insert into customer (passportNumber, id, street, box, city, country, number, po
 insert into customer (passportNumber, id, street, box, city, country, number, postalcode) values ('533588351', 29, 'Susan', '3', 'Citalahab', 'Indonesia', '4', '4588');
 insert into customer (passportNumber, id, street, box, city, country, number, postalcode) values ('818087798', 30, 'Gerald', '9', 'Pangkungparuk', 'Indonesia', '57123', '7271');
 
-insert into Airport(id, name, country, code, globalregion) values (1, 'Brussels Airport', 'Belgium', 'BRU', 'NORTHERN_EUROPE');
-insert into Airport(id, name, country, code, globalregion) values (2, 'Charleroi Brussels South', 'Belgium', 'CRL', 'NORTHERN_EUROPE');
-insert into Airport(id, name, country, code, globalregion) values (3, 'Athens International Airport', 'Greece', 'ATH', 'SOUTHERN_EUROPE');
-insert into Airport(id, name, country, code, globalregion) values (4, 'New York Airport', 'USA', 'NYC', 'NORTHERN_AMERICA');
-insert into Airport(id, name, country, code, globalregion) values (5, 'Tokyo Airport', 'Japan', 'TOK', 'ASIA');
+insert into Airport(id, name, country, icaoCode, globalregion) values (1, 'Brussels Airport', 'BEL', 'EBBR', 'EUROPE');
+insert into Airport(id, name, country, icaoCode, globalregion) values (2, 'Charleroi Brussels South', 'BEL', 'EBCI', 'EUROPE');
+insert into Airport(id, name, country, icaoCode, globalregion) values (3, 'Athens International Airport', 'GRC', 'LGAV', 'EUROPE');
+insert into Airport(id, name, country, icaoCode, globalregion) values (4, 'New York Airport', 'USA', 'KJFK', 'AMERICAS');
+insert into Airport(id, name, country, icaoCode, globalregion) values (5, 'Tokyo Airport', 'JPN', 'RJAM', 'ASIA');
 
 insert into trajectory(id, origin_id, destination_id) values (1, 1, 3);
 insert into trajectory(id, origin_id, destination_id) values (2, 1, 4);
@@ -92,19 +92,19 @@ insert into trajectory(id, origin_id, destination_id) values (13, 5, 1);
 insert into trajectory(id, origin_id, destination_id) values (14, 5, 3);
 insert into trajectory(id, origin_id, destination_id) values (15, 5, 4);
 
-insert into flight(id, departure, duration, destination_id, origin_id) values (1, '2017-07-23 00:00:00', '03:00',1,3);
-insert into flight(id, departure, duration, destination_id, origin_id) values (2, '2017-08-11 04:00:00', '01:30',1,4);
-insert into flight(id, departure, duration, destination_id, origin_id) values (3, '2017-12-15 12:00:00', '02:00',1,5);
-insert into flight(id, departure, duration, destination_id, origin_id) values (4, '2017-11-08 13:00:00', '03:00',2,3);
-insert into flight(id, departure, duration, destination_id, origin_id) values (5, '2018-01-25 15:00:00', '04:00',2,4);
-insert into flight(id, departure, duration, destination_id, origin_id) values (6, '2018-03-11 17:30:00', '06:00',3,1);
-insert into flight(id, departure, duration, destination_id, origin_id) values (7, '2018-11-19 11:40:00', '05:00',3,4);
-insert into flight(id, departure, duration, destination_id, origin_id) values (8, '2018-04-01 09:05:00', '03:00',3,5);
-insert into flight(id, departure, duration, destination_id, origin_id) values (9, '2018-02-05 07:10:00', '02:00',4,1);
-insert into flight(id, departure, duration, destination_id, origin_id) values (10, '2017-11-09 06:50:00', '01:00',4,2);
-insert into flight(id, departure, duration, destination_id, origin_id) values (11, '2017-12-13 22:00:00', '01:00',4,3);
-insert into flight(id, departure, duration, destination_id, origin_id) values (12, '2017-12-14 20:40:00', '01:30',5,4);
-insert into flight(id, departure, duration, destination_id, origin_id) values (13, '2017-11-27 17:30:00', '03:00',5,3);
+insert into flight(id, departure, duration, destination_id, origin_id) values (1, '2017-07-23 00:00:00', 3000,1,3);
+insert into flight(id, departure, duration, destination_id, origin_id) values (2, '2017-08-11 04:00:00', 1300,1,4);
+insert into flight(id, departure, duration, destination_id, origin_id) values (3, '2017-12-15 12:00:00', 2000,1,5);
+insert into flight(id, departure, duration, destination_id, origin_id) values (4, '2017-11-08 13:00:00', 3000,2,3);
+insert into flight(id, departure, duration, destination_id, origin_id) values (5, '2018-01-25 15:00:00', 4000,2,4);
+insert into flight(id, departure, duration, destination_id, origin_id) values (6, '2018-03-11 17:30:00', 6000,3,1);
+insert into flight(id, departure, duration, destination_id, origin_id) values (7, '2018-11-19 11:40:00', 5000,3,4);
+insert into flight(id, departure, duration, destination_id, origin_id) values (8, '2018-04-01 09:05:00', 3000,3,5);
+insert into flight(id, departure, duration, destination_id, origin_id) values (9, '2018-02-05 07:10:00', 2000,4,1);
+insert into flight(id, departure, duration, destination_id, origin_id) values (10, '2017-11-09 06:50:00', 1000,4,2);
+insert into flight(id, departure, duration, destination_id, origin_id) values (11, '2017-12-13 22:00:00', 1000,4,3);
+insert into flight(id, departure, duration, destination_id, origin_id) values (12, '2017-12-14 20:40:00', 1000,5,4);
+insert into flight(id, departure, duration, destination_id, origin_id) values (13, '2017-11-27 17:30:00', 1000,5,3);
 
 insert into travelclass (id, basePrice, type, flight_id) values (1, 30, 'ECONOMY', 1);
 insert into travelclass (id, basePrice, type, flight_id) values (2, 163, 'BUSINESS', 1);

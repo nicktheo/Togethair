@@ -10,6 +10,9 @@ import com.realdolmen.togethair.domain.flight.*;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 import com.realdolmen.togethair.domain.identity.SimplePassenger;
+import com.realdolmen.togethair.domain.location.Airport;
+import com.realdolmen.togethair.domain.location.Country;
+import com.realdolmen.togethair.domain.location.GlobalRegion;
 import com.realdolmen.togethair.repository.PricingRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,7 +22,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PricingProviderTest {
@@ -30,7 +36,7 @@ public class PricingProviderTest {
     @InjectMocks
     private PricingProvider provider;
 
-    private Flight f = new Flight();
+    private Flight f = new Flight(new Airport("EBBR", "Brussels Airport", Country.BEL, GlobalRegion.EUROPE), new Airport("LGAV", "Athens International Airport", Country.GRC, GlobalRegion.EUROPE), LocalDateTime.of(2017,11,9,14,0,0), Duration.ofHours(3), Collections.EMPTY_LIST);
     private List<FlightPriceSetting> pricingListPercentage = new ArrayList<>();
     private List<FlightPriceSetting> pricingListFixed = new ArrayList<>();
     private List<FlightPriceSetting> pricingListCombined = new ArrayList<>();

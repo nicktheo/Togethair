@@ -2,32 +2,27 @@ package com.realdolmen.togethair.web.converters;
 
 import com.realdolmen.togethair.domain.location.Airport;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 @FacesConverter(forClass = Airport.class)
 public class AirportConverter implements Converter {
-    public Object getAsObject(FacesContext context, UIComponent component, String airportCode) {
-        if (airportCode == null || airportCode.trim().equals(""))
-            return null;
 
-        Airport airport = new Airport();
+    private static Map<String, Airport> airports = new WeakHashMap<>();
 
-        if (true) {
-
-        } else {
-            FacesMessage errMsg = new FacesMessage("//");
-            throw new ConverterException(errMsg);
-        }
-
-        return airport;
+    @Override
+    public Airport getAsObject(FacesContext context, UIComponent component, String icaoCode) {
+        return airports.get(icaoCode);
     }
 
-    public String getAsString(FacesContext context, UIComponent component, Object airport){
-        return ((Airport) airport).getName();
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object airportObject){
+        Airport airport = (Airport) airportObject;
+        airports.put(airport.getIcaoCode(), airport);
+        return airport.getIcaoCode();
     }
 }

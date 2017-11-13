@@ -20,7 +20,7 @@ public class Flight extends Trajectory {
     private List<TravelClass> availability = new ArrayList<>();
 
 
-    public Flight() {
+    protected Flight() {
         super();
     }
 

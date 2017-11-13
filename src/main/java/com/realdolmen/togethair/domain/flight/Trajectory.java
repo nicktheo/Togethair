@@ -18,7 +18,7 @@ public class Trajectory {
     private Airport destination;
 
 
-    public Trajectory() {}
+    protected Trajectory() {}
 
     public Trajectory(Airport origin, Airport destination) {
         this.origin = origin;

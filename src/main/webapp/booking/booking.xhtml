@@ -10,7 +10,7 @@
         <h3>#{msgs['booking.title']}</h3>
         <p>#{msgs['booking.info']}</p>
         <h:form>
-            <h:dataTable id="passengerTable" value="#{bookingController.getPassengers()}" var="passenger">
+            <h:dataTable id="passengerTable" value="#{bookingController.passengers}" var="passenger">
                 <h:column id="firstname">
                     <h:outputText value="#{msgs['booking.provideFirstname']}"/>
                     <h:inputText id="firstnameText" value="#{passenger.firstName}"/>

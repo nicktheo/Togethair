@@ -19,7 +19,7 @@ public class BookingLine implements Bookable<BookingLine> {
     private List<PersonalTicket> tickets;
 
 
-    public BookingLine() {}
+    protected BookingLine() {}
 
     public BookingLine(List<PersonalTicket> tickets) throws IllegalArgumentException {
         setTickets(tickets);

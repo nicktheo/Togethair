@@ -13,7 +13,7 @@ public class FlightPriceSetting extends PriceSetting implements FlightFilter {
     private Flight flight;
 
 
-    public FlightPriceSetting() {
+    protected FlightPriceSetting() {
         super();
     }
 

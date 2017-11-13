@@ -12,9 +12,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 9/11/2017.
- */
 @SessionScoped
 public class BookingBean implements Serializable{
 

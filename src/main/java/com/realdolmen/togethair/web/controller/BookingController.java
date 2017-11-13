@@ -23,9 +23,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 8/11/2017.
- */
 @Named
 @FlowScoped("booking")
 public class BookingController implements Serializable{
@@ -63,7 +60,7 @@ public class BookingController implements Serializable{
             return "login";
         }
         for (int i = 0; i < bookingBean.getNumberOfPassengers(); i++) {
-            passengers.add(new SimplePassenger());
+            passengers.add(new SimplePassenger("", "", ""));
         }
         return "book";
     }

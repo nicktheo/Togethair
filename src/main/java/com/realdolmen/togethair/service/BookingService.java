@@ -5,11 +5,10 @@ import com.realdolmen.togethair.exceptions.DuplicateSeatException;
 import com.realdolmen.togethair.repository.BookingRepository;
 
 import javax.ejb.ObjectNotFoundException;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-/**
- * Created by JCEBF12 on 10/11/2017.
- */
+@RequestScoped
 public class BookingService {
 
     @Inject

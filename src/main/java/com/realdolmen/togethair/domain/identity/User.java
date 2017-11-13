@@ -18,7 +18,7 @@ public abstract class User {
     private String lastName;
 
 
-    public User() {}
+    protected User() {}
 
     public User(String firstName, String lastName, String email) {
         this.firstName = firstName;

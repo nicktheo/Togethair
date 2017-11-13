@@ -23,12 +23,18 @@ public class TravelClass {
     private List<Seat> seats;
 
 
-    public TravelClass() {}
+    protected TravelClass() {}
 
     public TravelClass(Flight flight, TravelClassType type, double basePrice, List<Seat> seats) {
         this.type = type;
         this.basePrice = basePrice;
         this.seats = seats;
+        this.flight = flight;
+    }
+
+    public TravelClass(Flight flight, TravelClassType type, double basePrice) {
+        this.type = type;
+        this.basePrice = basePrice;
         this.flight = flight;
     }
 

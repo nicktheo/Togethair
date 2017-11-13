@@ -2,6 +2,7 @@ package com.realdolmen.togethair.domain;
 
 import com.realdolmen.togethair.domain.flight.*;
 import com.realdolmen.togethair.domain.location.Airport;
+import com.realdolmen.togethair.domain.location.Country;
 import com.realdolmen.togethair.domain.location.GlobalRegion;
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,9 +25,9 @@ public class SearchTest {
 
     @Before
     public void initialize(){
-        Airport airport1 = new Airport("Brussels Airport", "Belgium","BRU", GlobalRegion.NORTHERN_EUROPE);
-        Airport airport2 = new Airport("Athens International Airport", "Greece","ATH", GlobalRegion.SOUTHERN_EUROPE);
-        Airport airport3 = new Airport("New York", "USA","NYC", GlobalRegion.NORTHERN_AMERICA);
+        Airport airport1 = new Airport("EBBR", "Brussels Airport", Country.BEL, GlobalRegion.EUROPE);
+        Airport airport2 = new Airport("LGAV", "Athens International Airport", Country.GRC, GlobalRegion.EUROPE);
+        Airport airport3 = new Airport("KJFK", "John F. Kennedy International Airport", Country.USA, GlobalRegion.AMERICAS);
         airports.add(airport1);
         airports.add(airport2);
         airports.add(airport3);

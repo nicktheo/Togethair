@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.domain;
 
 import com.realdolmen.togethair.domain.location.Airport;
+import com.realdolmen.togethair.domain.location.Country;
 import com.realdolmen.togethair.domain.location.GlobalRegion;
 import com.realdolmen.togethair.domain.flight.*;
 import org.junit.Assert;
@@ -17,42 +18,38 @@ import java.util.List;
 
 public class FlightTest {
 
-    Flight Flight;
+    Flight flight;
 
     @Before
     public void initialize(){
 
-        Airport departureAirport = new Airport("Brussels Airport", "Belgium","BRU", GlobalRegion.NORTHERN_EUROPE);
-        Airport destinationAirport = new Airport("Athens International Airport", "Greece","ATH", GlobalRegion.SOUTHERN_EUROPE);
+        Airport departureAirport = new Airport("EBBR", "Brussels Airport", Country.BEL, GlobalRegion.EUROPE);
+        Airport destinationAirport = new Airport("LGAV", "Athens International Airport", Country.GRC, GlobalRegion.EUROPE);
 
-        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        System.out.println(sdf.format(date));
-        TravelClass planeClassFirst;
-        Seat seat = new Seat(5, 10, new TravelClass(), Availability.FREE);
-        List<Seat> seats = new ArrayList<>();
         List<TravelClass> availability = new ArrayList<>();
-
-        seats.add(seat);
-
-        planeClassFirst = new TravelClass(Flight, TravelClassType.FIRST_CLASS,200,seats);
-        availability.add(planeClassFirst);
+        List<Seat> seats = new ArrayList<>();
 
         LocalDateTime ts = LocalDateTime.of(2017,11,9,14,0,0);
-
         Flight flight = new Flight(departureAirport,destinationAirport,ts, Duration.ofHours(3),availability);
+
+        TravelClass planeClassFirst = new TravelClass(flight, TravelClassType.FIRST_CLASS,200, seats);
+        availability.add(planeClassFirst);
+
+        Seat seat = new Seat(5, 10, planeClassFirst, Availability.FREE);
+
+        seats.add(seat);
     }
 
     @Test
     public void testSpecificFlight() {
-        Assert.assertEquals(GlobalRegion.NORTHERN_EUROPE,Flight.getOrigin().getGlobalRegion());
-        Assert.assertEquals(GlobalRegion.SOUTHERN_EUROPE,Flight.getDestination().getGlobalRegion());
-        Assert.assertEquals("Brussels Airport",Flight.getOrigin().getName());
-        Assert.assertEquals("Athens International Airport",Flight.getDestination().getName());
+        Assert.assertEquals(GlobalRegion.EUROPE, flight.getOrigin().getGlobalRegion());
+        Assert.assertEquals(GlobalRegion.EUROPE, flight.getDestination().getGlobalRegion());
+        Assert.assertEquals("Brussels Airport", flight.getOrigin().getName());
+        Assert.assertEquals("Athens International Airport", flight.getDestination().getName());
 
-        Assert.assertEquals(2017,Flight.getDeparture().getYear()+1900); // wtf
+        Assert.assertEquals(2017, flight.getDeparture().getYear()+1900); // wtf
 
-        Assert.assertEquals(TravelClassType.FIRST_CLASS,Flight.getAvailability().get(0).getType());
+        Assert.assertEquals(TravelClassType.FIRST_CLASS, flight.getAvailability().get(0).getType());
 
     }
 }

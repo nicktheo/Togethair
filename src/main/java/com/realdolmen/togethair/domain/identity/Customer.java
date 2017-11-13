@@ -11,7 +11,7 @@ public class Customer extends User implements Passenger {
     private Address address;
 
 
-    public Customer() {
+    protected Customer() {
         super();
     }
 

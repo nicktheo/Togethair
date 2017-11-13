@@ -5,7 +5,7 @@ public class Partner extends BackEndUser {
     private Airline airline;
 
 
-    public Partner() {
+    protected Partner() {
         super();
     }
 

@@ -12,10 +12,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
+@Transactional
 public class BookingRepository {
 
     @PersistenceContext

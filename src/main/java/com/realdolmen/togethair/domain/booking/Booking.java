@@ -43,6 +43,7 @@ public class Booking implements Bookable<Booking> {
     }
 
     public void setCustomer(Customer customer) {
+        System.out.println(customer);
         this.customer = customer;
     }
 
@@ -107,6 +108,7 @@ public class Booking implements Bookable<Booking> {
 
 
         public Builder setCustomer(Customer c) {
+            System.out.println(c);
             booking.setCustomer(c);
             return this;
         }

@@ -65,9 +65,6 @@ public class BookingController implements Serializable{
         for (int i = 0; i < bookingBean.getPassengerCount(); i++) {
             passengers.add(new SimplePassenger("", "", ""));
         }
-        if (true){//!loginBean.isLoggedIn()) {
-            return "/login/login.xhtml";
-        }
         return "book";
     }
 

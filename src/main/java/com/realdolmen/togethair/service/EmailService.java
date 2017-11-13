@@ -28,7 +28,8 @@ public class EmailService {
         try{
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(booking.getCustomer().getEmail()));
+//            message.addRecipient(Message.RecipientType.TO, new InternetAddress(booking.getCustomer().getEmail()));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress("jeroen.cloetens1994@gmail.com"));
 
             message.setSubject("Flight booking invoice");
             message.setContent("<h3>Booking invoice</h3></br><p>Total booking cost is: " + booking.getTotalPrice() + " euro.</p>", "text/html");

@@ -8,15 +8,14 @@ import com.realdolmen.togethair.exceptions.SeatIsTakenException;
 import com.realdolmen.togethair.service.SeatService;
 
 import javax.ejb.ObjectNotFoundException;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 10/11/2017.
- */
+@RequestScoped
 public class BookingRepository {
 
     @PersistenceContext
@@ -32,7 +31,7 @@ public class BookingRepository {
 
     public Booking persistBooking(Booking.Builder builder, int amount) throws SeatIsTakenException, ObjectNotFoundException, DuplicateSeatException {
         List<Seat> seats = new ArrayList<>();
-        em.getTransaction().begin();
+//        em.getTransaction().begin();
         for(TravelClass travelclass : builder.getFlights()) {
             seats = seatService.getFreeSeatsPessimisticLock(travelclass);
             if (seats.size() < amount) {
@@ -47,7 +46,7 @@ public class BookingRepository {
         }
         Booking b = (Booking) builder.build();
         em.persist(b);
-        em.getTransaction().commit();
+//        em.getTransaction().commit();
 
         return b;
     }

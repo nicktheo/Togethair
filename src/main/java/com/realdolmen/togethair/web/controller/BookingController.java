@@ -2,6 +2,7 @@ package com.realdolmen.togethair.web.controller;
 
 
 import com.realdolmen.togethair.domain.booking.Booking;
+import com.realdolmen.togethair.domain.booking.PricingAdapter;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.identity.Passenger;
 import com.realdolmen.togethair.domain.identity.SimplePassenger;
@@ -72,12 +73,14 @@ public class BookingController implements Serializable{
         try{
             List<TravelClass> tClasses = bookingBean.getFlights();
             bookingBuilder.setCustomer(loginBean.getCustomer()).addFlights(tClasses).addPassengers(passengers);
+            PricingAdapter pa;
             for (TravelClass tcItem : tClasses) {
-                bookingBuilder.addPriceAdapter(pricingProvider.getFlightPricingAdapters(tcItem.getFlight()), tcItem);
+                pa = pricingProvider.getFlightPricingAdapters(tcItem.getFlight());
+                bookingBuilder.addPriceAdapter(pa, tcItem);
             }
-//            if (paymentMethod.equals("margin")) {
-//                bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("creditcard"));
-//            }
+            if (paymentMethod.equals("creditcard")) {
+                bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("CREDIT_CARD"));
+            }
             Booking temp = bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
             this.bookingId = temp.getId();
             emailService.sendEmail(temp);

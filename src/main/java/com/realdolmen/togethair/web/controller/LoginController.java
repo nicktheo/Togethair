@@ -4,6 +4,7 @@ import com.realdolmen.togethair.domain.identity.Customer;
 import com.realdolmen.togethair.service.CustomerService;
 import com.realdolmen.togethair.web.LoginBean;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -16,8 +17,7 @@ import java.io.Serializable;
  * Created by JCEBF12 on 8/11/2017.
  */
 @Named
-//@FlowScoped("login")
-@SessionScoped
+@RequestScoped
 public class LoginController implements Serializable{
 
     @Inject
@@ -53,6 +53,7 @@ public class LoginController implements Serializable{
         }
         Customer customer = customerService.logIn(email, password);
         if (customer != null) {
+            loginBean.setCustomer(customer);
             return "book";
         }
         else {

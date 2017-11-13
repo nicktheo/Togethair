@@ -6,12 +6,19 @@
               version="2.2">
     <flow-definition id="searching">
         <start-node>search</start-node>
+
         <view id="search">
             <vdl-document>/searching/searching.xhtml</vdl-document>
         </view>
+
         <view id="list">
             <vdl-document>/searching/results.xhtml</vdl-document>
         </view>
+
+        <flow-return id="exit">
+            <from-outcome>/index.xhtml</from-outcome>
+        </flow-return>
+
         <flow-call id="book">
             <flow-reference>
                 <flow-id>booking</flow-id>

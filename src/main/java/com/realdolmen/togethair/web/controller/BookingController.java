@@ -43,6 +43,7 @@ public class BookingController implements Serializable{
     @Inject
     EmailService emailService;
 
+    private Booking.Builder bookingBuilder = new Booking.Builder();
     private List<Passenger> passengers;
 
     private String paymentMethod;
@@ -95,7 +96,7 @@ public class BookingController implements Serializable{
             return "somethingWentWrong";
         }
 
-        return "abc";
+        return "exit";
     }
 
     public OutputStream provideQrCode() {

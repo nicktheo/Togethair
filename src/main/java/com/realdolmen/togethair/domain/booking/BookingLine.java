@@ -33,7 +33,7 @@ public class BookingLine implements Bookable<BookingLine> {
         List<PersonalTicket> tickets = new ArrayList<>();
 
         for (int i = 0; i < passengers.size(); i++)
-            tickets.add(new PersonalTicket(seats.get(0), passengers.get(0)));
+            tickets.add(new PersonalTicket(seats.get(i), passengers.get(i)));
 
         setTickets(tickets);
     }

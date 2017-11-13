@@ -5,7 +5,15 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
               version="2.2">
     <flow-definition id="booking">
-        <start-node>login</start-node>
+        <start-node>start</start-node>
+
+        <switch id="start">
+            <case>
+                <if>#{!loginBean.loggedIn}</if>
+                <from-outcome>login</from-outcome>
+            </case>
+            <default-outcome>book</default-outcome>
+        </switch>
 
         <view id="login">
             <vdl-document>/login/login.xhtml</vdl-document>

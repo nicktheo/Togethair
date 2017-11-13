@@ -53,11 +53,9 @@ public class BookingController implements Serializable{
 
 
     public String checkout() {
-        passengers.add(loginBean.getCustomer());
-
-        for (int i = 1; i < bookingBean.getPassengerCount(); i++)
+        for (int i = 0; i < bookingBean.getPassengerCount(); i++)
             passengers.add(new SimplePassenger("", "", ""));
-        
+
         return "book";
     }
 

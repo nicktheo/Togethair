@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.domain;
 
+import com.realdolmen.togethair.domain.identity.Airline;
 import com.realdolmen.togethair.domain.location.Airport;
 import com.realdolmen.togethair.domain.location.Country;
 import com.realdolmen.togethair.domain.location.GlobalRegion;
@@ -30,7 +31,7 @@ public class FlightTest {
         List<Seat> seats = new ArrayList<>();
 
         LocalDateTime ts = LocalDateTime.of(2017,11,9,14,0,0);
-        Flight flight = new Flight(departureAirport,destinationAirport,ts, Duration.ofHours(3),availability);
+        Flight flight = new Flight(Airline.BEL, 1, departureAirport,destinationAirport,ts, Duration.ofHours(3),availability);
 
         TravelClass planeClassFirst = new TravelClass(flight, TravelClassType.FIRST_CLASS,200, seats);
         availability.add(planeClassFirst);

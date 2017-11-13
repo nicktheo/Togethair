@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.domain.flight;
 
+import com.realdolmen.togethair.domain.identity.Airline;
 import com.realdolmen.togethair.domain.location.Airport;
 
 import javax.persistence.*;
@@ -11,6 +12,9 @@ import java.util.List;
 @Entity
 public class Flight extends Trajectory {
 
+    @Enumerated(EnumType.STRING)
+    private Airline airline;
+    private int flightNumber;
     @Column(nullable = false)
     private LocalDateTime departure;
     @Column(nullable = false)
@@ -24,13 +28,31 @@ public class Flight extends Trajectory {
         super();
     }
 
-    public Flight(Airport origin, Airport destination, LocalDateTime departure, Duration duration, List<TravelClass> availability) {
+    public Flight(Airline airline, int flightNumber, Airport origin, Airport destination, LocalDateTime departure, Duration duration, List<TravelClass> availability) {
         super(origin, destination);
+        this.airline = airline;
+        this.flightNumber = flightNumber;
         this.departure = departure;
         this.duration = duration;
         this.availability = availability;
     }
 
+
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline;
+    }
+
+    public int getFlightNumber() {
+        return flightNumber;
+    }
+
+    public void setFlightNumber(int identification) {
+        this.flightNumber = identification;
+    }
 
     public LocalDateTime getDeparture() {
         return departure;
@@ -61,15 +83,14 @@ public class Flight extends Trajectory {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Flight)) return false;
-        if (!super.equals(o)) return false;
 
         Flight flight = (Flight) o;
 
-        return departure.equals(flight.departure);
+        return airline.equals(flight.airline) && flightNumber == flight.flightNumber && departure.equals(flight.departure);
     }
 
     @Override
     public int hashCode() {
-        return 31 * super.hashCode() + departure.hashCode();
+        return 31 * (31 * airline.hashCode() + flightNumber) + departure.hashCode();
     }
 }

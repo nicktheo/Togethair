@@ -2,6 +2,7 @@ package com.realdolmen.togethair.domain.booking;
 
 import com.realdolmen.togethair.domain.flight.Seat;
 import com.realdolmen.togethair.domain.identity.Passenger;
+import com.realdolmen.togethair.domain.identity.SimplePassenger;
 
 import javax.persistence.*;
 
@@ -12,8 +13,7 @@ public class PersonalTicket {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private Passenger passenger;
+    private SimplePassenger passenger;
     @OneToOne
     private Seat seat;
 
@@ -22,7 +22,7 @@ public class PersonalTicket {
 
     public PersonalTicket(Seat seat, Passenger passenger) {
         this.seat = seat;
-        this.passenger = passenger;
+        setPassenger(passenger);
     }
 
 
@@ -39,7 +39,7 @@ public class PersonalTicket {
     }
 
     public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
+        this.passenger = (SimplePassenger) passenger;
     }
 
     public Seat getSeat() {

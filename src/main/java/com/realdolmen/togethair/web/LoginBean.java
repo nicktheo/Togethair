@@ -17,9 +17,9 @@ public class LoginBean implements Serializable{
     private Customer customer;
 
     public boolean isLoggedIn(){
-        /*if(customer != null) {
+        if(customer != null)
             return true;
-        }*/
+
         return false;
     }
 

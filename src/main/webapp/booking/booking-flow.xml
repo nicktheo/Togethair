@@ -6,10 +6,6 @@
               version="2.2">
     <flow-definition id="booking">
         <start-node>login</start-node>
-        <!--<method-call id="start">-->
-            <!--<method>#{loginController.login}</method>-->
-            <!--<default-outcome>login</default-outcome>-->
-        <!--</method-call>-->
         <view id="login">
             <vdl-document>/login/login.xhtml</vdl-document>
         </view>

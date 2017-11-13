@@ -96,7 +96,7 @@ public class Booking implements Bookable<Booking> {
                 .collect(Collectors.toList());
     }
 
-    public static class Builder implements Serializable{
+    public static class Builder {
 
         private Booking booking = new Booking();
 

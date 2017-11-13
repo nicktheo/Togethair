@@ -35,8 +35,6 @@ public class BookingController implements Serializable{
     @Inject
     LoginBean loginBean;
     @Inject
-    Booking.Builder bookingBuilder;
-    @Inject
     PricingProvider pricingProvider;
     @Inject
     BookingService bookingService;
@@ -45,7 +43,7 @@ public class BookingController implements Serializable{
     @Inject
     EmailService emailService;
 
-    private List<Long> travelClassIds;
+    private Booking.Builder bookingBuilder = new Booking.Builder();
     private List<Passenger> passengers;
 
     private String paymentMethod;
@@ -56,7 +54,6 @@ public class BookingController implements Serializable{
 
     @PostConstruct
     public void initialize() {
-        travelClassIds = new ArrayList<>();
         passengers = new ArrayList<>();
     }
 
@@ -79,9 +76,9 @@ public class BookingController implements Serializable{
                 pa = pricingProvider.getFlightPricingAdapters(tcItem.getFlight());
                 bookingBuilder.addPriceAdapter(pa, tcItem);
             }
-//            if (paymentMethod.equals("creditcard")) {
-//                bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("CREDIT_CARD"));
-//            }
+            /*if (paymentMethod.equals("creditcard")) {
+                bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("CREDIT_CARD"));
+            }*/
             Booking temp = bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
             this.bookingId = temp.getId();
             //emailService.sendEmail(temp);

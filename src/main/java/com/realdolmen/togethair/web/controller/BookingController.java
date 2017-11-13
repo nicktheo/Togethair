@@ -95,7 +95,7 @@ public class BookingController implements Serializable{
             return "somethingWentWrong";
         }
 
-        return "end";
+        return "exit";
     }
 
     public OutputStream provideQrCode() {

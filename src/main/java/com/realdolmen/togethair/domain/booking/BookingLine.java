@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.domain.booking;
 
+import com.realdolmen.togethair.domain.flight.Availability;
 import com.realdolmen.togethair.domain.flight.Seat;
 import com.realdolmen.togethair.domain.identity.Passenger;
 
@@ -56,6 +57,12 @@ public class BookingLine implements Bookable<BookingLine> {
             throw new IllegalArgumentException();
 
         this.tickets = tickets;
+    }
+
+
+    public void setSeatAvailability(Availability availability) {
+        tickets.stream()
+                .forEach(x -> x.getSeat().setAvailability(availability));
     }
 
 

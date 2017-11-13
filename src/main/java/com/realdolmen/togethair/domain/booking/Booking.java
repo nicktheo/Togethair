@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.domain.booking;
 
+import com.realdolmen.togethair.domain.flight.Availability;
 import com.realdolmen.togethair.domain.flight.Seat;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.identity.Customer;
@@ -76,6 +77,12 @@ public class Booking implements Bookable<Booking> {
 
     public void setTotalPrice(double amount) {
         this.totalPrice = amount;
+    }
+
+
+    public void setSeatAvailability(Availability availability) {
+        bookingLines.stream()
+                .forEach(x -> x.getBase().setSeatAvailability(availability));
     }
 
 
@@ -159,6 +166,7 @@ public class Booking implements Bookable<Booking> {
             if (seats.size() == passengers.size())
                 throw new TooManySeatsException();
 
+            seat.setAvailability(Availability.RESERVED);
             seats.add(seat);
 
             return this;
@@ -189,18 +197,24 @@ public class Booking implements Bookable<Booking> {
         }
 
         public Bookable<Booking> build() throws IllegalStateException {
-            if (booking.getCustomer() == null)
+            Bookable<Booking> booking;
+
+            if (this.booking.getCustomer() == null)
                 throw new IllegalStateException("No customer set");
             if (flights.size() == 0)
                 throw new IllegalStateException("No flights in booking");
 
             for (Map.Entry<TravelClass, List<Seat>> flight : flights.entrySet())
-                booking.addBookingLine(new BookingLine(passengers, flight.getValue()), priceAdapters.get(flight));
+                this.booking.addBookingLine(new BookingLine(passengers, flight.getValue()), priceAdapters.get(flight));
 
             if (bookingPriceAdapter == null)
-                return booking;
+                booking = this.booking;
             else
-                return bookingPriceAdapter.setBase(booking);
+                booking = bookingPriceAdapter.setBase(this.booking);
+
+            booking.getBase().setTotalPrice(booking.getPrice());
+
+            return booking;
         }
     }
 }

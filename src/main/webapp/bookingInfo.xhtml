@@ -10,8 +10,10 @@
     <!--<ui:define name="pageContent">-->
 <body>
         <h:dataTable id="bookingTable" value="#{reportingController.bookingInfo(param['bookingId'])}" var="booking" styleClass="table table-striped">
-            <h:outputText value="total price"/>
-            <h:outputText value="#{booking.getTotalPrice()}"/>
+            <h:column>
+                <h:outputText value="total price"/>
+                <h:outputText value="#{booking.getTotalPrice()}"/>
+            </h:column>
             <h:column>
                 <h:dataTable id="flightsTable" value="#{booking.getBookingLines()}" var="bookingLine">
                     <h:column>

@@ -44,7 +44,7 @@ public class BookingController implements Serializable{
     EmailService emailService;
 
     private Booking.Builder bookingBuilder = new Booking.Builder();
-    private List<Passenger> passengers;
+    private List<Passenger> passengers = new ArrayList<>();
 
     private String paymentMethod;
     private String ccNumber;
@@ -52,17 +52,12 @@ public class BookingController implements Serializable{
     private long bookingId;
 
 
-    @PostConstruct
-    public void initialize() {
-        passengers = new ArrayList<>();
-    }
-
-
-
     public String checkout() {
-        for (int i = 0; i < bookingBean.getPassengerCount(); i++) {
+        passengers.add(loginBean.getCustomer());
+
+        for (int i = 1; i < bookingBean.getPassengerCount(); i++)
             passengers.add(new SimplePassenger("", "", ""));
-        }
+        
         return "book";
     }
 

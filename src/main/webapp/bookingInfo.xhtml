@@ -6,8 +6,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 
-<ui:composition template="template.xhtml">
-    <ui:define name="pageContent">
+<!--<ui:composition template="template.xhtml">-->
+    <!--<ui:define name="pageContent">-->
+<body>
         <h:dataTable id="bookingTable" value="#{reportingController.bookingInfo(param['bookingId'])}" var="booking" styleClass="table table-striped">
             <h:outputText value="total price"/>
             <h:outputText value="#{booking.getTotalPrice()}"/>
@@ -33,7 +34,8 @@
         </h:dataTable>
 
         <h:link outcome="index">Home</h:link>
-    </ui:define>
-</ui:composition>
+    <!--</ui:define>-->
+<!--</ui:composition>-->
+</body>
 
 </html>

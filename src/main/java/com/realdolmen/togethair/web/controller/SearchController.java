@@ -1,13 +1,13 @@
 package com.realdolmen.togethair.web.controller;
 
 import com.realdolmen.togethair.domain.booking.TicketType;
-import com.realdolmen.togethair.domain.flight.Flight;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.flight.TravelClassType;
 import com.realdolmen.togethair.domain.location.Airport;
 import com.realdolmen.togethair.service.FlightService;
+import com.realdolmen.togethair.web.BookingBean;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -15,15 +15,18 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Named
-@RequestScoped
+@FlowScoped("searching")
 public class SearchController implements Serializable {
+
+    @Inject
+    BookingBean booking;
 
     @Inject
     FlightService flightService;
 
     private List<Airport> airports;
 
-    private TicketType ticketType;
+    private TicketType ticketType = TicketType.ONE_WAY;
 
     private Airport origin;
     private Airport destination;
@@ -33,6 +36,11 @@ public class SearchController implements Serializable {
 
     private TravelClassType travelClass;
     private int passengerCount;
+
+    private TicketType resultStage = TicketType.ONE_WAY;
+
+    private List<TravelClass> outboundFlights;
+    private List<TravelClass> returnFlights;
 
 
     public Airport getOrigin() {
@@ -107,11 +115,26 @@ public class SearchController implements Serializable {
         return TravelClassType.values();
     }
 
-    public List<Flight> getResults() {
-        return flightService.findAvailableFlights(origin, destination, departureDate, travelClass, passengerCount);
+    public List<TravelClass> getResults() {
+        if (resultStage == TicketType.ONE_WAY)
+            return outboundFlights;
+        else
+            return returnFlights;
     }
 
     public String submit() {
-        return "results";
+        outboundFlights = flightService.findAvailableFlights(origin, destination, departureDate, travelClass, passengerCount);
+        returnFlights = flightService.findAvailableFlights(destination, origin, returnDate, travelClass, passengerCount);
+        return "list";
+    }
+
+    public String book(TravelClass flight) {
+        booking.addFlight(flight);
+
+        if (resultStage == TicketType.RETURN || ticketType == TicketType.ONE_WAY)
+            return "book";
+
+        resultStage = TicketType.RETURN;
+        return "list";
     }
 }

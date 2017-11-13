@@ -64,7 +64,7 @@ public class BookingController implements Serializable{
         if (!userBean.isLoggedIn()){
             return "login";
         }
-        for (int i = 0; i < bookingBean.getNumberOfPassengers(); i++) {
+        for (int i = 0; i < bookingBean.getPassengerCount(); i++) {
             passengers.add(new SimplePassenger("", "", ""));
         }
         return "book";
@@ -83,7 +83,7 @@ public class BookingController implements Serializable{
             if (paymentMethod.equals("margin")) {
                 bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("creditcard"));
             }
-            Booking temp = bookingService.persistBooking(bookingBuilder, bookingBean.getNumberOfPassengers());
+            Booking temp = bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
             this.bookingId = temp.getId();
             emailService.sendEmail(temp);
 

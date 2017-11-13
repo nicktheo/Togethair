@@ -51,12 +51,8 @@ public class LoginController implements Serializable{
         return false;
     }
 
-    public String login(){
+    public void login(){
         customer = customerService.logIn(email, password);
-        if (isLoggedIn()){
-            return "index";
-        }
-        return "login";
     }
 
 }

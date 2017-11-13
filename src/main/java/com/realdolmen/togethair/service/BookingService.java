@@ -14,8 +14,8 @@ public class BookingService {
     @Inject
     BookingRepository bookingRepository;
 
-    public void persistBooking(Booking.Builder bookingBuilder, int numberOfPassengers) throws DuplicateSeatException, ObjectNotFoundException {
-        bookingRepository.persistBooking(bookingBuilder, numberOfPassengers);
+    public Booking persistBooking(Booking.Builder bookingBuilder, int numberOfPassengers) throws DuplicateSeatException, ObjectNotFoundException {
+        return bookingRepository.persistBooking(bookingBuilder, numberOfPassengers);
     }
 
     public Booking getUnmanagedBookingById(long id) {

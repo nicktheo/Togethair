@@ -12,5 +12,10 @@
         <view id="list">
             <vdl-document>/searching/results.xhtml</vdl-document>
         </view>
+        <flow-call id="book">
+            <flow-reference>
+                <flow-id>booking</flow-id>
+            </flow-reference>
+        </flow-call>
     </flow-definition>
 </faces-config>

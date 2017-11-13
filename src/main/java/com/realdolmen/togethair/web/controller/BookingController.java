@@ -59,7 +59,7 @@ public class BookingController implements Serializable{
         if (!userBean.isLoggedIn()){
             return "login";
         }
-        for (int i = 0; i < bookingBean.getNumberOfPassengers(); i++) {
+        for (int i = 0; i < bookingBean.getPassengerCount(); i++) {
             passengers.add(new SimplePassenger("", "", ""));
         }
         return "book";
@@ -78,7 +78,7 @@ public class BookingController implements Serializable{
             if (paymentMethod.equals("margin")) {
                 bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("creditcard"));
             }
-            bookingService.persistBooking(bookingBuilder, bookingBean.getNumberOfPassengers());
+            bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
 
         } catch (DuplicateFlightException e) {
             return "somethingWentWrong";

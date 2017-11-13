@@ -4,6 +4,8 @@ import com.realdolmen.togethair.domain.identity.Customer;
 import com.realdolmen.togethair.service.CustomerService;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -51,8 +53,18 @@ public class LoginController implements Serializable{
         return false;
     }
 
-    public void login(){
+    public String login(){
+        if (isLoggedIn()) {
+            return "booking";
+        }
         customer = customerService.logIn(email, password);
+        if (isLoggedIn()) {
+            return "booking";
+        }
+        else {
+            FacesContext.getCurrentInstance().addMessage("loginForm", new FacesMessage("Username or password is incorrect"));
+            return "login";
+        }
     }
 
 }

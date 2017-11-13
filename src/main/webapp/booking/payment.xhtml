@@ -14,7 +14,7 @@
                 <f:selectItem itemLabel="#{msgs['payment.creditcard']}" itemValue="creditcard"/>
                 <f:selectItem itemLabel="#{msgs['payment.endorsment']}" itemValue="endorsment"/>
             </h:selectOneMenu>
-            <h:commandButton value="#{msgs['payment.button']}" action="end"/>
+            <h:commandButton value="#{msgs['payment.button']}" action="bookingController.addBooking()"/>
         </h:form>
     </ui:define>
 </ui:composition>

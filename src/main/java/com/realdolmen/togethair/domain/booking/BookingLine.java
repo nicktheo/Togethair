@@ -15,7 +15,7 @@ public class BookingLine implements Bookable<BookingLine> {
     @GeneratedValue
     private Long id;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<PersonalTicket> tickets;
 
 

@@ -47,7 +47,7 @@ public class Booking implements Bookable<Booking> {
         this.customer = customer;
     }
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<BookingLine> getBookingLines() {
         return bookingLines.stream()
                 .map(Bookable::getBase)

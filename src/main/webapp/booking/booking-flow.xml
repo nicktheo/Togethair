@@ -19,11 +19,10 @@
         <view id="pay">
             <vdl-document>/booking/payment.xhtml</vdl-document>
         </view>
-        <flow-return id="end">
-            <from-outcome>/booking/bookingsuccesfull.xhtml</from-outcome>
+        <flow-return id="abc">
+            <from-outcome>/bookingsuccesfull.xhtml</from-outcome>
         </flow-return>
 
         <initializer>#{bookingController.checkout()}</initializer>
-        <finalizer>#{bookingController.addBooking()}</finalizer>
     </flow-definition>
 </faces-config>

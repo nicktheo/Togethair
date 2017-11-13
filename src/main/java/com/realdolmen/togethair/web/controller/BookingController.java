@@ -84,7 +84,7 @@ public class BookingController implements Serializable{
 //            }
             Booking temp = bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
             this.bookingId = temp.getId();
-            emailService.sendEmail(temp);
+            //emailService.sendEmail(temp);
 
         } catch (DuplicateFlightException e) {
             return "somethingWentWrong";
@@ -93,7 +93,7 @@ public class BookingController implements Serializable{
         } catch (SeatIsTakenException e) {
             return "seatTaken";
         } catch (DuplicateSeatException e) {
-            return "somethingWentWrong";
+            return "somethingWentWrong.xhtml";
         } catch (ObjectNotFoundException e) {
             return "somethingWentWrong";
         }

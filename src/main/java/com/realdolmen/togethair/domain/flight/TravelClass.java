@@ -85,4 +85,20 @@ public class TravelClass {
                 .filter(x -> x.getAvailability() == availability)
                 .collect(Collectors.toList());
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TravelClass)) return false;
+
+        TravelClass travelClass = (TravelClass) o;
+
+        return flight.equals(travelClass.flight) && type.equals(travelClass.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * flight.hashCode() + type.hashCode();
+    }
 }

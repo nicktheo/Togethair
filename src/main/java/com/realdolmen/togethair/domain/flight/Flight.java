@@ -55,4 +55,21 @@ public class Flight extends Trajectory {
     public void setAvailability(List<TravelClass> availability) {
         this.availability = availability;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Flight)) return false;
+        if (!super.equals(o)) return false;
+
+        Flight flight = (Flight) o;
+
+        return departure.equals(flight.departure);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * super.hashCode() + departure.hashCode();
+    }
 }

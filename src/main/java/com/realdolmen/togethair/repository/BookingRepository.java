@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.repository;
 
 import com.realdolmen.togethair.domain.booking.Booking;
+import com.realdolmen.togethair.domain.flight.Availability;
 import com.realdolmen.togethair.domain.flight.Seat;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.exceptions.DuplicateSeatException;
@@ -46,7 +47,7 @@ public class BookingRepository {
                 }
             }
         }
-        Booking b = (Booking) builder.build();
+        Booking b = builder.build().getBase();
         em.persist(b);
 //        em.getTransaction().commit();
 

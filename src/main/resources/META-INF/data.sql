@@ -105,6 +105,8 @@ insert into flight(id, departure, duration, destination_id, origin_id) values (1
 insert into flight(id, departure, duration, destination_id, origin_id) values (11, '2017-12-13 22:00:00', 1000,4,3);
 insert into flight(id, departure, duration, destination_id, origin_id) values (12, '2017-12-14 20:40:00', 1000,5,4);
 insert into flight(id, departure, duration, destination_id, origin_id) values (13, '2017-11-27 17:30:00', 1000,5,3);
+insert into flight(id, departure, duration, destination_id, origin_id) values (14, '2017-11-27 17:30:00', 1000,5,3);
+insert into flight(id, departure, duration, destination_id, origin_id) values (15, '2017-11-28 17:30:00', 1000,3,5);
 
 insert into travelclass (id, basePrice, type, flight_id) values (1, 30, 'ECONOMY', 1);
 insert into travelclass (id, basePrice, type, flight_id) values (2, 163, 'BUSINESS', 1);
@@ -145,6 +147,8 @@ insert into travelclass (id, basePrice, type, flight_id) values (36, 138, 'FIRST
 insert into travelclass (id, basePrice, type, flight_id) values (37, 152, 'ECONOMY', 13);
 insert into travelclass (id, basePrice, type, flight_id) values (38, 173, 'BUSINESS', 13);
 insert into travelclass (id, basePrice, type, flight_id) values (39, 218, 'FIRST', 13);
+insert into travelclass (id, basePrice, type, flight_id) values (40, 218, 'ECONOMY', 14);
+insert into travelclass (id, basePrice, type, flight_id) values (41, 218, 'ECONOMY', 15);
 
 
 insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (1, 'FREE', 29, 2, 8);
@@ -647,6 +651,9 @@ insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values 
 insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (498, 'TAKEN', 32, 2, 27);
 insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (499, 'FREE', 22, 3, 9);
 insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (500, 'RESERVED', 37, 3, 7);
+insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (501, 'FREE', 18, 6, 41);
+insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (502, 'FREE', 11, 1, 41);
+insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (503, 'FREE', 33, 3, 41);
 
 insert into pricesetting (id, level, name, priority, type, value) values (1, 'BOOKING', 'CREDIT_CARD', 20, 'PERCENTAGE', -10.0);
 insert into pricesetting (id, level, name, priority, type, value) values (2, 'BOOKING', 'MARGIN', 10, 'PERCENTAGE', 5.0);

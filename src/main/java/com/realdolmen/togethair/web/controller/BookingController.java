@@ -15,12 +15,9 @@ import com.realdolmen.togethair.web.LoginBean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.ObjectNotFoundException;
-import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -73,7 +70,7 @@ public class BookingController implements Serializable{
 
     public String addBooking() {
         try{
-            List<TravelClass> tClasses = bookingBean.getTravelClasses();
+            List<TravelClass> tClasses = bookingBean.getFlights();
             bookingBuilder.setCustomer(loginBean.getCustomer()).addFlights(tClasses).addPassengers(passengers);
             for (TravelClass tcItem : tClasses) {
                 bookingBuilder.addPriceAdapter(pricingProvider.getFlightPricingAdapters(tcItem.getFlight()), tcItem);

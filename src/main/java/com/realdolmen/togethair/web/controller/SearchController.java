@@ -7,6 +7,7 @@ import com.realdolmen.togethair.domain.location.Airport;
 import com.realdolmen.togethair.service.FlightService;
 import com.realdolmen.togethair.web.BookingBean;
 
+import javax.annotation.PostConstruct;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,10 +20,10 @@ import java.util.List;
 public class SearchController implements Serializable {
 
     @Inject
-    BookingBean booking;
+    FlightService flightService;
 
     @Inject
-    FlightService flightService;
+    BookingBean booking;
 
     private List<Airport> airports;
 
@@ -37,11 +38,28 @@ public class SearchController implements Serializable {
     private TravelClassType travelClass;
     private int passengerCount;
 
-    private TicketType resultStage = TicketType.ONE_WAY;
-
+    private TicketType resultStage;
     private List<TravelClass> outboundFlights;
     private List<TravelClass> returnFlights;
 
+
+    @PostConstruct
+    public void initialize() {
+        airports = flightService.getAllAirports();
+    }
+
+
+    public List<Airport> getAirports() {
+        return airports;
+    }
+
+    public TicketType getTicketType() {
+        return ticketType;
+    }
+
+    public void setTicketType(TicketType ticketType) {
+        this.ticketType = ticketType;
+    }
 
     public Airport getOrigin() {
         return origin;
@@ -57,14 +75,6 @@ public class SearchController implements Serializable {
 
     public void setDestination(Airport destination) {
         this.destination = destination;
-    }
-
-    public TicketType getTicketType() {
-        return ticketType;
-    }
-
-    public void setTicketType(TicketType ticketType) {
-        this.ticketType = ticketType;
     }
 
     public LocalDate getDepartureDate() {
@@ -104,13 +114,6 @@ public class SearchController implements Serializable {
         return TicketType.values();
     }
 
-    public List<Airport> getAirports() {
-        if (airports == null)
-            airports = flightService.getAllAirports();
-
-        return airports;
-    }
-
     public TravelClassType[] getTravelClasses() {
         return TravelClassType.values();
     }
@@ -122,9 +125,26 @@ public class SearchController implements Serializable {
             return returnFlights;
     }
 
-    public String submit() {
-        outboundFlights = flightService.findAvailableFlights(origin, destination, departureDate, travelClass, passengerCount);
-        returnFlights = flightService.findAvailableFlights(destination, origin, returnDate, travelClass, passengerCount);
+    public String search() {
+        booking.setPassengerCount(passengerCount);
+
+        List<TravelClass> outboundFlights = flightService.findAvailableFlights(origin, destination, departureDate, travelClass, passengerCount);
+
+        if (outboundFlights.size() == 0)
+            return "noResults";
+
+        if (ticketType == TicketType.RETURN) {
+            returnFlights = flightService.findAvailableFlights(destination, origin, returnDate, travelClass, passengerCount);
+
+            if (returnFlights.size() == 0)
+                return "noResults";
+
+            this.returnFlights = returnFlights;
+        }
+
+        this.outboundFlights = outboundFlights;
+        resultStage = TicketType.ONE_WAY;
+
         return "list";
     }
 

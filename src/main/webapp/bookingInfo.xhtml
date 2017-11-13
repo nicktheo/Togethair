@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<ui:composition template="template.xhtml">
+    <ui:define name="pageContent">
+        <h:dataTable id="bookingTable" value="#{reportingController.bookingInfo(param['bookingId'])}" var="booking" styleClass="table table-striped">
+            <h:outputText value="total price"/>
+            <h:outputText value="#{booking.getTotalPrice()}"/>
+            <h:column>
+                <h:dataTable id="flightsTable" value="#{booking.getBookingLines()}" var="bookingLine">
+                    <h:column>
+                        <h:outputText value="#{bookingLine.getTickets().get(0).getSeat().getTravelClass().getFlight().origin}"/><br/>
+                        <h:outputText value="#{bookingLine.getTickets().get(0).getSeat().getTravelClass().getFlight().destination}"/><br/>
+                        <h:outputText value="#{bookingLine.getTickets().get(0).getSeat().getTravelClass().getFlight().departure}"/><br/>
+                        <h:outputText value="#{bookingLine.getTickets().get(0).getSeat().getTravelClass().getFlight().duration}"/><br/>
+                        <h:outputText value="#{bookingLine.getTickets().get(0).getSeat().getTravelClass().type}"/>
+                        <h:dataTable id="passengerTable" value="#{bookingLine.getTickets()}" var="ticket">
+                            <h:column>
+                                <h:outputText value="#{ticket.getPassenger().getFirstName()}"/>
+                            </h:column>
+                            <h:column>
+                                <h:outputText value="#{ticket.getPassenger().getLastName()}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:column>
+                </h:dataTable>
+            </h:column>
+        </h:dataTable>
+
+        <h:link outcome="index">Home</h:link>
+    </ui:define>
+</ui:composition>
+
+</html>

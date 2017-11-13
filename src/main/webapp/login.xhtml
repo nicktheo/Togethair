@@ -5,10 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
 
-<head></head>
-<body>
-<!--<ui:composition template="/template.xhtml">-->
-    <!--<ui:define name="pageContent">-->
+<ui:composition template="/template.xhtml">
+    <ui:define name="pageContent">
         <h1>Login</h1>
         <p>Please provide login Credentials</p>
         <h:form>
@@ -18,11 +16,11 @@
             </p>
             <p>
                 <h:outputText value="Password"/>
-                <h:inputText value="#{loginController.password}"/>
+                <h:inputSecret value="#{loginController.password}"/>
             </p>
             <h:commandButton value="login" action="#{loginController.login()}"/>
         </h:form>
-    <!--</ui:define>-->
-<!--</ui:composition>-->
-</body>
+    </ui:define>
+</ui:composition>
+
 </html>

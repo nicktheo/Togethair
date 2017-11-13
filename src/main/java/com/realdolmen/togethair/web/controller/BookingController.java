@@ -9,9 +9,7 @@ import com.realdolmen.togethair.exceptions.DuplicateFlightException;
 import com.realdolmen.togethair.exceptions.DuplicatePassengerException;
 import com.realdolmen.togethair.exceptions.DuplicateSeatException;
 import com.realdolmen.togethair.exceptions.SeatIsTakenException;
-import com.realdolmen.togethair.service.BookingService;
-import com.realdolmen.togethair.service.PricingProvider;
-import com.realdolmen.togethair.service.SeatService;
+import com.realdolmen.togethair.service.*;
 import com.realdolmen.togethair.web.BookingBean;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +17,7 @@ import javax.ejb.ObjectNotFoundException;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +38,18 @@ public class BookingController implements Serializable{
     PricingProvider pricingProvider;
     @Inject
     BookingService bookingService;
+    @Inject
+    QRCodeProvider qrCodeProvider;
+    @Inject
+    EmailService emailService;
 
     private List<Long> travelClassIds;
     private List<Passenger> passengers;
 
     private String paymentMethod;
     private String ccNumber;
+
+    private long bookingId;
 
 
     @PostConstruct
@@ -78,7 +83,9 @@ public class BookingController implements Serializable{
             if (paymentMethod.equals("margin")) {
                 bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("creditcard"));
             }
-            bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
+            Booking temp = bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
+            this.bookingId = temp.getId();
+            emailService.sendEmail(temp);
 
         } catch (DuplicateFlightException e) {
             return "somethingWentWrong";
@@ -93,6 +100,10 @@ public class BookingController implements Serializable{
         }
 
         return "end";
+    }
+
+    public OutputStream provideQrCode() {
+        return qrCodeProvider.generateQrCode(bookingId);
     }
 
     public List<Passenger> getPassengers(){
@@ -113,5 +124,13 @@ public class BookingController implements Serializable{
 
     public void setCcNumber(String ccNumber) {
         this.ccNumber = ccNumber;
+    }
+
+    public long getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(long bookingId) {
+        this.bookingId = bookingId;
     }
 }

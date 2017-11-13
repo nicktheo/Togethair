@@ -30,7 +30,7 @@ public class BookingRepository {
         return b;
     }
 
-    public void persistBooking(Booking.Builder builder, int amount) throws SeatIsTakenException, ObjectNotFoundException, DuplicateSeatException {
+    public Booking persistBooking(Booking.Builder builder, int amount) throws SeatIsTakenException, ObjectNotFoundException, DuplicateSeatException {
         List<Seat> seats = new ArrayList<>();
         em.getTransaction().begin();
         for(TravelClass travelclass : builder.getFlights()) {
@@ -45,7 +45,10 @@ public class BookingRepository {
                 }
             }
         }
-        em.persist(builder.build());
+        Booking b = (Booking) builder.build();
+        em.persist(b);
         em.getTransaction().commit();
+
+        return b;
     }
 }

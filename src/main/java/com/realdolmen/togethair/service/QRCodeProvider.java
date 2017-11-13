@@ -4,6 +4,7 @@ import net.glxn.qrgen.core.image.ImageType;
 import net.glxn.qrgen.javase.QRCode;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 
@@ -14,7 +15,7 @@ import java.io.OutputStream;
 public class QRCodeProvider {
 
     public OutputStream generateQrCode(long bookingId) {
-        ByteArrayOutputStream qrCode = QRCode.from("http://localhost:8080/togethair/bookingRedirect.xhtml?bookingId=" + Long.toString(bookingId))
+        ByteArrayOutputStream qrCode = QRCode.from("http://localhost:8080/togethair/bookingInfo.xhtml?bookingId=" + Long.toString(bookingId))
                 .withSize(250,250).to(ImageType.PNG).stream();
 
         return qrCode;

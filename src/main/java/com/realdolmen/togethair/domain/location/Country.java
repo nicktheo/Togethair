@@ -7,7 +7,8 @@ public enum Country {
     GRC("Greece"),
     ITA("Italy"),
     JPN("Japan"),
-    USA("United States of America");
+    USA("United States of America"),
+    Russia("Russia");
 
 
     private final String name;

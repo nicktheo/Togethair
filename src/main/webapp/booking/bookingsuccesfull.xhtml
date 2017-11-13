@@ -10,7 +10,8 @@
 <body>
         <h1>#{msgs['succesfull.titel']}</h1>
         <p>#{msgs['bookingsucces.info']}</p>
-        <!--<p><h:graphicImage id="qrcode" value="#{bookingController.provideQrCode()}"/> </p>-->
+        <img alt="qrCode" src="#{bookingController.provideQrCode()}"/>
+        <!--<p><h:graphicImage id="qrcode" value="bookingController.provideQrCode()"/> </p>-->
 </body>
     <!--</ui:define>-->
 <!--</ui:composition>-->

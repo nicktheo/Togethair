@@ -3,6 +3,7 @@ package com.realdolmen.togethair.web.controller;
 
 import com.realdolmen.togethair.domain.booking.Booking;
 import com.realdolmen.togethair.domain.booking.PricingAdapter;
+import com.realdolmen.togethair.domain.flight.Availability;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.identity.Passenger;
 import com.realdolmen.togethair.domain.identity.SimplePassenger;
@@ -82,6 +83,8 @@ public class BookingController implements Serializable{
             }
             Booking temp = bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
             this.bookingId = temp.getId();
+            temp.setSeatAvailability(Availability.TAKEN);
+            bookingBean.clearFlights();
             //emailService.sendEmail(temp);
 
         } catch (DuplicateFlightException e) {
@@ -96,11 +99,11 @@ public class BookingController implements Serializable{
             return "somethingWentWrong";
         }
 
-        return "exit";
+        return "success";
     }
 
-    public OutputStream provideQrCode() {
-        return qrCodeProvider.generateQrCode(bookingId);
+    public String provideQrCode() {
+        return qrCodeProvider.generateBase64QrCode(bookingId);
     }
 
     public List<Passenger> getPassengers() {

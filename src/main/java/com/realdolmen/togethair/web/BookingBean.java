@@ -35,4 +35,8 @@ public class BookingBean implements Serializable{
     public void setPassengerCount(int passengerCount) {
         this.passengerCount = passengerCount;
     }
+
+    public void clearFlights() {
+        flights.clear();
+    }
 }

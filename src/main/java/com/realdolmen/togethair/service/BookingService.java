@@ -21,4 +21,5 @@ public class BookingService {
     public Booking getUnmanagedBookingById(long id) {
         return bookingRepository.getUnmanagedBookingWithId(id);
     }
+
 }

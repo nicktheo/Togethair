@@ -20,7 +20,7 @@ public class ReportingController {
     BookingService bookingService;
 
     public Booking bookingInfo(long bookingId) {
-        if (bookingId == -1) {
+        /*if (bookingId == -1) {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
             try {
@@ -28,9 +28,9 @@ public class ReportingController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         booking = bookingService.getUnmanagedBookingById(bookingId);
-        if (booking == null) {
+        /*if (booking == null) {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
             try {
@@ -38,7 +38,7 @@ public class ReportingController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         return booking;
     }
 }

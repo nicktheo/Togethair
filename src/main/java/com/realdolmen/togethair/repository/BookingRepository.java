@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
-@Transactional
+
 public class BookingRepository {
 
     @PersistenceContext
@@ -26,19 +26,19 @@ public class BookingRepository {
     @Inject
     SeatService seatService;
 
+    @Transactional
     public Booking getUnmanagedBookingWithId(long id) {
         Booking b =  em.find(Booking.class, id);
-        em.detach(b);
         return b;
     }
 
+    @Transactional(rollbackOn = {SeatIsTakenException.class})
     public Booking persistBooking(Booking.Builder builder, int amount) throws SeatIsTakenException, ObjectNotFoundException, DuplicateSeatException {
         List<Seat> seats = new ArrayList<>();
 //        em.getTransaction().begin();
         for(TravelClass travelclass : builder.getFlights()) {
             seats = seatService.getFreeSeatsPessimisticLock(travelclass);
             if (seats.size() < amount) {
-                em.getTransaction().rollback();
                 throw new SeatIsTakenException();
             }
             else{
@@ -49,8 +49,10 @@ public class BookingRepository {
         }
         Booking b = builder.build().getBase();
         em.persist(b);
+        em.flush();
 //        em.getTransaction().commit();
 
         return b;
     }
+
 }

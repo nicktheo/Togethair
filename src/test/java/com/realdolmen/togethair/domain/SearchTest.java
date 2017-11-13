@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.domain;
 
 import com.realdolmen.togethair.domain.flight.*;
+import com.realdolmen.togethair.domain.identity.Airline;
 import com.realdolmen.togethair.domain.location.Airport;
 import com.realdolmen.togethair.domain.location.Country;
 import com.realdolmen.togethair.domain.location.GlobalRegion;
@@ -42,7 +43,7 @@ public class SearchTest {
         LocalDateTime ts = LocalDateTime.of(2017, Month.NOVEMBER, 9, 14, 0);
         //ts.valueOf("");
 
-        Flight f = new Flight(airport1, airport2, ts, Duration.ofHours(3), null);
+        Flight f = new Flight(Airline.BEL, 1, airport1, airport2, ts, Duration.ofHours(3), null);
 
         TravelClass bclass = new TravelClass(f, TravelClassType.BUSINESS, 100.0, seats);
         TravelClass eclass = new TravelClass(f, TravelClassType.ECONOMY, 50.0, seats);

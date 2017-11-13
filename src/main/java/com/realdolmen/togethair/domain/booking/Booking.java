@@ -187,13 +187,18 @@ public class Booking implements Bookable<Booking> {
         }
 
         public Bookable<Booking> build() throws IllegalStateException {
-            if (booking.getCustomer() == null || flights.size() == 0)
-                throw new IllegalStateException();
+            if (booking.getCustomer() == null)
+                throw new IllegalStateException("No customer set");
+            if (flights.size() == 0)
+                throw new IllegalStateException("No flights in booking");
 
             for (Map.Entry<TravelClass, List<Seat>> flight : flights.entrySet())
                 booking.addBookingLine(new BookingLine(passengers, flight.getValue()), priceAdapters.get(flight));
 
-            return bookingPriceAdapter.setBase(booking);
+            if (bookingPriceAdapter == null)
+                return booking;
+            else
+                return bookingPriceAdapter.setBase(booking);
         }
     }
 }

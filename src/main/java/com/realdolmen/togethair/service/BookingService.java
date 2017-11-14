@@ -15,11 +15,10 @@ public class BookingService {
     BookingRepository bookingRepository;
 
     public Booking persistBooking(Booking.Builder bookingBuilder, int numberOfPassengers) throws DuplicateSeatException, ObjectNotFoundException {
-        return bookingRepository.persistBooking(bookingBuilder, numberOfPassengers);
+        return bookingRepository.persistBooking(bookingBuilder);
     }
 
-    public Booking getUnmanagedBookingById(long id) {
-        return bookingRepository.getUnmanagedBookingWithId(id);
+    public Booking getBookingByUUID(String uuid) {
+        return bookingRepository.getBookingByUUID(uuid);
     }
-
 }

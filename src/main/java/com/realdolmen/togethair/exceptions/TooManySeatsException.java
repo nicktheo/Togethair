@@ -9,4 +9,8 @@ public class TooManySeatsException extends IllegalStateException {
     public TooManySeatsException(String message) {
         super(message);
     }
+
+    public TooManySeatsException(Exception e) {
+        super(e);
+    }
 }

@@ -10,20 +10,19 @@ import com.realdolmen.togethair.domain.identity.SimplePassenger;
 import com.realdolmen.togethair.exceptions.DuplicateFlightException;
 import com.realdolmen.togethair.exceptions.DuplicatePassengerException;
 import com.realdolmen.togethair.exceptions.DuplicateSeatException;
-import com.realdolmen.togethair.exceptions.SeatIsTakenException;
+import com.realdolmen.togethair.exceptions.SeatAlreadyTakenException;
 import com.realdolmen.togethair.service.*;
 import com.realdolmen.togethair.web.BookingBean;
 import com.realdolmen.togethair.web.LoginBean;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.ObjectNotFoundException;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Named
 @FlowScoped("booking")
@@ -50,7 +49,7 @@ public class BookingController implements Serializable{
     private String paymentMethod;
     private String ccNumber;
 
-    private long bookingId;
+    private String bookingId;
 
 
     public String checkout() {
@@ -65,7 +64,7 @@ public class BookingController implements Serializable{
         try{
             List<TravelClass> tClasses = bookingBean.getFlights();
             bookingBuilder.setCustomer(loginBean.getCustomer()).addFlights(tClasses).addPassengers(passengers);
-            System.out.println(loginBean.getCustomer());
+
             PricingAdapter pa;
             for (TravelClass tcItem : tClasses) {
                 pa = pricingProvider.getFlightPricingAdapters(tcItem.getFlight());
@@ -75,7 +74,7 @@ public class BookingController implements Serializable{
                 bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("CREDIT_CARD"));
             }
             Booking temp = bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
-            this.bookingId = temp.getId();
+            this.bookingId = temp.getUuid();
             temp.setSeatAvailability(Availability.TAKEN);
             bookingBean.clearFlights();
             //emailService.sendEmail(temp);
@@ -84,7 +83,7 @@ public class BookingController implements Serializable{
             return "somethingWentWrong";
         } catch (DuplicatePassengerException e) {
             return "somethingWentWrong";
-        } catch (SeatIsTakenException e) {
+        } catch (SeatAlreadyTakenException e) {
             return "seatTaken";
         } catch (DuplicateSeatException e) {
             return "somethingWentWrong.xhtml";
@@ -123,11 +122,11 @@ public class BookingController implements Serializable{
         this.ccNumber = ccNumber;
     }
 
-    public long getBookingId() {
+    public String getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(long bookingId) {
+    public void setBookingId(String bookingId) {
         this.bookingId = bookingId;
     }
 }

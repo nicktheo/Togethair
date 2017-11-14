@@ -19,26 +19,7 @@ public class ReportingController {
     @Inject
     BookingService bookingService;
 
-    public Booking bookingInfo(long bookingId) {
-        /*if (bookingId == -1) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
-            try {
-                response.sendRedirect("somethingWentWrong.xhtml");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
-        booking = bookingService.getUnmanagedBookingById(bookingId);
-        /*if (booking == null) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
-            try {
-                response.sendRedirect("somethingWentWrong.xhtml");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
-        return booking;
+    public Booking bookingInfo(String bookingUUID) {
+        return bookingService.getBookingByUUID(bookingUUID);
     }
 }

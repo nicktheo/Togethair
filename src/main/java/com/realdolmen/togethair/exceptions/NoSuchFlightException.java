@@ -11,4 +11,8 @@ public class NoSuchFlightException extends NoSuchElementException {
     public NoSuchFlightException(String message) {
         super(message);
     }
+
+    public NoSuchFlightException(Exception e) {
+        super(e.getMessage());
+    }
 }

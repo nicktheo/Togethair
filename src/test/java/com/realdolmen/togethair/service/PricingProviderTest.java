@@ -70,7 +70,7 @@ public class PricingProviderTest {
         tickets.add(new PersonalTicket(s2, new SimplePassenger("N", "T", "123")));
 
 //        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingList);
-//        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(new PriceSetting(PriceSettingType.PERCENTAGE, 1.20, 10, "margin"));
+//        Mockito.when(pricingRepo.findGeneralPricing("margin")).thenReturn(new PriceSetting(PriceSettingType.PERCENTAGE, 1.20, 10, "margin"));
 //        MockitoAnnotations.initMocks(this);
         //Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListFixed);
 
@@ -117,7 +117,7 @@ public class PricingProviderTest {
 //    @Test
 //    public void pricingProviderAppliesBookingPricing() throws PricingNotFoundException {
 //        MockitoAnnotations.initMocks(this);
-//        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
+//        Mockito.when(pricingRepo.findGeneralPricing("margin")).thenReturn(gp);
 //
 //        List<BookingLine> bLines = new ArrayList<>();
 //        bLines.add(new BookingLine(tickets));
@@ -132,7 +132,7 @@ public class PricingProviderTest {
 //    @Test
 //    public void pricingProviderAppliesFlightAndBookingPricing() throws PricingNotFoundException {
 //        MockitoAnnotations.initMocks(this);
-//        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
+//        Mockito.when(pricingRepo.findGeneralPricing("margin")).thenReturn(gp);
 //        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListCombined);
 //
 //        List<BookingLine> bLines = new ArrayList<>();

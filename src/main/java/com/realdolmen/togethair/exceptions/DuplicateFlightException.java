@@ -11,4 +11,8 @@ public class DuplicateFlightException extends DuplicateKeyException {
     public DuplicateFlightException(String message) {
         super(message);
     }
+
+    public DuplicateFlightException(Exception e) {
+        super(e.getMessage());
+    }
 }

@@ -19,6 +19,8 @@ public class Booking implements Bookable<Booking> {
 
     private Long id;
 
+    private String uuid;
+
     private Customer customer;
 
     private List<Bookable<BookingLine>> bookingLines = new ArrayList<>();
@@ -38,13 +40,20 @@ public class Booking implements Bookable<Booking> {
         this.id = id;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     @ManyToOne
     public Customer getCustomer() {
         return customer;
     }
 
     public void setCustomer(Customer customer) {
-        System.out.println(customer);
         this.customer = customer;
     }
 
@@ -103,6 +112,7 @@ public class Booking implements Bookable<Booking> {
                 .collect(Collectors.toList());
     }
 
+
     public static class Builder {
 
         private Booking booking = new Booking();
@@ -115,7 +125,6 @@ public class Booking implements Bookable<Booking> {
 
 
         public Builder setCustomer(Customer c) {
-            System.out.println(c);
             booking.setCustomer(c);
             return this;
         }
@@ -140,6 +149,10 @@ public class Booking implements Bookable<Booking> {
             return this;
         }
 
+        public int countPassengers() {
+            return passengers.size();
+        }
+
         public Builder addPassenger(Passenger passenger) throws DuplicatePassengerException {
             if (passengers.contains(passenger))
                 throw new DuplicatePassengerException();
@@ -156,7 +169,7 @@ public class Booking implements Bookable<Booking> {
             return this;
         }
 
-        public Builder addSeat(Seat seat) throws NoSuchFlightException, DuplicateSeatException {
+        public Builder addSeat(Seat seat) throws NoSuchFlightException, DuplicateSeatException, TooManySeatsException {
             List<Seat> seats = flights.get(seat.getTravelClass());
 
             if (seats == null)
@@ -206,6 +219,8 @@ public class Booking implements Bookable<Booking> {
 
             for (Map.Entry<TravelClass, List<Seat>> flight : flights.entrySet())
                 this.booking.addBookingLine(new BookingLine(passengers, flight.getValue()), priceAdapters.get(flight));
+
+            this.booking.setUuid(UUID.randomUUID().toString());
 
             if (bookingPriceAdapter == null)
                 booking = this.booking;

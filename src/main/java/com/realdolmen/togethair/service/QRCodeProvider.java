@@ -12,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.Base64;
+import java.util.UUID;
 
 /**
  * Created by JCEBF12 on 10/11/2017.
@@ -19,10 +20,10 @@ import java.util.Base64;
 @RequestScoped
 public class QRCodeProvider {
 
-    public String generateBase64QrCode(long bookingId) {
+    public String generateBase64QrCode(String bookingId) {
 //        ByteArrayOutputStream qrCode = QRCode.from("http://localhost:8080/togethair/bookingInfo.xhtml?bookingId=" + Long.toString(bookingId))
 //                .withSize(250,250).to(ImageType.PNG).stream();
-        byte[] qrCode = QRCode.from("http://localhost:8080/togethair/bookingInfo.xhtml?bookingId=" + Long.toString(bookingId))
+        byte[] qrCode = QRCode.from("http://localhost:8080/togethair/bookingInfo.xhtml?bookingId=" + bookingId)
                 .withSize(250,250).to(ImageType.PNG).stream().toByteArray();
 
         return "data:image/png;base64," + Base64.getEncoder().encodeToString(qrCode);

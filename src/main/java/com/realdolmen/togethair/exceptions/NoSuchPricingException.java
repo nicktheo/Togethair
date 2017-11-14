@@ -11,4 +11,8 @@ public class NoSuchPricingException extends NoSuchElementException {
     public NoSuchPricingException(String message) {
         super(message);
     }
+
+    public NoSuchPricingException(Exception e) {
+        super(e.getMessage());
+    }
 }

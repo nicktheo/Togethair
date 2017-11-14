@@ -7,14 +7,12 @@ import com.realdolmen.togethair.domain.flight.Availability;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.identity.Passenger;
 import com.realdolmen.togethair.domain.identity.SimplePassenger;
-import com.realdolmen.togethair.exceptions.DuplicateFlightException;
-import com.realdolmen.togethair.exceptions.DuplicatePassengerException;
-import com.realdolmen.togethair.exceptions.DuplicateSeatException;
-import com.realdolmen.togethair.exceptions.SeatAlreadyTakenException;
+import com.realdolmen.togethair.exceptions.*;
 import com.realdolmen.togethair.service.*;
 import com.realdolmen.togethair.web.BookingBean;
 import com.realdolmen.togethair.web.LoginBean;
 
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.ejb.ObjectNotFoundException;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
@@ -75,8 +73,10 @@ public class BookingController implements Serializable{
             this.bookingId = temp.getUuid();
             temp.setSeatAvailability(Availability.TAKEN);
             bookingBean.clearFlights();
-            //emailService.sendEmail(temp);
+//            emailService.sendEmail(temp);
 
+        } catch (NotEnoughSeatsException e) {
+            return "seatTaken.xhtml";
         } catch (DuplicateFlightException e) {
             return "somethingWentWrong";
         } catch (DuplicatePassengerException e) {
@@ -87,6 +87,8 @@ public class BookingController implements Serializable{
             return "somethingWentWrong.xhtml";
         } catch (ObjectNotFoundException e) {
             return "somethingWentWrong";
+        } catch (EJBTransactionRolledbackException e) {
+            return "seatTaken.xhtml";
         }
 
         return "success";

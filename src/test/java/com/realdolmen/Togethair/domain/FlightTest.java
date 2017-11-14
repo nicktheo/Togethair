@@ -31,7 +31,7 @@ public class FlightTest {
         List<Seat> seats = new ArrayList<>();
 
         LocalDateTime ts = LocalDateTime.of(2017,11,9,14,0,0);
-        Flight flight = new Flight(Airline.BEL, 1, departureAirport,destinationAirport,ts, Duration.ofHours(3),availability);
+        this.flight = new Flight(Airline.BEL, 1, departureAirport,destinationAirport,ts, Duration.ofHours(3),availability);
 
         TravelClass planeClassFirst = new TravelClass(flight, TravelClassType.FIRST_CLASS,200, seats);
         availability.add(planeClassFirst);
@@ -48,7 +48,7 @@ public class FlightTest {
         Assert.assertEquals("Brussels Airport", flight.getOrigin().getName());
         Assert.assertEquals("Athens International Airport", flight.getDestination().getName());
 
-        Assert.assertEquals(2017, flight.getDeparture().getYear()+1900); // wtf
+        Assert.assertEquals(2017, flight.getDeparture().getYear()); // wtf
 
         Assert.assertEquals(TravelClassType.FIRST_CLASS, flight.getAvailability().get(0).getType());
 

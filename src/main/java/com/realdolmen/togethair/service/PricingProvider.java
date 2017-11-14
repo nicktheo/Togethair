@@ -35,6 +35,7 @@ public class PricingProvider{
 
         for (PriceSetting pricing : priceSettings) {
             bookingLineDecorator= getPricing(pricing, bookingLineDecorator);
+
         }
         return bookingLineDecorator;
     }
@@ -44,7 +45,7 @@ public class PricingProvider{
         return getPricing(gp, null);
     }
 
-    private PricingAdapter getPricing(PriceSetting pricing, Bookable bookable) {
+    private PricingAdapter getPricing(PriceSetting pricing, PricingAdapter bookable) {
         PricingAdapter decorator = null;
         if (pricing.getType() == PriceSettingType.FIXED) {
             decorator = new FixedPricingAdapter(bookable, pricing.getValue());

@@ -42,7 +42,7 @@ public class PricingRepository {
 
     public List<PriceSetting> getGeneralFlightPricings() {
         TypedQuery<PriceSetting> query = em.createQuery("SELECT p FROM PriceSetting p " +
-                "WHERE p.level = :level", PriceSetting.class);
+                "WHERE p.level = :level AND p.flight = null", PriceSetting.class);
 
         return query
                 .setParameter("level", PriceSettingLevel.BOOKINGLINE)

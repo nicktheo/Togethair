@@ -656,5 +656,5 @@ insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values 
 insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (503, 'FREE', 33, 3, 41);
 
 insert into pricesetting (id, level, name, priority, type, value) values (1, 'BOOKING', 'CREDIT_CARD', 20, 'PERCENTAGE', 0.9);
-insert into pricesetting (id, level, name, priority, type, value) values (2, 'BOOKING', 'MARGIN', 10, 'PERCENTAGE', 1.25);
+insert into pricesetting (id, level, name, priority, type, value) values (2, 'BOOKINGLINE', 'MARGIN', 10, 'PERCENTAGE', 1.25);
 insert into flightpricesetting (id, level, name, priority, type, value, flight_id) values (1, 'BOOKINGLINE', 'TEMPORARY DISCOUNT', 30,  'PERCENTAGE', 0.99, 5);

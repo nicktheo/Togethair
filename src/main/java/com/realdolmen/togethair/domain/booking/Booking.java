@@ -218,7 +218,7 @@ public class Booking implements Bookable<Booking> {
                 throw new IllegalStateException("No flights in booking");
 
             for (Map.Entry<TravelClass, List<Seat>> flight : flights.entrySet())
-                this.booking.addBookingLine(new BookingLine(passengers, flight.getValue()), priceAdapters.get(flight));
+                this.booking.addBookingLine(new BookingLine(passengers, flight.getValue()), priceAdapters.get(flight.getKey()));
 
             this.booking.setUuid(UUID.randomUUID().toString());
 

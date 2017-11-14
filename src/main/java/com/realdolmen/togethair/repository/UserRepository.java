@@ -2,8 +2,10 @@ package com.realdolmen.togethair.repository;
 
 import com.realdolmen.togethair.domain.identity.Customer;
 
+import javax.ejb.Stateless;
 import javax.persistence.*;
 
+@Stateless
 public class UserRepository {
 
     @PersistenceContext

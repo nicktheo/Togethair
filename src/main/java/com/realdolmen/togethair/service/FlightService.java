@@ -5,12 +5,12 @@ import com.realdolmen.togethair.domain.flight.TravelClassType;
 import com.realdolmen.togethair.domain.location.Airport;
 import com.realdolmen.togethair.repository.FlightRepository;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.List;
 
-@RequestScoped
+@Stateless
 public class FlightService {
 
     @Inject

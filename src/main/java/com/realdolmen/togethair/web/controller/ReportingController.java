@@ -14,8 +14,6 @@ import java.io.IOException;
 @RequestScoped
 public class ReportingController {
 
-    private Booking booking;
-
     @Inject
     BookingService bookingService;
 

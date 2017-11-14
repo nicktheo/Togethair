@@ -7,16 +7,13 @@ import com.realdolmen.togethair.domain.flight.Flight;
 import com.realdolmen.togethair.exceptions.NoSuchPricingException;
 import com.realdolmen.togethair.repository.PricingRepository;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 7/11/2017.
- */
-@RequestScoped
+@Stateless
 public class PricingProvider{
 
     @Inject

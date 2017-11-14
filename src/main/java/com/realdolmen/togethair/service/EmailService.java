@@ -2,7 +2,7 @@ package com.realdolmen.togethair.service;
 
 import com.realdolmen.togethair.domain.booking.Booking;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -12,10 +12,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-/**
- * Created by JCEBF12 on 13/11/2017.
- */
-@RequestScoped
+@Stateless
 public class EmailService {
 
     public void sendEmail(Booking booking) {

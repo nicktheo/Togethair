@@ -6,11 +6,11 @@ import com.realdolmen.togethair.domain.flight.Trajectory;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.persistence.*;
 import java.util.List;
 
-@RequestScoped
+@Stateless
 public class PricingRepository {
 
     @PersistenceContext

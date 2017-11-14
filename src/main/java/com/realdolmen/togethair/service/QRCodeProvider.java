@@ -3,21 +3,10 @@ package com.realdolmen.togethair.service;
 import net.glxn.qrgen.core.image.ImageType;
 import net.glxn.qrgen.javase.QRCode;
 
-import javax.enterprise.context.RequestScoped;
-import javax.imageio.ImageIO;
-import javax.inject.Named;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
+import javax.ejb.Stateless;
 import java.util.Base64;
-import java.util.UUID;
 
-/**
- * Created by JCEBF12 on 10/11/2017.
- */
-@RequestScoped
+@Stateless
 public class QRCodeProvider {
 
     public String generateBase64QrCode(String bookingId) {

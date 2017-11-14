@@ -29,8 +29,6 @@ import java.util.UUID;
 public class BookingController implements Serializable{
 
     @Inject
-    SeatService seatService;
-    @Inject
     BookingBean bookingBean;
     @Inject
     LoginBean loginBean;

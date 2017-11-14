@@ -6,12 +6,12 @@ import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.flight.TravelClassType;
 import com.realdolmen.togethair.domain.location.Airport;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@RequestScoped
+@Stateless
 public class FlightRepository {
 
     @PersistenceContext
@@ -41,7 +41,6 @@ public class FlightRepository {
                 .getResultList();
     }
 
-    //@Transactional
     public List<Seat> getFreeSeats(TravelClass travelClass) {
         TypedQuery<Seat> query = em.createQuery("SELECT s from Seat s " +
                 "WHERE s.travelClass = :travelClass " +

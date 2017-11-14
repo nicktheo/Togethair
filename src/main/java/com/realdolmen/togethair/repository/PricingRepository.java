@@ -7,58 +7,45 @@ import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
 
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 7/11/2017.
- */
-@RequestScoped
+@Stateless
 public class PricingRepository {
 
     @PersistenceContext
     EntityManager em;
 
-    public PriceSetting getGeneralPricingByName(String name) throws NoSuchPricingException {
-        TypedQuery<PriceSetting> query = em.createQuery("SELECT gp from PriceSetting gp WHERE gp.name = :name",
+
+    public PriceSetting findGeneralPricing(String name) throws NoSuchPricingException {
+        TypedQuery<PriceSetting> query = em.createQuery("SELECT p from PriceSetting p " +
+                        "WHERE p.name = :name",
                 PriceSetting.class);
-        query.setParameter("name", name);
 
-        PriceSetting p = query.getSingleResult();
-        if (p == null) {
-            throw new NoSuchPricingException("The discount was not found");
+        try {
+            return query
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            throw new NoSuchPricingException(e);
         }
-        return query.getSingleResult();
     }
 
-    public List<FlightPriceSetting> getFlightPricingForFlight(Trajectory flight) {
-        TypedQuery<FlightPriceSetting> query = em.createQuery("SELECT fp FROM FlightPriceSetting fp WHERE fp.flight = :f", FlightPriceSetting.class);
-        query.setParameter("f", flight);
+    public List<FlightPriceSetting> getFlightPricings(Trajectory flight) {
+        TypedQuery<FlightPriceSetting> query = em.createQuery("SELECT p FROM FlightPriceSetting p " +
+                "WHERE p.flight = :flight", FlightPriceSetting.class);
 
-        return query.getResultList();
+        return query
+                .setParameter("flight", flight)
+                .getResultList();
     }
 
-    /*
-     *  Returns all GeneralPricings to be applied on BookingLineLevel
-     */
     public List<PriceSetting> getGeneralFlightPricings() {
-        TypedQuery<PriceSetting> query = em.createQuery("SELECT gp FROM PriceSetting gp WHERE gp.level = :level", PriceSetting.class);
-        query.setParameter("level", PriceSettingLevel.BOOKINGLINE);
-        return query.getResultList();
+        TypedQuery<PriceSetting> query = em.createQuery("SELECT p FROM PriceSetting p " +
+                "WHERE p.level = :level", PriceSetting.class);
+
+        return query
+                .setParameter("level", PriceSettingLevel.BOOKINGLINE)
+                .getResultList();
     }
-
-    public EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
-    }
-
-    public void saveGeneralPricing(PriceSetting p) {
-        em.persist(p);
-    }
-
-
 }

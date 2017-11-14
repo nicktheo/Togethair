@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.domain.booking;
 
+import com.realdolmen.togethair.domain.flight.Availability;
 import com.realdolmen.togethair.domain.flight.Seat;
 import com.realdolmen.togethair.domain.identity.Passenger;
 
@@ -15,11 +16,11 @@ public class BookingLine implements Bookable<BookingLine> {
     @GeneratedValue
     private Long id;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PersonalTicket> tickets;
 
 
-    public BookingLine() {}
+    protected BookingLine() {}
 
     public BookingLine(List<PersonalTicket> tickets) throws IllegalArgumentException {
         setTickets(tickets);
@@ -32,7 +33,7 @@ public class BookingLine implements Bookable<BookingLine> {
         List<PersonalTicket> tickets = new ArrayList<>();
 
         for (int i = 0; i < passengers.size(); i++)
-            tickets.add(new PersonalTicket(seats.get(0), passengers.get(0)));
+            tickets.add(new PersonalTicket(seats.get(i), passengers.get(i)));
 
         setTickets(tickets);
     }
@@ -56,6 +57,12 @@ public class BookingLine implements Bookable<BookingLine> {
             throw new IllegalArgumentException();
 
         this.tickets = tickets;
+    }
+
+
+    public void setSeatAvailability(Availability availability) {
+        tickets.stream()
+                .forEach(x -> x.getSeat().setAvailability(availability));
     }
 
 

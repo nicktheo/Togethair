@@ -3,20 +3,18 @@ package com.realdolmen.togethair.service;
 import net.glxn.qrgen.core.image.ImageType;
 import net.glxn.qrgen.javase.QRCode;
 
-import javax.enterprise.context.RequestScoped;
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
+import javax.ejb.Stateless;
+import java.util.Base64;
 
-/**
- * Created by JCEBF12 on 10/11/2017.
- */
-@RequestScoped
+@Stateless
 public class QRCodeProvider {
 
-    public OutputStream generateQrCode(long bookingId) {
-        ByteArrayOutputStream qrCode = QRCode.from("http://localhost:8080/togethair/bookingRedirect.xhtml?bookingId=" + Long.toString(bookingId))
-                .withSize(250,250).to(ImageType.PNG).stream();
+    public String generateBase64QrCode(String bookingId) {
+//        ByteArrayOutputStream qrCode = QRCode.from("http://localhost:8080/togethair/bookingInfo.xhtml?bookingId=" + Long.toString(bookingId))
+//                .withSize(250,250).to(ImageType.PNG).stream();
+        byte[] qrCode = QRCode.from("http://localhost:8080/togethair/bookingInfo.xhtml?bookingId=" + bookingId)
+                .withSize(250,250).to(ImageType.PNG).stream().toByteArray();
 
-        return qrCode;
+        return "data:image/png;base64," + Base64.getEncoder().encodeToString(qrCode);
     }
 }

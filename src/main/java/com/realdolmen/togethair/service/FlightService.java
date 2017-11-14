@@ -1,29 +1,26 @@
 package com.realdolmen.togethair.service;
 
-import com.realdolmen.togethair.domain.flight.Flight;
+import com.realdolmen.togethair.domain.flight.TravelClass;
+import com.realdolmen.togethair.domain.flight.TravelClassType;
 import com.realdolmen.togethair.domain.location.Airport;
-import com.realdolmen.togethair.domain.location.GlobalRegion;
 import com.realdolmen.togethair.repository.FlightRepository;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 10/11/2017.
- */
-@RequestScoped
+@Stateless
 public class FlightService {
 
     @Inject
     private FlightRepository flightRepository;
 
-    public List<Flight> findFlightsByAirportNameDateTimesAndAmountOfFreeSeats(Airport origin, Airport destination, int amount, LocalDateTime after, LocalDateTime before) {
-        return flightRepository.findFlightsByAirportNameDateTimesAndAmountOfFreeSeats(origin, destination, amount, after, before);
+    public List<TravelClass> findAvailableFlights(Airport origin, Airport destination, LocalDate departureDate, TravelClassType travelClass, int seatCount) {
+        return flightRepository.findAvailableFlights(origin, destination, departureDate, travelClass, seatCount);
     }
 
-    public List<Flight> findFlightsByGlobalRegionDateTimesAndAmountOfFreeSeats(GlobalRegion origin, GlobalRegion destination, int amount, LocalDateTime after, LocalDateTime before) {
-        return flightRepository.findFlightsByGlobalRegionDateTimesAndAmountOfFreeSeats(origin, destination, amount, after, before);
+    public List<Airport> getAllAirports() {
+        return flightRepository.getAllAirports();
     }
 }

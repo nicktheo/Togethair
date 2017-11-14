@@ -18,7 +18,7 @@ public class Trajectory {
     private Airport destination;
 
 
-    public Trajectory() {}
+    protected Trajectory() {}
 
     public Trajectory(Airport origin, Airport destination) {
         this.origin = origin;
@@ -48,5 +48,21 @@ public class Trajectory {
 
     public void setDestination(Airport destination) {
         this.destination = destination;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Trajectory)) return false;
+
+        Trajectory trajectory = (Trajectory) o;
+
+        return origin.equals(trajectory.origin) && destination.equals(trajectory.destination);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * origin.hashCode() + destination.hashCode();
     }
 }

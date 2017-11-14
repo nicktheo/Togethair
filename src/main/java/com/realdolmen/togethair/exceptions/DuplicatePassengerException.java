@@ -11,4 +11,8 @@ public class DuplicatePassengerException extends DuplicateKeyException {
     public DuplicatePassengerException(String message) {
         super(message);
     }
+
+    public DuplicatePassengerException(Exception e) {
+        super(e.getMessage());
+    }
 }

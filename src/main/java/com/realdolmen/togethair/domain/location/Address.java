@@ -1,6 +1,8 @@
 package com.realdolmen.togethair.domain.location;
 
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Embeddable
 public class Address {
@@ -10,12 +12,13 @@ public class Address {
     private String box;
     private String postalCode;
     private String city;
-    private String country;
+    @Enumerated(EnumType.STRING)
+    private Country country;
 
 
-    public Address() {}
+    protected Address() {}
 
-    public Address(String street, int number, String box, String postalCode, String city, String country) {
+    public Address(String street, int number, String box, String postalCode, String city, Country country) {
         this.street = street;
         this.number = number;
         this.box = box;
@@ -65,11 +68,11 @@ public class Address {
         this.city = city;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 }

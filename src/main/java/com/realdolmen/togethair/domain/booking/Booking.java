@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.domain.booking;
 
+import com.realdolmen.togethair.domain.flight.Availability;
 import com.realdolmen.togethair.domain.flight.Seat;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.identity.Customer;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 public class Booking implements Bookable<Booking> {
 
     private Long id;
+
+    private String uuid;
 
     private Customer customer;
 
@@ -37,6 +40,14 @@ public class Booking implements Bookable<Booking> {
         this.id = id;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     @ManyToOne
     public Customer getCustomer() {
         return customer;
@@ -46,7 +57,7 @@ public class Booking implements Bookable<Booking> {
         this.customer = customer;
     }
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<BookingLine> getBookingLines() {
         return bookingLines.stream()
                 .map(Bookable::getBase)
@@ -78,6 +89,12 @@ public class Booking implements Bookable<Booking> {
     }
 
 
+    public void setSeatAvailability(Availability availability) {
+        bookingLines.stream()
+                .forEach(x -> x.getBase().setSeatAvailability(availability));
+    }
+
+
     @Override
     @Transient
     public double getPrice() {
@@ -95,7 +112,8 @@ public class Booking implements Bookable<Booking> {
                 .collect(Collectors.toList());
     }
 
-    public static class Builder implements Serializable{
+
+    public static class Builder {
 
         private Booking booking = new Booking();
 
@@ -131,6 +149,10 @@ public class Booking implements Bookable<Booking> {
             return this;
         }
 
+        public int countPassengers() {
+            return passengers.size();
+        }
+
         public Builder addPassenger(Passenger passenger) throws DuplicatePassengerException {
             if (passengers.contains(passenger))
                 throw new DuplicatePassengerException();
@@ -147,7 +169,7 @@ public class Booking implements Bookable<Booking> {
             return this;
         }
 
-        public Builder addSeat(Seat seat) throws NoSuchFlightException, DuplicateSeatException {
+        public Builder addSeat(Seat seat) throws NoSuchFlightException, DuplicateSeatException, TooManySeatsException {
             List<Seat> seats = flights.get(seat.getTravelClass());
 
             if (seats == null)
@@ -157,6 +179,7 @@ public class Booking implements Bookable<Booking> {
             if (seats.size() == passengers.size())
                 throw new TooManySeatsException();
 
+            seat.setAvailability(Availability.RESERVED);
             seats.add(seat);
 
             return this;
@@ -187,13 +210,26 @@ public class Booking implements Bookable<Booking> {
         }
 
         public Bookable<Booking> build() throws IllegalStateException {
-            if (booking.getCustomer() == null || flights.size() == 0)
-                throw new IllegalStateException();
+            Bookable<Booking> booking;
+
+            if (this.booking.getCustomer() == null)
+                throw new IllegalStateException("No customer set");
+            if (flights.size() == 0)
+                throw new IllegalStateException("No flights in booking");
 
             for (Map.Entry<TravelClass, List<Seat>> flight : flights.entrySet())
-                booking.addBookingLine(new BookingLine(passengers, flight.getValue()), priceAdapters.get(flight));
+                this.booking.addBookingLine(new BookingLine(passengers, flight.getValue()), priceAdapters.get(flight));
 
-            return bookingPriceAdapter.setBase(booking);
+            this.booking.setUuid(UUID.randomUUID().toString());
+
+            if (bookingPriceAdapter == null)
+                booking = this.booking;
+            else
+                booking = bookingPriceAdapter.setBase(this.booking);
+
+            booking.getBase().setTotalPrice(booking.getPrice());
+
+            return booking;
         }
     }
 }

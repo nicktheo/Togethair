@@ -5,11 +5,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
 
-<ui:composition template="/template.xhtml">
-    <ui:define name="pageContent">
+<!--<ui:composition template="/template.xhtml">-->
+    <!--<ui:define name="pageContent">-->
+<body>
         <h1>#{msgs['succesfull.titel']}</h1>
         <p>#{msgs['bookingsucces.info']}</p>
-    </ui:define>
-</ui:composition>
+        <img alt="qrCode" src="#{bookingController.provideQrCode()}"/>
+        <!--<p><h:graphicImage id="qrcode" value="bookingController.provideQrCode()"/> </p>-->
+</body>
+    <!--</ui:define>-->
+<!--</ui:composition>-->
 
 </html>

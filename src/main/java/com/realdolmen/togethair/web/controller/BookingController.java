@@ -2,19 +2,19 @@ package com.realdolmen.togethair.web.controller;
 
 
 import com.realdolmen.togethair.domain.booking.Booking;
+import com.realdolmen.togethair.domain.booking.PricingAdapter;
+import com.realdolmen.togethair.domain.flight.Availability;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.identity.Passenger;
 import com.realdolmen.togethair.domain.identity.SimplePassenger;
 import com.realdolmen.togethair.exceptions.DuplicateFlightException;
 import com.realdolmen.togethair.exceptions.DuplicatePassengerException;
 import com.realdolmen.togethair.exceptions.DuplicateSeatException;
-import com.realdolmen.togethair.exceptions.SeatIsTakenException;
-import com.realdolmen.togethair.service.BookingService;
-import com.realdolmen.togethair.service.PricingProvider;
-import com.realdolmen.togethair.service.SeatService;
+import com.realdolmen.togethair.exceptions.SeatAlreadyTakenException;
+import com.realdolmen.togethair.service.*;
 import com.realdolmen.togethair.web.BookingBean;
+import com.realdolmen.togethair.web.LoginBean;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.ObjectNotFoundException;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
@@ -22,84 +22,86 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-/**
- * Created by JCEBF12 on 8/11/2017.
- */
 @Named
 @FlowScoped("booking")
 public class BookingController implements Serializable{
 
     @Inject
-    SeatService seatService;
-    @Inject
     BookingBean bookingBean;
     @Inject
-    LoginController userBean;
-    @Inject
-    Booking.Builder bookingBuilder;
+    LoginBean loginBean;
     @Inject
     PricingProvider pricingProvider;
     @Inject
     BookingService bookingService;
+    @Inject
+    QRCodeProvider qrCodeProvider;
+    @Inject
+    EmailService emailService;
 
-    private List<Long> travelClassIds;
-    private List<Passenger> passengers;
+    private Booking.Builder bookingBuilder = new Booking.Builder();
+    private List<Passenger> passengers = new ArrayList<>();
 
     private String paymentMethod;
     private String ccNumber;
 
-
-    @PostConstruct
-    public void initialize() {
-        travelClassIds = new ArrayList<>();
-        passengers = new ArrayList<>();
-    }
-
+    private String bookingId;
 
 
     public String checkout() {
-        if (!userBean.isLoggedIn()){
-            return "login";
-        }
-        for (int i = 0; i < bookingBean.getNumberOfPassengers(); i++) {
-            passengers.add(new SimplePassenger());
-        }
+        for (int i = 0; i < bookingBean.getPassengerCount(); i++)
+            passengers.add(new SimplePassenger("", "", ""));
+
         return "book";
     }
 
     public String addBooking() {
-        if (!userBean.isLoggedIn()){
-            return "login";
-        }
+        Booking.Builder bookingBuilder = new Booking.Builder();
         try{
-            List<TravelClass> tClasses = bookingBean.getTravelClasses();
-            bookingBuilder.setCustomer(userBean.getCustomer()).addFlights(tClasses).addPassengers(passengers);
+            List<TravelClass> tClasses = bookingBean.getFlights();
+            bookingBuilder.setCustomer(loginBean.getCustomer()).addFlights(tClasses).addPassengers(passengers);
+
+            PricingAdapter pa;
             for (TravelClass tcItem : tClasses) {
-                bookingBuilder.addPriceAdapter(pricingProvider.getFlightPricingAdapters(tcItem.getFlight()), tcItem);
+                pa = pricingProvider.getFlightPricingAdapters(tcItem.getFlight());
+                bookingBuilder.addPriceAdapter(pa, tcItem);
             }
-            if (paymentMethod.equals("margin")) {
-                bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("creditcard"));
+            if (paymentMethod.equals("creditcard")) {
+                bookingBuilder.addPriceAdapter(pricingProvider.getBookingPricingAdapter("CREDIT_CARD"));
             }
-            bookingService.persistBooking(bookingBuilder, bookingBean.getNumberOfPassengers());
+            Booking temp = bookingService.persistBooking(bookingBuilder, bookingBean.getPassengerCount());
+            this.bookingId = temp.getUuid();
+            temp.setSeatAvailability(Availability.TAKEN);
+            bookingBean.clearFlights();
+            //emailService.sendEmail(temp);
 
         } catch (DuplicateFlightException e) {
             return "somethingWentWrong";
         } catch (DuplicatePassengerException e) {
             return "somethingWentWrong";
-        } catch (SeatIsTakenException e) {
+        } catch (SeatAlreadyTakenException e) {
             return "seatTaken";
         } catch (DuplicateSeatException e) {
-            return "somethingWentWrong";
+            return "somethingWentWrong.xhtml";
         } catch (ObjectNotFoundException e) {
             return "somethingWentWrong";
         }
 
-        return "end";
+        return "success";
     }
 
-    public List<Passenger> getPassengers(){
+    public String provideQrCode() {
+        return qrCodeProvider.generateBase64QrCode(bookingId);
+    }
+
+    public List<Passenger> getPassengers() {
         return passengers;
+    }
+
+    public void setPassengers(List<Passenger> passengers) {
+        this.passengers = passengers;
     }
 
     public String getPaymentMethod() {
@@ -116,5 +118,13 @@ public class BookingController implements Serializable{
 
     public void setCcNumber(String ccNumber) {
         this.ccNumber = ccNumber;
+    }
+
+    public String getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
     }
 }

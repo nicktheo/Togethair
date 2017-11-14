@@ -25,7 +25,7 @@ public class PriceSetting {
     private int priority = 100;
 
 
-    public PriceSetting() {}
+    protected PriceSetting() {}
 
     public PriceSetting(PriceSettingLevel level, PriceSettingType type, double value, int priority, String name) {
         this(level, type, value, priority);

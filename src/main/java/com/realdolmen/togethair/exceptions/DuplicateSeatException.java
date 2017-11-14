@@ -11,4 +11,8 @@ public class DuplicateSeatException extends DuplicateKeyException {
     public DuplicateSeatException(String message) {
         super(message);
     }
+
+    public DuplicateSeatException(Exception e) {
+        super(e.getMessage());
+    }
 }

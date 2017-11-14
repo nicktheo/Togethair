@@ -1,5 +1,8 @@
 package com.realdolmen.togethair.domain.identity;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class SimplePassenger implements Passenger {
 
     private String firstName;
@@ -7,15 +10,15 @@ public class SimplePassenger implements Passenger {
     private String passportNumber;
 
 
+    protected SimplePassenger() {}
+
     public SimplePassenger(String firstName, String lastName, String passportNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.passportNumber = passportNumber;
     }
 
-    public SimplePassenger() {
-    }
-
+    
     @Override
     public String getFirstName() {
         return firstName;

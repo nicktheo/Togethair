@@ -21,7 +21,7 @@ public class Seat {
     private Availability availability;
 
 
-    public Seat() {}
+    protected Seat() {}
 
     public Seat(int row, int column, TravelClass travelClass, Availability availability) {
         this.row = row;

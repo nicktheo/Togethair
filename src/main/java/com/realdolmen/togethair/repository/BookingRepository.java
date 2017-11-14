@@ -4,48 +4,53 @@ import com.realdolmen.togethair.domain.booking.Booking;
 import com.realdolmen.togethair.domain.flight.Seat;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.exceptions.DuplicateSeatException;
-import com.realdolmen.togethair.exceptions.SeatIsTakenException;
-import com.realdolmen.togethair.service.SeatService;
+import com.realdolmen.togethair.exceptions.NotEnoughSeatsException;
 
-import javax.ejb.ObjectNotFoundException;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 10/11/2017.
- */
+@Stateless
 public class BookingRepository {
 
     @PersistenceContext
     EntityManager em;
+
     @Inject
-    SeatService seatService;
+    FlightRepository flightRepository;
 
-    public Booking getUnmanagedBookingWithId(long id) {
-        Booking b =  em.find(Booking.class, id);
-        em.detach(b);
-        return b;
+
+    public Booking getBookingByUUID(String uuid) {
+        TypedQuery<Booking> query = em.createQuery("SELECT b from Booking b " +
+                        "WHERE b.uuid = :uuid",
+                Booking.class);
+
+        return query
+                .setParameter("uuid", uuid)
+                .getSingleResult();
     }
 
-    public void persistBooking(Booking.Builder builder, int amount) throws SeatIsTakenException, ObjectNotFoundException, DuplicateSeatException {
-        List<Seat> seats = new ArrayList<>();
-        em.getTransaction().begin();
-        for(TravelClass travelclass : builder.getFlights()) {
-            seats = seatService.getFreeSeatsPessimisticLock(travelclass);
-            if (seats.size() < amount) {
-                em.getTransaction().rollback();
-                throw new SeatIsTakenException();
-            }
-            else{
-                for (int i = 0; i < amount; i++) {
-                    builder.addSeat(seats.get(i));
-                }
-            }
+    @Transactional(rollbackOn = {NotEnoughSeatsException.class})
+    public Booking persistBooking(Booking.Builder bookingBuilder) throws NotEnoughSeatsException, DuplicateSeatException {
+        int passengerCount = bookingBuilder.countPassengers();
+
+        for(TravelClass travelclass : bookingBuilder.getFlights()) {
+            List<Seat> seats = flightRepository.getFreeSeats(travelclass);
+
+            if (seats.size() < passengerCount)
+                throw new NotEnoughSeatsException();
+
+            bookingBuilder.addSeats(seats.subList(0, passengerCount));
         }
-        em.persist(builder.build());
-        em.getTransaction().commit();
+
+        Booking booking = bookingBuilder.build().getBase();
+        em.persist(booking);
+
+        return booking;
     }
+
 }

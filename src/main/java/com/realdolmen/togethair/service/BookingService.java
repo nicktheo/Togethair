@@ -5,21 +5,20 @@ import com.realdolmen.togethair.exceptions.DuplicateSeatException;
 import com.realdolmen.togethair.repository.BookingRepository;
 
 import javax.ejb.ObjectNotFoundException;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-/**
- * Created by JCEBF12 on 10/11/2017.
- */
+@Stateless
 public class BookingService {
 
     @Inject
     BookingRepository bookingRepository;
 
-    public void persistBooking(Booking.Builder bookingBuilder, int numberOfPassengers) throws DuplicateSeatException, ObjectNotFoundException {
-        bookingRepository.persistBooking(bookingBuilder, numberOfPassengers);
+    public Booking persistBooking(Booking.Builder bookingBuilder, int numberOfPassengers) throws DuplicateSeatException, ObjectNotFoundException {
+        return bookingRepository.persistBooking(bookingBuilder);
     }
 
-    public Booking getUnmanagedBookingById(long id) {
-        return bookingRepository.getUnmanagedBookingWithId(id);
+    public Booking getBookingByUUID(String uuid) {
+        return bookingRepository.getBookingByUUID(uuid);
     }
 }

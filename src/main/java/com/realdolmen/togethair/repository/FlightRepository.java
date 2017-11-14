@@ -1,50 +1,62 @@
 package com.realdolmen.togethair.repository;
 
-import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.flight.Availability;
-import com.realdolmen.togethair.domain.flight.Flight;
+import com.realdolmen.togethair.domain.flight.Seat;
+import com.realdolmen.togethair.domain.flight.TravelClass;
+import com.realdolmen.togethair.domain.flight.TravelClassType;
 import com.realdolmen.togethair.domain.location.Airport;
-import com.realdolmen.togethair.domain.location.GlobalRegion;
 
-import javax.enterprise.context.RequestScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TemporalType;
-import javax.persistence.TypedQuery;
-import java.sql.Date;
-import java.time.LocalDateTime;
+import javax.ejb.Stateless;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 10/11/2017.
- */
-@RequestScoped
+@Stateless
 public class FlightRepository {
 
     @PersistenceContext
     EntityManager em;
 
-    public List<Flight> findFlightsByAirportNameDateTimesAndAmountOfFreeSeats(Airport origin, Airport destination, int amount, LocalDateTime after, LocalDateTime before) {
-        TypedQuery<Flight> query = em.createQuery("SELECT f FROM Flight f WHERE f.origin = :origin " +
-                        "AND f.destination = :destination " +
-                        "AND f.departure > :after " +
-                        "AND f.departure < :before " +
-                        "AND :amount <= (SELECT COUNT(s) FROM Seat s WHERE s.travelClass.flight = f AND s.availibilty = :av)", Flight.class);
 
-        return query.setParameter("origin", origin).setParameter("destination", destination).
-                setParameter("after", after).setParameter("before", before).setParameter("amount", amount)
-                .setParameter("av", Availability.FREE).getResultList();
+    public List<TravelClass> findAvailableFlights(Airport origin, Airport destination, LocalDate departureDate, TravelClassType travelClass, long seatCount) {
+        TypedQuery<TravelClass> query = em.createQuery("SELECT t FROM TravelClass t " +
+                "WHERE t.type = :travelClass " +
+                    "AND t.flight.origin = :origin " +
+                    "AND t.flight.destination = :destination " +
+                    "AND t.flight.departure >= :departureAfter " +
+                    "AND t.flight.departure < :departureBefore " +
+                    "AND :seatCount <= (SELECT COUNT(s) FROM Seat s " +
+                        "WHERE s.travelClass = t " +
+                            "AND s.availability = :availability)",
+                TravelClass.class);
+
+        return query
+                .setParameter("travelClass", travelClass)
+                .setParameter("origin", origin)
+                .setParameter("destination", destination)
+                .setParameter("departureAfter", departureDate.atStartOfDay())
+                .setParameter("departureBefore", departureDate.plusDays(1).atStartOfDay())
+                .setParameter("seatCount", seatCount)
+                .setParameter("availability", Availability.FREE)
+                .getResultList();
     }
 
-    public List<Flight> findFlightsByGlobalRegionDateTimesAndAmountOfFreeSeats(GlobalRegion origin, GlobalRegion destination, int amount, LocalDateTime after, LocalDateTime before) {
-        TypedQuery<Flight> query = em.createQuery("SELECT f FROM Flight f WHERE f.origin.globalRegion = :origin " +
-                "AND f.destination.globalRegion = :destination " +
-                "AND f.departure > :after " +
-                "AND f.departure < :before " +
-                "AND :amount <= (SELECT COUNT(s) FROM Seat s WHERE s.travelClass.flight = f AND s.availibilty = :av)", Flight.class);
+    public List<Seat> getFreeSeats(TravelClass travelClass) {
+        TypedQuery<Seat> query = em.createQuery("SELECT s from Seat s " +
+                "WHERE s.travelClass = :travelClass " +
+                    "AND s.availability = :availability",
+                Seat.class);
 
-        return query.setParameter("origin", origin).setParameter("destination", destination).
-                setParameter("after", after).setParameter("before", before).setParameter("amount", amount)
-                .setParameter("av", Availability.FREE).getResultList();
+        return query
+                .setParameter("travelClass", travelClass)
+                .setParameter("availability", Availability.FREE)
+                .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+                .getResultList();
+    }
+
+    public List<Airport> getAllAirports() {
+        TypedQuery<Airport> query = em.createQuery("SELECT a FROM Airport a", Airport.class);
+
+        return query.getResultList();
     }
 }

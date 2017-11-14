@@ -13,6 +13,10 @@
             <base-name>Messages</base-name>
             <var>msgs</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>Terms</base-name>
+            <var>terms</var>
+        </resource-bundle>
         <message-bundle>ErrorMessages</message-bundle>
     </application>
 

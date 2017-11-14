@@ -5,18 +5,36 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
               version="2.2">
     <flow-definition id="booking">
-        <start-node>book</start-node>
+        <start-node>start</start-node>
+
+        <switch id="start">
+            <case>
+                <if>#{!loginBean.loggedIn}</if>
+                <from-outcome>login</from-outcome>
+            </case>
+            <default-outcome>book</default-outcome>
+        </switch>
+
+        <view id="login">
+            <vdl-document>/login/login.xhtml</vdl-document>
+        </view>
+
         <view id="book">
             <vdl-document>/booking/booking.xhtml</vdl-document>
         </view>
+
         <view id="pay">
             <vdl-document>/booking/payment.xhtml</vdl-document>
         </view>
-        <flow-return id="end">
-            <from-outcome>/booking/bookingsuccesfull.xhtml</from-outcome>
+
+        <view id="success">
+            <vdl-document>/booking/bookingsuccesfull.xhtml</vdl-document>
+        </view>
+
+        <flow-return id="exit">
+            <from-outcome>exit</from-outcome>
         </flow-return>
 
         <initializer>#{bookingController.checkout()}</initializer>
-        <finalizer>#{bookingController.addBooking()}</finalizer>
     </flow-definition>
 </faces-config>

@@ -9,7 +9,11 @@ import com.realdolmen.togethair.domain.booking.pricing.PriceSettingType;
 import com.realdolmen.togethair.domain.flight.*;
 import com.realdolmen.togethair.domain.booking.pricing.FlightPriceSetting;
 import com.realdolmen.togethair.domain.booking.pricing.PriceSetting;
+import com.realdolmen.togethair.domain.identity.Airline;
 import com.realdolmen.togethair.domain.identity.SimplePassenger;
+import com.realdolmen.togethair.domain.location.Airport;
+import com.realdolmen.togethair.domain.location.Country;
+import com.realdolmen.togethair.domain.location.GlobalRegion;
 import com.realdolmen.togethair.repository.PricingRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,7 +23,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PricingProviderTest {
@@ -30,7 +37,7 @@ public class PricingProviderTest {
     @InjectMocks
     private PricingProvider provider;
 
-    private Flight f = new Flight();
+    private Flight f = new Flight(Airline.BEL, 1, new Airport("EBBR", "Brussels Airport", Country.BEL, GlobalRegion.EUROPE), new Airport("LGAV", "Athens International Airport", Country.GRC, GlobalRegion.EUROPE), LocalDateTime.of(2017,11,9,14,0,0), Duration.ofHours(3), Collections.EMPTY_LIST);
     private List<FlightPriceSetting> pricingListPercentage = new ArrayList<>();
     private List<FlightPriceSetting> pricingListFixed = new ArrayList<>();
     private List<FlightPriceSetting> pricingListCombined = new ArrayList<>();
@@ -63,7 +70,7 @@ public class PricingProviderTest {
         tickets.add(new PersonalTicket(s2, new SimplePassenger("N", "T", "123")));
 
 //        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingList);
-//        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(new PriceSetting(PriceSettingType.PERCENTAGE, 1.20, 10, "margin"));
+//        Mockito.when(pricingRepo.findGeneralPricing("margin")).thenReturn(new PriceSetting(PriceSettingType.PERCENTAGE, 1.20, 10, "margin"));
 //        MockitoAnnotations.initMocks(this);
         //Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListFixed);
 
@@ -110,7 +117,7 @@ public class PricingProviderTest {
 //    @Test
 //    public void pricingProviderAppliesBookingPricing() throws PricingNotFoundException {
 //        MockitoAnnotations.initMocks(this);
-//        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
+//        Mockito.when(pricingRepo.findGeneralPricing("margin")).thenReturn(gp);
 //
 //        List<BookingLine> bLines = new ArrayList<>();
 //        bLines.add(new BookingLine(tickets));
@@ -125,7 +132,7 @@ public class PricingProviderTest {
 //    @Test
 //    public void pricingProviderAppliesFlightAndBookingPricing() throws PricingNotFoundException {
 //        MockitoAnnotations.initMocks(this);
-//        Mockito.when(pricingRepo.getGeneralPricingByName("margin")).thenReturn(gp);
+//        Mockito.when(pricingRepo.findGeneralPricing("margin")).thenReturn(gp);
 //        Mockito.when(pricingRepo.getFlightPricingForFlight(f)).thenReturn(pricingListCombined);
 //
 //        List<BookingLine> bLines = new ArrayList<>();

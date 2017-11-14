@@ -9,24 +9,29 @@ public class Airport {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private String code;
+    @Column(nullable = false, unique = true)
+    private String icaoCode;
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private String country;
+    @Enumerated(EnumType.STRING)
+    private Country country;
     @Enumerated(EnumType.STRING)
     private GlobalRegion globalRegion;
 
 
-    public Airport() {}
+    protected Airport() {}
 
-    public Airport(String code, String name, String country, GlobalRegion globalRegion) {
-        this.code = code;
+    public Airport(String icaoCode, String name, Country country, GlobalRegion globalRegion) {
+        this.icaoCode = icaoCode;
         this.name = name;
         this.country = country;
         this.globalRegion = globalRegion;
+    }
+
+    public Airport(String icaoCode) {
+        this.icaoCode = icaoCode;
     }
 
 
@@ -38,12 +43,12 @@ public class Airport {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getIcaoCode() {
+        return icaoCode;
     }
 
-    public void setCode(String internationalAirportCode) {
-        this.code = internationalAirportCode;
+    public void setIcaoCode(String icao) {
+        this.icaoCode = icao;
     }
 
     public String getName() {
@@ -54,11 +59,11 @@ public class Airport {
         this.name = name;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
@@ -68,5 +73,26 @@ public class Airport {
 
     public void setGlobalRegion(GlobalRegion globalRegion) {
         this.globalRegion = globalRegion;
+    }
+
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Airport)) return false;
+
+        Airport airport = (Airport) o;
+
+        return icaoCode.equals(airport.icaoCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return icaoCode.hashCode();
     }
 }

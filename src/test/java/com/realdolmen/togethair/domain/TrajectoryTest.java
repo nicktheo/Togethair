@@ -2,6 +2,7 @@ package com.realdolmen.togethair.domain;
 
 import com.realdolmen.togethair.domain.flight.Trajectory;
 import com.realdolmen.togethair.domain.location.Airport;
+import com.realdolmen.togethair.domain.location.Country;
 import com.realdolmen.togethair.domain.location.GlobalRegion;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,16 +15,16 @@ public class TrajectoryTest {
     @Before
     public void initialize(){
 
-        Airport departureAirport = new Airport("Brussels Airport", "Belgium","BRU", GlobalRegion.NORTHERN_EUROPE);
-        Airport destinationAirport = new Airport("Athens International Airport", "Greece","ATH", GlobalRegion.SOUTHERN_EUROPE);
+        Airport departureAirport = new Airport("EBBR", "Brussels Airport", Country.BEL, GlobalRegion.EUROPE);
+        Airport destinationAirport = new Airport("LGAV", "Athens International Airport", Country.GRC, GlobalRegion.EUROPE);
 
         flight = new Trajectory(departureAirport,destinationAirport);
     }
 
     @Test
     public void testFlight() {
-        Assert.assertEquals(GlobalRegion.NORTHERN_EUROPE,flight.getOrigin().getGlobalRegion());
-        Assert.assertEquals(GlobalRegion.SOUTHERN_EUROPE,flight.getDestination().getGlobalRegion());
+        Assert.assertEquals(GlobalRegion.EUROPE,flight.getOrigin().getGlobalRegion());
+        Assert.assertEquals(GlobalRegion.EUROPE,flight.getDestination().getGlobalRegion());
         Assert.assertEquals("Brussels Airport",flight.getOrigin().getName());
         Assert.assertEquals("Athens International Airport",flight.getDestination().getName());
     }

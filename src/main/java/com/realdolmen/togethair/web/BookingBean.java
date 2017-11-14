@@ -1,52 +1,42 @@
 package com.realdolmen.togethair.web;
 
 import com.realdolmen.togethair.domain.flight.TravelClass;
-import com.realdolmen.togethair.service.TravelClassService;
-import com.realdolmen.togethair.web.controller.LoginController;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.ObjectNotFoundException;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 9/11/2017.
- */
+@Named
 @SessionScoped
 public class BookingBean implements Serializable{
 
-    @Inject
-    private TravelClassService travelClassService;
+    private List<TravelClass> flights = new ArrayList<>();
+    private int passengerCount = 1;
 
-    private List<TravelClass> travelClasses;
-    private int numberOfPassengers;
 
-    @PostConstruct
-    public void initialize(){
-        travelClasses = new ArrayList<>();
-        numberOfPassengers = 2;
+    public List<TravelClass> getFlights(){
+        return flights;
     }
 
-    public String addFlights(List<Long> travelClassIds, int amount) {
-        try {
-            this.numberOfPassengers = amount;
-            for (Long id : travelClassIds) {
-                travelClasses.add(travelClassService.getTravelClassById(id));
-            }
-            return "searchFlights.xhtml";
-        } catch (ObjectNotFoundException e) {
-            return "somethingWentWrong.xhtml";
-        }
+    public void addFlights(List<TravelClass> travelClasses) {
+        this.flights.addAll(travelClasses);
     }
 
-    public List<TravelClass> getTravelClasses(){
-        return travelClasses;
+    public void addFlight(TravelClass travelClass) {
+        this.flights.add(travelClass);
     }
 
-    public int getNumberOfPassengers(){
-        return numberOfPassengers;
+    public int getPassengerCount(){
+        return passengerCount;
+    }
+
+    public void setPassengerCount(int passengerCount) {
+        this.passengerCount = passengerCount;
+    }
+
+    public void clearFlights() {
+        flights.clear();
     }
 }

@@ -8,17 +8,12 @@ import com.realdolmen.togethair.exceptions.NoSuchPricingException;
 import com.realdolmen.togethair.repository.PricingRepository;
 
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by JCEBF12 on 7/11/2017.
- */
-@RequestScoped
+@Stateless
 public class PricingProvider{
 
     @Inject
@@ -27,7 +22,7 @@ public class PricingProvider{
     public PricingAdapter getFlightPricingAdapters(Flight flight) {
         List<PriceSetting> priceSettings = new ArrayList<>();
         PricingAdapter bookingLineDecorator = null;
-        priceSettings.addAll(pricingRepo.getFlightPricingForFlight(flight));
+        priceSettings.addAll(pricingRepo.getFlightPricings(flight));
         priceSettings.addAll(pricingRepo.getGeneralFlightPricings());
 
         // Sort the pricings on priority
@@ -45,7 +40,7 @@ public class PricingProvider{
     }
 
     public PricingAdapter getBookingPricingAdapter(String name) throws NoSuchPricingException {
-        PriceSetting gp = pricingRepo.getGeneralPricingByName(name);
+        PriceSetting gp = pricingRepo.findGeneralPricing(name);
         return getPricing(gp, null);
     }
 

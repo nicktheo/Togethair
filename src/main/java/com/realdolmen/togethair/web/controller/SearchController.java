@@ -1,10 +1,12 @@
 package com.realdolmen.togethair.web.controller;
 
+import com.realdolmen.togethair.domain.booking.BookingLine;
 import com.realdolmen.togethair.domain.booking.TicketType;
 import com.realdolmen.togethair.domain.flight.TravelClass;
 import com.realdolmen.togethair.domain.flight.TravelClassType;
 import com.realdolmen.togethair.domain.location.Airport;
 import com.realdolmen.togethair.service.FlightService;
+import com.realdolmen.togethair.service.PricingProvider;
 import com.realdolmen.togethair.web.BookingDetails;
 import com.realdolmen.togethair.web.SearchRequest;
 
@@ -26,6 +28,9 @@ public class SearchController implements Serializable {
 
     @Inject
     FlightService flightService;
+
+    @Inject
+    PricingProvider pricingProvider;
 
     @Inject
     BookingDetails booking;

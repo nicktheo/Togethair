@@ -269,6 +269,15 @@ a:visited { color: #D87563; }
 	padding-right: 20px;
 }
 
+.header h1 form {
+	margin-bottom: 0;
+}
+
+.header h1 a {
+	color: #ffffff !important;
+	text-decoration: none !important;
+}
+
 h1, h2, h3, h4, h5, h6 { color: #5E7690; }
 a{ color: #00b0b0; }
 a:hover, a:focus { color: #007777; }
@@ -295,3 +304,8 @@ a:visited { color: #5A8B86; }
 table td {
 	vertical-align: middle !important;
 }
+
+#loginForm .form-control::-webkit-input-placeholder { color: rgba(0,0,0,0.5); }
+#loginForm .form-control:-moz-placeholder { color: rgba(0,0,0,0.5); }
+#loginForm .form-control::-moz-placeholder { color: rgba(0,0,0,0.5); }
+#loginForm .form-control:-ms-input-placeholder { color: rgba(0,0,0,0.5); }

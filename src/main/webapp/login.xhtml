@@ -2,24 +2,19 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="pageContent">
 
             <h1>Login</h1>
             <p>Please provide login Credentials</p>
-            <h:form id="loginForm" styleClass="error">
+            <h:form id="loginForm" styleClass="form">
                 <h:message for="loginForm"/>
-                <p>
-                    <h:outputText value="Email"/>
-                    <h:inputText value="#{loginController.email}"/>
-                </p>
-                <p>
-                    <h:outputText value="Password"/>
-                    <h:inputSecret value="#{loginController.password}"/>
-                </p>
-                <h:commandButton value="login" action="#{loginController.login()}"/>
+                <div class="form-group"><h:inputText value="#{loginController.email}" styleClass="form-control input-lg" a:placeholder="Email"/></div>
+                <div class="form-group"><h:inputSecret value="#{loginController.password}" styleClass="form-control input-lg" a:placeholder="Password"/></div>
+                <h:commandButton value="login" action="#{loginController.login()}" styleClass="btn btn-lg btn-default"/>
             </h:form>
 
         </ui:define>

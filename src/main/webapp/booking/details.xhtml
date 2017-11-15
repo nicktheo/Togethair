@@ -8,33 +8,39 @@
 
 <ui:composition template="/template.xhtml">
     <ui:define name="pageContent">
-        <h:dataTable id="bookingTable" value="#{reportingController.bookingInfo(param['bookingId'])}" var="booking" styleClass="table table-striped">
-            <h:column>
-                <h:outputText value="total price"/>
-                <h:outputText value="#{booking.getTotalPrice()}"/>
-            </h:column>
-            <h:column>
-                <h:dataTable id="flightsTable" value="#{booking.getBookingLines()}" var="bookingLine">
+        <h:outputText value="total price: "/>
+        <h:outputText value="#{reportingController.bookingInfo(param['bookingId']).totalPrice} EUR"/>
+        <ui:repeat var="o" value="#{reportingController.bookingInfo(param['bookingId']).bookingLines}">
+
+                <h:dataTable value="#{o.tickets.get(0).seat.travelClass}" var="g" styleClass="table table-striped">
                     <h:column>
-                        <h:outputText value="#{bookingLine.getTickets().get(0).getSeat().getTravelClass().getFlight().origin}"/><br/>
-                        <h:outputText value="#{bookingLine.getTickets().get(0).getSeat().getTravelClass().getFlight().destination}"/><br/>
-                        <h:outputText value="#{bookingLine.getTickets().get(0).getSeat().getTravelClass().getFlight().departure}"/><br/>
-                        <h:outputText value="#{bookingLine.getTickets().get(0).getSeat().getTravelClass().getFlight().duration}"/><br/>
-                        <h:outputText value="#{bookingLine.getTickets().get(0).getSeat().getTravelClass().type}"/>
-                        <h:dataTable id="passengerTable" value="#{bookingLine.getTickets()}" var="ticket">
-                            <h:column>
-                                <h:outputText value="#{ticket.getPassenger().getFirstName()}"/>
-                            </h:column>
-                            <h:column>
-                                <h:outputText value="#{ticket.getPassenger().getLastName()}"/>
-                            </h:column>
-                        </h:dataTable>
+                        <h:outputText value="#{g.flight.origin.toString()}"/>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{g.flight.destination.toString()}"/>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{g.flight.departure}"/>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{g.type}"/>
                     </h:column>
                 </h:dataTable>
-            </h:column>
-        </h:dataTable>
+        </ui:repeat>
 
-        <h:link outcome="../index.xhtml">Home</h:link>
+        <ui:repeat var="o" value="#{reportingController.bookingInfo(param['bookingId']).bookingLines}">
+
+            <h:dataTable value="#{o.tickets}" var="g" styleClass="table table-striped">
+                <h:column>
+                    <h:outputText value="#{g.passenger.firstName}"/>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{g.passenger.lastName}"/>
+                </h:column>
+            </h:dataTable>
+        </ui:repeat>
+
+        <h:form><h:commandLink action="exit" value="Home" /></h:form>
     </ui:define>
 </ui:composition>
 

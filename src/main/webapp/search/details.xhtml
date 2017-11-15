@@ -6,8 +6,46 @@
     <ui:define name="pageContent">
 
         <h:form>
-            <h:outputText value="#{searchController.selectedFlight}" />
-            <h:commandLink value="Add To Booking" action="#{searchController.addToBooking}" />
+            <table class="table">
+                <tr>
+                    <th>
+                        <i class="fa fa-location-arrow fa-fw"></i>
+                    </th>
+                    <td>
+                        <h:outputText value="#{searchController.selectedFlight.flight.origin.toString()}" /> (<h:outputText value="#{searchController.selectedFlight.flight.origin.country.toString()}" />)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <i class="fa fa-map-marker fa-fw"></i>
+                    </th>
+                    <td>
+                        <h:outputText value="#{searchController.selectedFlight.flight.destination.toString()}" /> (<h:outputText value="#{searchController.selectedFlight.flight.destination.country.toString()}" />)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <i class="fa fa-clock-o fa-fw"></i>
+                    </th>
+                    <td>
+                        <h:outputText value="#{searchController.selectedFlight.flight.departure}" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <i class="fa fa-money fa-fw"></i>
+                    </th>
+                    <td>
+                        <h:outputText value="#{searchController.selectedFlight.basePrice} EUR" />
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <h:commandLink value="Add To Booking" action="#{searchController.addToBooking}" styleClass="btn btn-primary" />
+                    </td>
+                </tr>
+            </table>
         </h:form>
 
     </ui:define>

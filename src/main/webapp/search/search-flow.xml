@@ -15,6 +15,10 @@
             <vdl-document>/search/details.xhtml</vdl-document>
         </view>
 
+        <view id="login">
+            <vdl-document>/login.xhtml</vdl-document>
+        </view>
+
         <flow-return id="exit">
             <from-outcome>/index.xhtml</from-outcome>
         </flow-return>

@@ -7,11 +7,9 @@
 
 <ui:composition template="/template.xhtml">
     <ui:define name="pageContent">
-<body>
         <h1>#{msgs['succesfull.titel']}</h1>
         <p>#{msgs['bookingsucces.info']}</p>
         <img alt="qrCode" src="#{bookingController.provideQrCode()}"/>
-</body>
     </ui:define>
 </ui:composition>
 

@@ -48,13 +48,14 @@ public class LoginController implements Serializable{
         Flow flow = FacesContext.getCurrentInstance().getApplication().getFlowHandler().getCurrentFlow();
 
         if (userDetails.isLoggedIn())
-            return flow != null ? (flow.getId() == "booking" ? "passengers" : "results") : "/index.xhtml";
+            return flow != null ? (flow.getId().equals("booking") ? "passengers" : "results") : "/index.xhtml";
 
         Customer customer = customerService.logIn(email, password);
 
         if (customer != null) {
             userDetails.setUser(customer);
-            return flow != null ? flow.getId() == "booking" ? "passengers" : "results" : "/index.xhtml";
+            System.out.println(flow.getId());
+            return flow != null ? (flow.getId().equals("booking") ? "passengers" : "results") : "/index.xhtml";
         } else {
             FacesContext.getCurrentInstance().addMessage("loginForm", new FacesMessage("Username or password is incorrect"));
             return null;

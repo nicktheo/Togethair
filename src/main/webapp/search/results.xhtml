@@ -10,10 +10,13 @@
         <h:form>
             <h:dataTable value="#{searchController.results}" var="result" styleClass="table table-striped">
                 <h:column>
-                    <h:outputText value="#{result.flight.origin.toString()}" /> (<h:outputText value="#{result.flight.origin.country.toString()}" />)
+                    <i class="fa fa-plane fa-fw text-info"></i>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{result.flight.destination.toString()}" /> (<h:outputText value="#{result.flight.destination.country.toString()}" />)
+                    <i class="fa fa-location-arrow fa-fw text-muted"></i> <h:outputText value="#{result.flight.origin.toString()}" /> (<h:outputText value="#{result.flight.origin.country.toString()}" />)
+                </h:column>
+                <h:column>
+                    <i class="fa fa-map-marker fa-fw text-muted"></i> <h:outputText value="#{result.flight.destination.toString()}" /> (<h:outputText value="#{result.flight.destination.country.toString()}" />)
                 </h:column>
                 <h:column>
                     <h:outputText value="#{result.flight.departure}" />

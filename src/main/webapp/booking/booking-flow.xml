@@ -5,22 +5,22 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
               version="2.2">
     <flow-definition id="booking">
-        <start-node>start</start-node>
+        <start-node>loginCheck</start-node>
 
-        <switch id="start">
+        <switch id="loginCheck">
             <case>
-                <if>#{!loginBean.loggedIn}</if>
+                <if>#{!userDetails.loggedIn}</if>
                 <from-outcome>login</from-outcome>
             </case>
-            <default-outcome>book</default-outcome>
+            <default-outcome>passengers</default-outcome>
         </switch>
 
         <view id="login">
-            <vdl-document>/login/login.xhtml</vdl-document>
+            <vdl-document>/login.xhtml</vdl-document>
         </view>
 
-        <view id="book">
-            <vdl-document>/booking/booking.xhtml</vdl-document>
+        <view id="passengers">
+            <vdl-document>/booking/passengers.xhtml</vdl-document>
         </view>
 
         <view id="pay">
@@ -28,12 +28,22 @@
         </view>
 
         <view id="success">
-            <vdl-document>/booking/bookingsuccesfull.xhtml</vdl-document>
+            <vdl-document>/booking/success.xhtml</vdl-document>
         </view>
 
         <flow-return id="exit">
             <from-outcome>exit</from-outcome>
         </flow-return>
+
+        <inbound-parameter>
+            <name>passengerCount</name>
+            <value>#{bookingDetails.passengerCount}</value>
+        </inbound-parameter>
+
+        <inbound-parameter>
+            <name>flights</name>
+            <value>#{bookingDetails.flights}</value>
+        </inbound-parameter>
 
         <initializer>#{bookingController.checkout()}</initializer>
     </flow-definition>

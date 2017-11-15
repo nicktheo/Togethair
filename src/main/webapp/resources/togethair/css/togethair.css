@@ -25,7 +25,7 @@ a:hover, a:focus { color: #953726; }
 a:visited { color: #D87563; }
 
 /********************************************************/
-/*                        Header                        */
+/*                 Landing Page Header                  */
 /********************************************************/
 .header {
 	background: #A43222;
@@ -89,6 +89,66 @@ a:visited { color: #D87563; }
 	font-size:15px;
 	padding: 12px 36px;
 }
+.header .input-group-addon {
+	background: rgba(5,5,5,0.6);
+	color: white;
+	border: 0;
+}
+.header .form-group td {
+	position: relative;
+}
+.header input[type="radio"] {
+	display: none;
+}
+.header input[type="radio"] ~ label {
+	height: 40px;
+	line-height: 40px;
+	margin: 0 5px 0 45px;
+	padding: 0 15px 0 15px;
+	cursor: pointer;
+	font-weight: normal;
+	background: rgba(5,5,5,0.4);
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+.header input[type="radio"] ~ label::before,
+.header input[type="radio"] ~ label::after {
+	display: block;
+	font-family: FontAwesome;
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	top: 0;
+	left: 5px;
+	text-align: center;
+	line-height: 40px;
+}
+.header input[type="radio"] ~ label::before {
+	content: '\f10c';
+	background: rgba(5,5,5,0.6);
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.header input[type="radio"]:checked ~ label::before {
+	content: '\f192';
+	color: #abd037;
+}
+.header input[type="radio"]:checked ~ label::after {
+	content: '\f10c';
+}
+
+
+/********************************************************/
+/*                     Main Header                      */
+/********************************************************/
+.header.small h1 {
+	margin: 10px 0;
+	font-size: 20px;
+}
+.header.small h1 img {
+	height: 40px;
+}
+
 
 
 /********************************************************/
@@ -105,7 +165,7 @@ a:visited { color: #D87563; }
 	-moz-transition: all 0.8s;
 	transition: all 0.8s;
 }
-.expand #illustration-container{ margin-bottom:120px; margin-top:-100px; }
+.expand #illustration-container{ z-index: 100; margin-bottom:120px; margin-top:-100px; }
 
 
 
@@ -151,7 +211,7 @@ a:visited { color: #D87563; }
 
 @media (min-width: 482px) {
 	.header h1 { font-size: 55px; }
-	.header h2 { font-size: 30px; }
+	.header h2 { font-size: 20px; }
 	.header p { font-size: 15px; }
 
 	#illustration { margin-bottom:-215px;}
@@ -159,7 +219,6 @@ a:visited { color: #D87563; }
 }
 @media (min-width: 768px) {
 	.header h1 { font-size: 55px; }
-	.header h2 { font-size: 20px; }
 	.header p { font-size: 15px; }
 	.header .lead { font-size:22px; }
 

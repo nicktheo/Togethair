@@ -2,20 +2,17 @@ package com.realdolmen.togethair.web.controller;
 
 import com.realdolmen.togethair.domain.identity.Customer;
 import com.realdolmen.togethair.service.CustomerService;
-import com.realdolmen.togethair.web.LoginBean;
+import com.realdolmen.togethair.web.BookingDetails;
+import com.realdolmen.togethair.web.UserDetails;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.flow.FlowScoped;
+import javax.faces.flow.Flow;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
-/**
- * Created by JCEBF12 on 8/11/2017.
- */
 @Named
 @RequestScoped
 public class LoginController implements Serializable{
@@ -24,7 +21,7 @@ public class LoginController implements Serializable{
     private CustomerService customerService;
 
     @Inject
-    private LoginBean loginBean;
+    private UserDetails userDetails;
 
     private String email;
     private String password;
@@ -48,17 +45,19 @@ public class LoginController implements Serializable{
 
 
     public String login(){
-        if (loginBean.isLoggedIn()) {
-            return "book";
-        }
+        Flow flow = FacesContext.getCurrentInstance().getApplication().getFlowHandler().getCurrentFlow();
+
+        if (userDetails.isLoggedIn())
+            return flow != null ? "passengers" : "/index.xhtml";
+
         Customer customer = customerService.logIn(email, password);
+
         if (customer != null) {
-            loginBean.setCustomer(customer);
-            return "book";
-        }
-        else {
+            userDetails.setUser(customer);
+            return flow != null ? "passengers" : "/index.xhtml";
+        } else {
             FacesContext.getCurrentInstance().addMessage("loginForm", new FacesMessage("Username or password is incorrect"));
-            return "login";
+            return null;
         }
     }
 

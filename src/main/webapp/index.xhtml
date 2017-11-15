@@ -1,18 +1,159 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        >
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="customScripts">
             <h:outputScript library="togethair" name="/js/index.js"/>
         </ui:define>
 
+        <ui:define name="header">
+            <header class="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 col-lg-push-1 text-center">
+                            <h1>
+                                <h:graphicImage library="togethair" name="images/logo.svg"/>
+                                #{msgs['app.title']}
+                            </h1>
+                            <h2>#{msgs['pages.index.attribution']} #{msgs['app.owner']}</h2>
+
+                            <h:form id="searchForm" role="form">
+                                <div class="row">
+                                    <div class="col-xs-10 col-xs-push-2 col-sm-push-1">
+                                        <div class="form-group">
+                                            <h:selectOneRadio value="#{searchRequest.ticketType}" id="ticketType">
+                                                <f:selectItems value="#{searchRequest.ticketTypes}" var="ticketType" itemLabel="#{terms[ticketType]}" />
+                                            </h:selectOneRadio>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-location-arrow fa-fw"></i></span>
+                                                <h:selectOneMenu value="#{searchRequest.origin}" styleClass="form-control input-lg">
+                                                    <f:selectItems value="#{searchRequest.airports}" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-map-pin fa-fw"></i></span>
+                                                <h:selectOneMenu value="#{searchRequest.destination}" styleClass="form-control input-lg">
+                                                    <f:selectItems value="#{searchRequest.airports}" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3" id="departureDate">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                                                <h:inputText value="#{searchRequest.departureDate}" styleClass="form-control input-lg datepicker" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" id="returnDate">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                                                <h:inputText value="#{searchRequest.returnDate}" styleClass="form-control input-lg datepicker" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-users fa-fw"></i></span>
+                                                <h:selectOneMenu value="#{searchRequest.passengerCount}" styleClass="form-control input-lg">
+                                                    <f:selectItems value="#{searchRequest.passengerCountOptions}" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-ticket fa-fw"></i></span>
+                                                <h:selectOneMenu value="#{searchRequest.travelClass}" styleClass="form-control input-lg">
+                                                    <f:selectItems value="#{searchRequest.travelClasses}" var="travelClass" itemLabel="#{terms[travelClass]}" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <h:commandButton action="search" styleClass="btn btn-lg btn-default" value="Vluchten zoeken" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                            <p class="small text-muted">Powered by Realdolmen. To get there, anywhere, together.</p>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="illustration">
+                                <div id="illustration-container">
+                                    <h:graphicImage library="togethair" name="images/havana.jpg"/>
+                                    <div id="illustration-overlay">
+                                        Naar Havana
+                                        <small>v.a. €50</small>
+                                        <br/><br/><br/><br/>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </header>
+        </ui:define>
+
         <ui:define name="pageContent">
-            <h1>Test</h1>
-            <p>ha</p>
+
+            <!-- Lead -
+            <section class="container space-before space-after">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-push-1">
+                        <h1 class="text-center">1, 2, 3 ...</h1>
+                        <p class="lead text-center">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Nam mi odio, gravida at turpis et, porta bibendum justo.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <!- /Lead -->
+
+            <!-- Features -
+            <section class="container space-before">
+
+                <div class="row featurelist space-after">
+                    <div class="col-md-5 col-sm-6 col-md-push-1 ">
+                        <img class="img-feature img-responsive" src="." alt="Sample image"/>
+                    </div>
+                    <div class="col-md-5 col-md-push-1 col-sm-6">
+                        <h2 class="space-before">Parijs</h2>
+                        <p>Boek nu</p>
+                    </div>
+                </div>
+            </section>
+            <!- /Features -->
+
         </ui:define>
     </ui:composition>
 

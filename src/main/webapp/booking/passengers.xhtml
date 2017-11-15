@@ -4,13 +4,13 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
-<!--<ui:composition template="/template.xhtml">
+<ui:composition template="/template.xhtml">
 
-    <ui:define name="pageContent">-->
+    <ui:define name="pageContent">
 <body>
         <h3>#{msgs['booking.title']}</h3>
         <p>#{msgs['booking.info']}</p>
-        <h:outputText value="#{bookingBean.flights.get(0).flight.origin}" />
+        <h:outputText value="#{bookingDetails.passengerCount}" />
         <h:form>
             <h:dataTable id="passengerTable" value="#{bookingController.passengers}" var="passenger">
                 <h:column id="firstname">
@@ -29,6 +29,6 @@
             <h:commandButton value="#{msgs['booking.bookButton']}" action="pay"/>
         </h:form>
 </body>
-    <!--</ui:define>
-</ui:composition>-->
+    </ui:define>
+</ui:composition>
 </html>

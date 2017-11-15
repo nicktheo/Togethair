@@ -10,35 +10,30 @@
     <ui:define name="pageContent">
         <h:outputText value="total price: "/>
         <h:outputText value="#{reportingController.bookingInfo(param['bookingId']).totalPrice} EUR"/>
-        <ui:repeat var="o" value="#{reportingController.bookingInfo(param['bookingId']).bookingLines}">
 
-                <h:dataTable value="#{o.tickets.get(0).seat.travelClass}" var="g" styleClass="table table-striped">
+                <h:dataTable value="#{reportingController.bookingInfo(param['bookingId']).bookingLines}" var="g" styleClass="table table-striped">
                     <h:column>
-                        <h:outputText value="#{g.flight.origin.toString()}"/>
+                        <h:outputText value="#{g.tickets.get(0).seat.travelClass.flight.origin.toString()}"/>
                     </h:column>
                     <h:column>
-                        <h:outputText value="#{g.flight.destination.toString()}"/>
+                        <h:outputText value="#{g.tickets.get(0).seat.travelClass.flight.destination.toString()}"/>
                     </h:column>
                     <h:column>
-                        <h:outputText value="#{g.flight.departure}"/>
+                        <h:outputText value="#{g.tickets.get(0).seat.travelClass.flight.departure}"/>
                     </h:column>
                     <h:column>
-                        <h:outputText value="#{g.type}"/>
+                        <h:outputText value="#{g.tickets.get(0).seat.travelClass.type}"/>
                     </h:column>
                 </h:dataTable>
-        </ui:repeat>
 
-        <ui:repeat var="o" value="#{reportingController.bookingInfo(param['bookingId']).bookingLines}">
-
-            <h:dataTable value="#{o.tickets}" var="g" styleClass="table table-striped">
+            <h:dataTable value="#{reportingController.bookingInfo(param['bookingId']).bookingLines.get(0).tickets}" var="o" styleClass="table table-striped">
                 <h:column>
-                    <h:outputText value="#{g.passenger.firstName}"/>
+                    <h:outputText value="#{o.passenger.firstName}"/>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{g.passenger.lastName}"/>
+                    <h:outputText value="#{o.passenger.lastName}"/>
                 </h:column>
             </h:dataTable>
-        </ui:repeat>
 
         <h:form><h:commandLink action="exit" value="Home" /></h:form>
     </ui:define>

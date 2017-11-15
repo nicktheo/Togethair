@@ -8,7 +8,6 @@
 
 <ui:composition template="/template.xhtml">
     <ui:define name="pageContent">
-<body>
         <h:dataTable id="bookingTable" value="#{reportingController.bookingInfo(param['bookingId'])}" var="booking" styleClass="table table-striped">
             <h:column>
                 <h:outputText value="total price"/>
@@ -35,9 +34,8 @@
             </h:column>
         </h:dataTable>
 
-        <h:link outcome="index">Home</h:link>
+        <h:link outcome="../index.xhtml">Home</h:link>
     </ui:define>
 </ui:composition>
-</body>
 
 </html>

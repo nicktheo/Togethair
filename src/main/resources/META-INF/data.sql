@@ -38,6 +38,7 @@ insert into user (id, email, firstName, lastName) values (37, 'sbriffett10@live.
 insert into user (id, email, firstName, lastName) values (38, 'njosey11@ibm.com', 'Nevile', 'Josey');
 insert into user (id, email, firstName, lastName) values (39, 'fhyam12@archive.org', 'Frankie', 'Hyam');
 insert into user (id, email, firstName, lastName) values (40, 'ionolan13@xrea.com', 'Isa', 'O''Nolan');
+insert into user (id, email, firstName, lastName) values (41, 'jeroen.cloetens@realdolmen.com', 'Jeroen', 'Cloetens');
 
 insert into customer (passportNumber, id, street, box, city, country, number, postalcode) values ('534965047', 1, 'Packers', '2', 'Åmål', 'SWE', '875', '6492');
 insert into customer (passportNumber, id, street, box, city, country, number, postalcode) values ('430003500', 2, 'Oak Valley', '5', 'Jandir', 'IDN', '4460', '9136');
@@ -69,6 +70,7 @@ insert into customer (passportNumber, id, street, box, city, country, number, po
 insert into customer (passportNumber, id, street, box, city, country, number, postalcode) values ('127738339', 28, 'Rieder', '7', 'Temryuk', 'RUS', '88696', '6222');
 insert into customer (passportNumber, id, street, box, city, country, number, postalcode) values ('533588351', 29, 'Susan', '3', 'Citalahab', 'IDN', '4', '4588');
 insert into customer (passportNumber, id, street, box, city, country, number, postalcode) values ('818087798', 30, 'Gerald', '9', 'Pangkungparuk', 'IDN', '57123', '7271');
+insert into customer (passportNumber, id, street, box, city, country, number, postalcode) values ('123456789', 41, 'Leizeg', '1', 'Kapelle op den Bos', 'BEL', '47', '1880');
 
 insert into Airport(id, name, country, icaoCode, globalregion) values (1, 'Brussels Airport', 'BEL', 'EBBR', 'EUROPE');
 insert into Airport(id, name, country, icaoCode, globalregion) values (2, 'Charleroi Brussels South', 'BEL', 'EBCI', 'EUROPE');
@@ -107,6 +109,7 @@ insert into flight(id, airline, flightnumber, departure, duration, destination_i
 insert into flight(id, airline, flightnumber, departure, duration, destination_id, origin_id) values (13, 'BEL', 1, '2017-11-27 17:30:00', 1000,5,3);
 insert into flight(id, airline, flightnumber, departure, duration, destination_id, origin_id) values (14, 'BEL', 1, '2017-11-27 17:30:00', 1000,5,3);
 insert into flight(id, airline, flightnumber, departure, duration, destination_id, origin_id) values (15, 'BEL', 1, '2017-11-28 17:30:00', 1000,3,5);
+insert into flight(id, airline, flightnumber, departure, duration, destination_id, origin_id) values (16, 'KLM', 1, '2017-12-14 08:00:00', 1000,5,4);
 
 insert into travelclass (id, basePrice, type, flight_id) values (1, 30, 'ECONOMY', 1);
 insert into travelclass (id, basePrice, type, flight_id) values (2, 163, 'BUSINESS', 1);
@@ -149,6 +152,9 @@ insert into travelclass (id, basePrice, type, flight_id) values (38, 173, 'BUSIN
 insert into travelclass (id, basePrice, type, flight_id) values (39, 218, 'FIRST', 13);
 insert into travelclass (id, basePrice, type, flight_id) values (40, 218, 'ECONOMY', 14);
 insert into travelclass (id, basePrice, type, flight_id) values (41, 218, 'ECONOMY', 15);
+insert into travelclass (id, basePrice, type, flight_id) values (42, 1000, 'BUSINESS', 16);
+insert into travelclass (id, basePrice, type, flight_id) values (43, 1500, 'FIRST', 16);
+insert into travelclass (id, basePrice, type, flight_id) values (44, 800, 'ECONOMY', 16);
 
 
 insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (1, 'FREE', 29, 2, 8);
@@ -654,6 +660,8 @@ insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values 
 insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (501, 'FREE', 18, 6, 41);
 insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (502, 'FREE', 11, 1, 41);
 insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (503, 'FREE', 33, 3, 41);
+insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (504, 'FREE', 1, 2, 42);
+insert into seat (id, availability, seatRow, seatColumn, travelClass_id) values (505, 'FREE', 1, 3, 42)
 
 insert into pricesetting (id, level, name, priority, type, value) values (1, 'BOOKING', 'CREDIT_CARD', 20, 'PERCENTAGE', 0.9);
 insert into pricesetting (id, level, name, priority, type, value) values (2, 'BOOKINGLINE', 'MARGIN', 10, 'PERCENTAGE', 1.25);

@@ -8,13 +8,16 @@ jQuery(document).ready(function($) {
 
     $(document).ready(function() {
         function showReturnDate() {
-            $('#returnDate').show();
+            var date = $('#departureDate .datepicker').datepicker('getDate');
+            date.setDate(date.getDate() + 1);
+
+            $('#returnDate').show().find('.datepicker').datepicker("setDate", date);
             $('#departureDate').removeClass('col-md-6').addClass('col-md-3');
         }
 
         function hideReturnDate() {
             $('#returnDate').hide();
-            $('#departureDate').removeClass('col-md-3').addClass('col-md-6');
+            $('#departureDate').removeClass('col-md-3').addClass('col-md-6').find('.datepicker').datepicker('option', 'maxDate', null);
         }
 
         $('#searchForm\\:ticketType\\:0').change(hideReturnDate);
@@ -28,7 +31,7 @@ jQuery(document).ready(function($) {
             onSelect: function(selectedDate) {
                 $('#returnDate .datepicker').datepicker('option', 'minDate', selectedDate);
             }
-        });
+        }).datepicker("setDate", new Date());
 
         $('#returnDate .datepicker').datepicker({
 			minDate : 0,

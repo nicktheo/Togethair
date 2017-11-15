@@ -7,7 +7,6 @@
 <ui:composition template="/template.xhtml">
 
     <ui:define name="pageContent">
-<body>
         <h3>#{msgs['booking.title']}</h3>
         <p>#{msgs['booking.info']}</p>
         <h:form>
@@ -17,7 +16,6 @@
             </h:selectOneMenu>
             <h:commandButton value="#{msgs['payment.button']}" action="#{bookingController.addBooking}"/>
         </h:form>
-        </body>
     </ui:define>
 </ui:composition>
 </html>

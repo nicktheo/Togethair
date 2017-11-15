@@ -43,10 +43,10 @@
                                 <div class="pull-right">
                                     <c:choose>
                                         <c:when test="#{userDetails.loggedIn}">
-                                            <p><i class="fa fa-user" aria-hidden="true"></i> #{userDetails.user.firstName}</p>
+                                            <p><i class="fa fa-user" aria-hidden="true"></i> Hello, <strong>#{userDetails.user.firstName}</strong></p>
                                         </c:when>
                                         <c:otherwise>
-                                            <h:form><h:commandLink action="/login.xhtml" styleClass="btn btn-primary" /></h:form>
+                                            <h:form styleClass="form-inline"><h:commandLink action="login" styleClass="btn btn-primary" value="Log in" /></h:form>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
@@ -60,9 +60,15 @@
 
             <!-- Content -->
             <main class="content">
+                <section class="container space-before space-after">
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-push-1">
 
-                <ui:insert name="pageContent" />
+                            <ui:insert name="pageContent" />
 
+                        </div>
+                    </div>
+                </section>
             </main>
 
             <!--

@@ -148,6 +148,13 @@ a:visited { color: #D87563; }
 .header.small h1 img {
 	height: 40px;
 }
+.header.small .pull-right p {
+	line-height: 40px;
+	margin-top: 10px;
+}
+.header.small .pull-right .form-inline {
+	margin: 13px 0;
+}
 
 
 
@@ -175,7 +182,7 @@ a:visited { color: #D87563; }
 
 .content { 
 	position: relative; 
-	z-index: 999; 
+	z-index: 1;
 	margin-bottom:40px;  
 }
 
@@ -278,4 +285,13 @@ a:visited { color: #5A8B86; }
 	top: 0;
 	padding: 30px;
 	font-size: 50px;
+}
+
+
+
+
+
+
+table td {
+	vertical-align: middle !important;
 }

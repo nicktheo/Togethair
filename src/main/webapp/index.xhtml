@@ -58,7 +58,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                                                <h:inputText value="#{searchRequest.departureDate}" styleClass="form-control input-lg datepicker" />
+                                                <h:inputText value="#{searchRequest.departureDate}" readonly="#{facesContext.renderResponse}" styleClass="form-control input-lg datepicker" />
                                             </div>
                                         </div>
                                     </div>
@@ -66,7 +66,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                                                <h:inputText value="#{searchRequest.returnDate}" styleClass="form-control input-lg datepicker" />
+                                                <h:inputText value="#{searchRequest.returnDate}" readonly="#{facesContext.renderResponse}" styleClass="form-control input-lg datepicker" />
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@
 
         <ui:define name="pageContent">
 
-            <!-- Lead -
+            <!-- Lead ->
             <section class="container space-before space-after">
                 <div class="row">
                     <div class="col-sm-10 col-sm-push-1">
@@ -139,7 +139,7 @@
             </section>
             <!- /Lead -->
 
-            <!-- Features -
+            <!-- Features ->
             <section class="container space-before">
 
                 <div class="row featurelist space-after">

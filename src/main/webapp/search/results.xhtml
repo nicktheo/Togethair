@@ -8,15 +8,21 @@
     <ui:define name="pageContent">
 
         <h:form>
-            <h:dataTable value="#{searchController.results}" var="result">
+            <h:dataTable value="#{searchController.results}" var="result" styleClass="table table-striped">
                 <h:column>
-                    <h:outputText value="#{result.flight.id}" />
+                    <h:outputText value="#{result.flight.origin.toString()}" /> (<h:outputText value="#{result.flight.origin.country.toString()}" />)
                 </h:column>
                 <h:column>
-                    <h:commandLink value="Show Details" action="#{searchController.showDetails(result)}" />
+                    <h:outputText value="#{result.flight.destination.toString()}" /> (<h:outputText value="#{result.flight.destination.country.toString()}" />)
                 </h:column>
                 <h:column>
-                    <h:commandLink value="Show Details" action="#{searchController.addToBooking(result)}" />
+                    <h:outputText value="#{result.flight.departure}" />
+                </h:column>
+                <h:column>
+                    <h:commandLink value="Show Details" action="#{searchController.showDetails(result)}" styleClass="btn btn-primary" />
+                </h:column>
+                <h:column>
+                    <h:commandLink value="Add to booking" action="#{searchController.addToBooking(result)}" styleClass="btn btn-primary" />
                 </h:column>
             </h:dataTable>
         </h:form>
